@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0f1c35"/>
+      <stop offset="1" stop-color="#07101f"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#172642"/>
+      <stop offset="1" stop-color="#0f182b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="760" rx="36" fill="url(#bg)"/>
+  <text x="600" y="74" text-anchor="middle" fill="#eef4ff" font-family="Segoe UI, Arial" font-size="36" font-weight="700">Reusable visual slot</text>
+  <rect x="70" y="120" width="475" height="540" rx="26" fill="url(#panel)" stroke="#704040" stroke-width="3"/>
+  <rect x="655" y="120" width="475" height="540" rx="26" fill="url(#panel)" stroke="#1e6a7a" stroke-width="3"/>
+  <text x="307" y="175" text-anchor="middle" fill="#f26d6d" font-family="Segoe UI, Arial" font-size="30" font-weight="700">Unbounded</text>
+  <text x="892" y="175" text-anchor="middle" fill="#22d3ee" font-family="Segoe UI, Arial" font-size="30" font-weight="700">Bounded</text>
+  <g fill="none" stroke="#f26d6d" stroke-width="8" stroke-linecap="round">
+    <path d="M155 270 C220 215 275 350 340 280 S455 215 485 330"/>
+    <path d="M145 430 C215 500 280 370 350 455 S445 520 490 430"/>
+  </g>
+  <g fill="#f26d6d">
+    <circle cx="145" cy="430" r="12"/><circle cx="490" cy="430" r="12"/><circle cx="155" cy="270" r="12"/><circle cx="485" cy="330" r="12"/>
+  </g>
+  <g fill="none" stroke="#22d3ee" stroke-width="8" stroke-linecap="round">
+    <path d="M735 255 H1045"/><path d="M735 380 H1045"/><path d="M735 505 H1045"/>
+  </g>
+  <g fill="#22d3ee">
+    <circle cx="735" cy="255" r="14"/><circle cx="890" cy="255" r="14"/><circle cx="1045" cy="255" r="14"/>
+    <circle cx="735" cy="380" r="14"/><circle cx="890" cy="380" r="14"/><circle cx="1045" cy="380" r="14"/>
+    <circle cx="735" cy="505" r="14"/><circle cx="890" cy="505" r="14"/><circle cx="1045" cy="505" r="14"/>
+  </g>
+  <text x="307" y="615" text-anchor="middle" fill="#a8b6d4" font-family="Segoe UI, Arial" font-size="24">Ambiguous inputs and checks</text>
+  <text x="892" y="615" text-anchor="middle" fill="#a8b6d4" font-family="Segoe UI, Arial" font-size="24">Inputs, controls, evidence</text>
+</svg>

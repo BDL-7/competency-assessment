@@ -1,0 +1,83 @@
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+*.pfx
+*.p12
+*.cer
+*.crt
+credentials*.json
+local.settings.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Node and frontend tooling
+node_modules/
+.npm/
+.pnpm-store/
+
+# Local application/runtime state
+instance/
+logs/
+uploads/
+tmp/
+*.log
+*.sqlite
+*.sqlite3
+*.db
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+~$*
+
+# Generated and rendered outputs
+artifacts/generated/
+artifacts/renders/
+presentations/html-workshop/CRVLB-competency-assessment-system.html
+presentations/html-workshop/competency-assessment-system-presenter.html
+presentations/html-workshop/Competency-Assessment-Tracker-Presentation.zip
+
+# Historical binary render packages; retain their manifests and source files
+artifacts/archive/**/brief/**/*.pdf
+artifacts/archive/**/brief/**/*.png
+artifacts/archive/**/deck/renders/
+artifacts/archive/2026-08-14-html-release/*.html
+
+# Controlled/internal documents are not published to the public repository
+docs/project/*.docx
+docs/project/*.pdf
+docs/controlled-sources/*.docx
+docs/controlled-sources/*.pdf
+scripts/documents/*.py
+
+# Operational and governed workbooks require explicit data-owner approval
+data/authoritative/*.xlsx
+data/migration/*.xlsx
+data/reference/*.xlsx
+
+# Project-specific presentation content and notes require release approval
+presentations/html-workshop/.workshop/
+presentations/html-workshop/deck-content.js
+presentations/html-workshop/speaker-notes.js
+presentations/html-workshop/index.html
+presentations/html-workshop/presenter.html
+
+# Historical builders embed project-specific content; retain locally only
+artifacts/archive/**/brief/source/
+artifacts/archive/**/deck/source/

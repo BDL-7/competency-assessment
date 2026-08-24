@@ -1,0 +1,97 @@
+# Competency Assessment Tracker
+
+Planning and build-preparation repository for the Non-CLIA laboratory
+competency assessment tracker and its separate read-only knowledge assistant.
+
+> **Status:** No runnable Flask application is present yet. The repository
+> currently contains public-safe build tooling, repository policy, presentation
+> framework files, and pointers to controlled project inputs.
+
+## Intended technical baseline
+
+- Server-rendered Flask application on Azure App Service
+- Microsoft Entra ID authentication
+- Azure SQL for structured records
+- Private Azure Blob Storage for approved artifacts
+- Managed identity, Azure Key Vault, and Application Insights
+- Minimal-content email notifications with delivery history
+- Separate read-only EDAV/OpenAI knowledge assistant
+
+The application will control records and workflow. AI may explain approved
+requirements with citations, but it must not score, approve, sign, notify, or
+modify official records.
+
+## Repository map
+
+| Directory | Purpose |
+| --- | --- |
+| `docs/` | Public repository policy and manifests; controlled binaries remain outside public Git |
+| `data/` | Data classification guidance and future synthetic fixtures |
+| `presentations/html-workshop/` | Reusable HTML presentation framework; project content is release-controlled |
+| `scripts/documents/` | Build requirements; project-specific builders remain release-controlled |
+| `scripts/maintenance/` | Historical repository-maintenance utilities |
+| `scripts/verify_repository.py` | Public-repository safety and structure checks |
+| `artifacts/archive/` | Historical manifests and reproducible source; large binary renders stay out of normal Git |
+
+## Development prerequisites
+
+- Python 3.12
+- Windows PowerShell for the historical maintenance scripts
+- A modern browser for the modular HTML presentation
+- Microsoft Word or approved LibreOffice tooling if PDF conversion is required
+
+Create a Python environment and install the document-building dependency:
+
+```powershell
+py -3.12 -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install -r requirements-docs.txt
+```
+
+Run the repository checks:
+
+```powershell
+python scripts\verify_repository.py
+```
+
+Authorized internal checkouts may contain project-specific Word builders. When
+present, they can be run locally with:
+
+```powershell
+python scripts\documents\build_business_value_need.py
+python scripts\documents\build_consolidated_documents.py
+```
+
+The builders and generated documents are intentionally excluded from the public
+baseline. Do not publish them without document-owner and information-security
+approval.
+
+The presentation framework can be opened through
+`presentations/html-workshop/example.html`. Project-specific deck content and
+presenter notes are not included in the public source baseline.
+
+## Controlled inputs
+
+Raw workforce trackers, governed workbooks, controlled forms, project-plan
+binaries, and presenter notes are not published to this public repository.
+Authorized team members should follow `docs/SOURCE_MANIFEST.md` and
+`data/DATA_CLASSIFICATION.md` to obtain and validate those inputs.
+
+Never commit identifiable workforce data, credentials, tokens, connection
+strings, private keys, or confidential presenter notes. Use synthetic data for
+development, demonstrations, documentation, and automated tests.
+
+## Source authority
+
+When authorized copies are available, authority is:
+
+1. Controlled laboratory policies and approved forms
+2. Current Competency Assessment Tracker Project Plan
+3. App Architecture and Implementation Guide
+4. Approved test-system catalog
+5. Migration workbooks for lineage evidence only
+6. Presentations and generated artifacts for communication, not policy
+
+See `SECURITY.md` and `CONTRIBUTING.md` before adding project inputs.
+
+No open-source license has been approved yet; see `LICENSE.md` before reuse.

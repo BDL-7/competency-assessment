@@ -1,0 +1,7 @@
+Competency Assessment Tracker Presentation
+
+1. For normal viewing or sharing, open competency-assessment-system-audience.html in Microsoft Edge, Google Chrome, or another modern browser.
+2. For presenting with speaker notes, open competency-assessment-system-presenter.html. Press N to show or hide the notes panel.
+3. Use the Left/Right arrow keys or Space to move through slides. Press F for fullscreen.
+
+Both HTML files are self-contained and do not require installation or an internet connection.
