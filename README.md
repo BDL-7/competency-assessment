@@ -16,6 +16,8 @@ competency assessment tracker and its separate read-only knowledge assistant.
 - Managed identity, Azure Key Vault, and Application Insights
 - Minimal-content email notifications with delivery history
 - Separate read-only EDAV/OpenAI knowledge assistant
+- Continuous audited Platform Admin diagnostic/read access without assessment,
+  signature, approval, or ordinary workflow-mutation authority
 
 The application will control records and workflow. AI may explain approved
 requirements with citations, but it must not score, approve, sign, notify, or
@@ -26,6 +28,8 @@ modify official records.
 | Directory | Purpose |
 | --- | --- |
 | `docs/` | Public repository policy and manifests; controlled binaries remain outside public Git |
+| `docs/project/ca-architecture-one-pager.md` | Public-safe Azure AI platform support review summary |
+| `docs/architecture-decisions/` | Public-safe records of approved architecture boundaries |
 | `data/` | Data classification guidance and future synthetic fixtures |
 | `presentations/html-workshop/` | Reusable HTML presentation framework; project content is release-controlled |
 | `scripts/documents/` | Build requirements; project-specific builders remain release-controlled |
@@ -93,5 +97,10 @@ When authorized copies are available, authority is:
 6. Presentations and generated artifacts for communication, not policy
 
 See `SECURITY.md` and `CONTRIBUTING.md` before adding project inputs.
+
+Azure AI platform reviewers can start with
+[`docs/project/ca-architecture-one-pager.md`](docs/project/ca-architecture-one-pager.md).
+It summarizes the proposed services, workflow, support boundary, open platform
+questions, and governing-document path without publishing controlled content.
 
 No open-source license has been approved yet; see `LICENSE.md` before reuse.
