@@ -3,9 +3,9 @@
 Planning and build-preparation repository for the Non-CLIA laboratory
 competency assessment tracker and its separate read-only knowledge assistant.
 
-> **Status:** No runnable Flask application is present yet. The repository
-> currently contains public-safe build tooling, repository policy, presentation
-> framework files, and pointers to controlled project inputs.
+> **Status:** Phase 0 decision and development foundations are defined. No
+> runnable Flask application, database schema, migration, test suite, Azure
+> resource, or knowledge-assistant implementation is present yet.
 
 ## Intended technical baseline
 
@@ -27,7 +27,14 @@ modify official records.
 
 | Directory | Purpose |
 | --- | --- |
+| `AGENTS.md` | Bounded agent roles, authority, file leases, stop conditions, and human gates |
+| `agent-tasks/` | Reusable task contract and first coding sprint dependency graph |
 | `docs/` | Public repository policy and manifests; controlled binaries remain outside public Git |
+| `docs/PRODUCT.md` | Approved prototype scope, exclusions, and success conditions |
+| `docs/ARCHITECTURE.md` | Approved modular Flask and Azure boundaries for implementation |
+| `docs/WORKFLOW.md` | Canonical assessment sequence, states, and deterministic controls |
+| `docs/AUTHORIZATION.md` | Role, scope, action, and administrative-support boundaries |
+| `docs/AI_BOUNDARY.md` | Separate read-only assistant contract and prohibited capabilities |
 | `docs/project/ca-architecture-one-pager.md` | Public-safe Azure AI platform support review summary |
 | `docs/architecture-decisions/` | Public-safe records of approved architecture boundaries |
 | `data/` | Data classification guidance and future synthetic fixtures |
@@ -85,16 +92,34 @@ Never commit identifiable workforce data, credentials, tokens, connection
 strings, private keys, or confidential presenter notes. Use synthetic data for
 development, demonstrations, documentation, and automated tests.
 
+## Phase 0 implementation foundation
+
+Phase 0 records the approved product boundary, source authority, terminology,
+workflow, authorization, conceptual domain model, migration approach,
+application architecture, read-only AI boundary, testing strategy, development
+workflow, operations gates, agent contracts, and first-sprint task graph. These
+are planning and governance artifacts; they do not authorize application code.
+
+The future first coding sprint will develop one synthetic application workflow
+and one bounded read-only assistant path in parallel. Center/quality viewer
+access, Power BI, MIST/HIR migration execution, CLIA workflows, production
+deployment, and production data remain excluded from that sprint.
+
+Start with [`docs/PRODUCT.md`](docs/PRODUCT.md),
+[`docs/SOURCE_AUTHORITY.md`](docs/SOURCE_AUTHORITY.md), and
+[`agent-tasks/first-coding-sprint.md`](agent-tasks/first-coding-sprint.md).
+
 ## Source authority
 
 When authorized copies are available, authority is:
 
-1. Controlled laboratory policies and approved forms
-2. Current Competency Assessment Tracker Project Plan
-3. App Architecture and Implementation Guide
-4. Approved test-system catalog
-5. Migration workbooks for lineage evidence only
-6. Presentations and generated artifacts for communication, not policy
+1. Current Competency Assessment Tracker Project Plan
+2. App Architecture and Implementation Guide
+3. Controlled forms, laboratory guidance, and approved test-system catalog
+4. MIST/HIR workbooks as migration sources and lineage evidence
+5. CA Relational Tables workbook as a non-authoritative design reference
+6. Presentations as stakeholder communication
+7. Generated files and renders as supporting evidence only
 
 See `SECURITY.md` and `CONTRIBUTING.md` before adding project inputs.
 
