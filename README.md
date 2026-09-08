@@ -3,9 +3,10 @@
 Planning and build-preparation repository for the Non-CLIA laboratory
 competency assessment tracker and its separate read-only knowledge assistant.
 
-> **Status:** Phase 0 decision and development foundations are defined. No
-> runnable Flask application, database schema, migration, test suite, Azure
-> resource, or knowledge-assistant implementation is present yet.
+> **Status:** Phase 0 foundations and the S0-01 synthetic scenario are approved.
+> S0-02 is defining shared interfaces and a conceptual schema contract. No runnable
+> Flask application, physical database schema, migration, Azure resource, or
+> knowledge-assistant implementation is present yet.
 
 ## Intended technical baseline
 
@@ -29,6 +30,8 @@ modify official records.
 | --- | --- |
 | `AGENTS.md` | Bounded agent roles, authority, file leases, stop conditions, and human gates |
 | `agent-tasks/` | Reusable task contract and first coding sprint dependency graph |
+| `agent-tasks/s0-01-synthetic-scenario.md` | Approved synthetic scenario and observable acceptance criteria |
+| `agent-tasks/s0-02-interface-schema-contract.md` | Shared interface, conceptual schema, transaction, authorization, idempotency, and assistant contract |
 | `docs/` | Public repository policy and manifests; controlled binaries remain outside public Git |
 | `docs/PRODUCT.md` | Approved prototype scope, exclusions, and success conditions |
 | `docs/ARCHITECTURE.md` | Approved modular Flask and Azure boundaries for implementation |
