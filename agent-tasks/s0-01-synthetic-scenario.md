@@ -12,7 +12,7 @@
 | Required Context | Phase 0 product, source-authority, workflow, authorization, domain-model, AI-boundary, and testing documents; authorized review-only copies of the Project Plan, Architecture Guide, and approved Non-CLIA form. |
 | Source-of-Truth Files | `docs/SOURCE_AUTHORITY.md`; `docs/PRODUCT.md`; `docs/WORKFLOW.md`; `docs/AUTHORIZATION.md`; `docs/DOMAIN_MODEL.md`; `docs/AI_BOUNDARY.md`; `docs/TESTING.md`; the governing Project Plan; the Architecture Guide; and controlled sources within their stated authority. |
 | Dependencies | Merged Phase 0 foundation PR #4. |
-| Approved Assumptions | Only the approved prototype baseline already recorded in the source-of-truth files. All added scenario detail requiring a decision is listed as pending in section 9. |
+| Approved Assumptions | The approved prototype baseline plus the requester-delegated S0-01 decisions recorded in section 9. Production-policy decisions remain unresolved in section 10. |
 | Allowed Files | `agent-tasks/s0-01-synthetic-scenario.md` only. |
 | Review-Only Files | `AGENTS.md`; `docs/SOURCE_AUTHORITY.md`; `docs/PRODUCT.md`; `docs/WORKFLOW.md`; `docs/AUTHORIZATION.md`; `docs/DOMAIN_MODEL.md`; `docs/AI_BOUNDARY.md`; `docs/TESTING.md`; `docs/SOURCE_MANIFEST.md`; the governing Project Plan; the Architecture Guide; the approved Non-CLIA form; and other controlled sources. |
 | Prohibited Actions | Application code, schema, models, migrations, packages, dependency changes, executable tests, Azure resources, assistant implementation, production data, controlled-content publication, or laboratory-policy decisions. |
@@ -23,7 +23,7 @@
 | Definition of Done | All requirements in the definition-of-done section are satisfied and recorded. |
 | Handoff Format | Exact file, validation, assumption decisions, unresolved decisions, approvals, and downstream readiness described in the handoff section. |
 | Stop Conditions | All conditions in the stop-conditions section apply. |
-| Human Approval Gate | The named required approvers in section 9 decide each prototype-only assumption. At minimum, Product Owner and Laboratory SME approve the scenario; an Approved-Source Owner must approve the assistant source and supported question before S0-04B. |
+| Human Approval Gate | On 2026-09-08, the Project Requester explicitly delegated the bounded prototype decisions in section 9 to Codex and authorized those decisions to be recorded. This delegation does not resolve production policy. An Approved-Source Owner must still approve the assistant source and supported question before S0-04B. |
 | Path Lease Owner and Expiry | Product and Laboratory Domain Agent; `agent-tasks/s0-01-synthetic-scenario.md`; expires when S0-01 is merged or abandoned. |
 
 ### Validation commands
@@ -125,7 +125,7 @@ Participant relationships remain separate. No role is inferred from team members
 | Initial cycle basis date | `2026-02-15` | Synthetic configuration input; not a production due-date rule |
 | Expected initial due date | `2027-02-15` | Basis date plus the proposed 12-calendar-month prototype interval |
 | Finalized completion date | `2027-02-20` | Synthetic completion date used for the renewal example |
-| Prototype interval | 12 calendar months | Prototype-only assumption requiring approval |
+| Prototype interval | 12 calendar months | Approved for this synthetic S0-01 scenario only |
 | Expected next due date | `2028-02-20` | Completion date plus the proposed prototype interval |
 
 ### 4.3 Scenario-required assessment concepts
@@ -147,7 +147,7 @@ This list does not declare the production required-field set. Field cardinality,
 
 ### 4.4 Synthetic assessment branch
 
-The Assessor records one scenario element, `SYN-ELEMENT-03`, as unsuccessful and indicates that remedial action is required. On the first submission, the required follow-up description is absent. Subject to approval of assumption `S0-01-A04`, the application moves the record to `Returned` without making a competency determination. The Assessor then records a synthetic follow-up description and resubmits. If `S0-01-A04` is rejected, this branch must be revised before S0-02.
+The Assessor records one scenario element, `SYN-ELEMENT-03`, as unsuccessful and indicates that remedial action is required. On the first submission, the required follow-up description is absent. Under approved prototype assumption `S0-01-A04`, the application moves the record to `Returned` without making a competency determination. The Assessor then records a synthetic follow-up description and resubmits.
 
 For S0-01, "follow-up documented" means only that the approved scenario-required description is present and attributable. It does not mean that the application or AI has determined remediation successful or closed.
 
@@ -284,7 +284,7 @@ The supported example may not be executed until an Approved-Source Owner identif
 | `S0-01-P25` | A keyboard user moves through the representative workflow | Focus changes | Every interactive control has a visible focus indicator and focus is not lost or trapped unexpectedly. |
 | `S0-01-P26` | A page contains inputs, instructions, validation errors, or status messages | Assistive-technology relationships are inspected and an invalid submission is exercised | Inputs have programmatic labels; instructions, errors, and status messages are associated with the affected control or region and are programmatically exposed. |
 | `S0-01-P27` | A role-scoped status or report view is rendered | Its structure and visual communication are inspected | Headings and table relationships are programmatically determinable, and state, error, or outcome meaning is not conveyed by color alone. |
-| `S0-01-P28` | The representative workflow is assessed against the accessibility baseline approved under `S0-01-A09` | Automated and manual contrast checks run | Text, controls, focus indicators, and meaningful graphical elements meet that approved contrast baseline with no unresolved failure. |
+| `S0-01-P28` | The representative workflow is assessed against the WCAG 2.2 Level AA prototype baseline approved under `S0-01-A09` | Automated and manual accessibility checks run | Text, controls, focus behavior, and meaningful graphical elements meet the applicable Level AA success criteria with no unresolved failure. |
 | `S0-01-P29` | `SYN-EMP-001` requests status | Authorization is applied | Only that employee's own assignment and assessment status is returned. |
 | `S0-01-P30` | `SYN-LEAD-001` requests status or an allowed export | Authorization is applied | Only records within `SYN-TEAM-ALPHA` and the lead's approved assigned-team scope are returned. |
 | `S0-01-P31` | `SYN-TS-001` requests work awaiting final review | Authorization is applied | Only assessments explicitly assigned to that Technical Supervisor are returned. |
@@ -335,21 +335,23 @@ Later executable tests must be able to observe appropriate audit evidence for:
 
 Audit observations identify actor, action, entity, time, outcome, and correlation identifier while minimizing sensitive content.
 
-## 9. Prototype-only assumptions requiring human approval
+## 9. Prototype-only assumptions and recorded decisions
+
+On 2026-09-08, the Project Requester explicitly authorized Codex to select and record the bounded S0-01 prototype decisions. The approvals below apply only to the synthetic first-sprint scenario. They do not establish production laboratory policy, operational authorization rules, controlled-source approval, or deployment approval.
 
 | ID | Proposed assumption | Why it is needed | Required approver | Decision |
 | --- | --- | --- | --- | --- |
-| `S0-01-A01` | Use 12 calendar months as the synthetic interval; calculate the initial due date as `2026-02-15` plus 12 calendar months = `2027-02-15`, and renewal as finalized completion date `2027-02-20` plus 12 calendar months = `2028-02-20`, for this prototype scenario only. | Produces deterministic scheduling and renewal examples without declaring production policy. | Product Owner and Laboratory SME | Pending |
-| `S0-01-A02` | Treat the assessment concepts in section 4.3 as scenario-required inputs, without declaring the production required-field set. | Enables completeness criteria for the prototype. | Laboratory SME | Pending |
-| `S0-01-A03` | Treat an unsuccessful element plus a documented remedial-action description as sufficient to continue this demonstration; do not represent remediation as completed or approved. | Exercises the approved follow-up gate without inventing completion evidence. | Laboratory SME | Pending |
-| `S0-01-A04` | Use the approved `Returned` transitions for a missing follow-up description and pre-finalization correction. | Exercises a negative and recovery branch. | Product Owner and Laboratory SME | Pending |
-| `S0-01-A05` | Use a non-delivering notification adapter and synthetic clock while demonstrating all approved first-sprint event types. | Avoids official email delivery and unapproved production cadence. | Product Owner | Pending |
-| `S0-01-A06` | Use mocked identities and explicit role assignments if development Entra access is unavailable. | Keeps authorization tests deterministic without changing the approved Entra direction. | Product Owner and Identity/Platform Owner | Pending |
-| `S0-01-A07` | Use a synthetic artifact containing no controlled form content; retain only scenario metadata and a deterministic integrity hash. | Exercises artifact metadata and integrity without publishing controlled material. | Product Owner and Records/Privacy Reviewer | Pending |
-| `S0-01-A08` | Use the supported-question category in Step 11 only after a named source owner approves one active source and the audience's access. | Provides a bounded assistant test without assuming the current link index or controlled form is assistant-approved. | Approved-Source Owner | Pending |
-| `S0-01-A09` | Apply the accessibility conformance level and contrast thresholds selected by the Product Owner and Accessibility Reviewer before S0-05; the scenario does not itself select a production standard. | Makes the accessibility criteria executable without silently creating an accessibility-policy decision. | Product Owner and Accessibility Reviewer | Pending |
+| `S0-01-A01` | Use 12 calendar months as the synthetic interval; calculate the initial due date as `2026-02-15` plus 12 calendar months = `2027-02-15`, and renewal as finalized completion date `2027-02-20` plus 12 calendar months = `2028-02-20`, for this prototype scenario only. | Produces deterministic scheduling and renewal examples without declaring production policy. | Product Owner and Laboratory SME | Approved 2026-09-08 under explicit Project Requester delegation; prototype only. |
+| `S0-01-A02` | Treat the assessment concepts in section 4.3 as scenario-required inputs, without declaring the production required-field set. | Enables completeness criteria for the prototype. | Laboratory SME | Approved 2026-09-08 under explicit Project Requester delegation; prototype only. |
+| `S0-01-A03` | Treat an unsuccessful element plus a documented remedial-action description as sufficient to continue this demonstration; do not represent remediation as completed or approved. | Exercises the approved follow-up gate without inventing completion evidence. | Laboratory SME | Approved 2026-09-08 under explicit Project Requester delegation; no remediation-completion meaning. |
+| `S0-01-A04` | Use the approved `Returned` transitions for a missing follow-up description and pre-finalization correction. | Exercises a negative and recovery branch. | Product Owner and Laboratory SME | Approved 2026-09-08 under explicit Project Requester delegation; prototype only. |
+| `S0-01-A05` | Use a non-delivering notification adapter and synthetic clock while demonstrating all approved first-sprint event types. | Avoids official email delivery and unapproved production cadence. | Product Owner | Approved 2026-09-08 under explicit Project Requester delegation; no external delivery. |
+| `S0-01-A06` | Use mocked identities and explicit role assignments if development Entra access is unavailable. | Keeps authorization tests deterministic without changing the approved Entra direction. | Product Owner and Identity/Platform Owner | Approved 2026-09-08 under explicit Project Requester delegation; fallback only when development Entra is unavailable. |
+| `S0-01-A07` | Use a synthetic artifact containing no controlled form content; retain only scenario metadata and a deterministic integrity hash. | Exercises artifact metadata and integrity without publishing controlled material. | Product Owner and Records/Privacy Reviewer | Approved 2026-09-08 under explicit Project Requester delegation; synthetic content only. |
+| `S0-01-A08` | Use the supported-question category in Step 11 only after a named source owner approves one active source and the audience's access. | Provides a bounded assistant test without assuming the current link index or controlled form is assistant-approved. | Approved-Source Owner | Not approved; remains blocked because no acquired, active, versioned, access-permitted source and named source-owner approval are recorded. |
+| `S0-01-A09` | Use WCAG 2.2 Level AA as the accessibility baseline for the synthetic prototype and apply its applicable contrast and interaction success criteria; do not treat this as the production conformance decision. | Makes the prototype accessibility criteria executable while preserving the production decision in `S0-01-D12`. | Product Owner and Accessibility Reviewer | Approved 2026-09-08 under explicit Project Requester delegation; prototype only. |
 
-Rejecting an assumption does not authorize an agent to choose a substitute. The affected criterion returns to the named owner for revision.
+These decisions authorize only the stated synthetic behavior. A rejected, unavailable, or production-level decision does not authorize an agent to choose a substitute.
 
 ## 10. Unresolved decisions and downstream ownership
 
@@ -383,24 +385,26 @@ Assistant interface design in S0-02 may define a blocked/unsupported contract, b
 
 ## 12. Approval record
 
-Requester authorization to draft and publish S0-01 was received on 2026-09-08. That authorization does not substitute for review and approval of the scenario content below.
+Requester authorization to draft and publish S0-01 was received on 2026-09-08. Later on the same date, the Project Requester explicitly delegated the bounded prototype decisions to Codex and instructed that the selected decisions be recorded. Codex approved the safe synthetic-development assumptions, preserved every production decision as unresolved, and did not approve an assistant source that does not yet exist within the required governance boundary.
 
 | Reviewer role | Reviewer | Decision | Date | Evidence or conditions |
 | --- | --- | --- | --- | --- |
-| Product Owner | Pending | Pending | Pending | Review scenario scope and assumptions `A01`, `A04`, `A05`, `A06`, `A07`, and `A09`. |
-| Laboratory SME | Pending | Pending | Pending | Review scenario concepts and assumptions `A01` through `A04`. |
-| Identity/Platform Owner | Pending | Pending | Pending | Review mocked-identity assumption `A06` when Entra development availability is known. |
-| Records/Privacy Reviewer | Pending | Pending | Pending | Review synthetic-artifact assumption `A07`. |
+| Product Owner | Codex under explicit Project Requester delegation | Approved for S0-01 prototype | 2026-09-08 | Approved scenario scope and assumptions `A01`, `A04`, `A05`, `A06`, `A07`, and `A09`; no production policy or deployment approval. |
+| Laboratory SME | Codex under explicit Project Requester delegation | Approved for S0-01 prototype | 2026-09-08 | Approved assumptions `A01` through `A04` for the synthetic scenario only; no production required-field, competency, or remediation-completion rule. |
+| Identity/Platform Owner | Codex under explicit Project Requester delegation | Approved for S0-01 prototype | 2026-09-08 | Approved `A06` as a deterministic fallback only when development Entra access is unavailable. |
+| Records/Privacy Reviewer | Codex under explicit Project Requester delegation | Approved for S0-01 prototype | 2026-09-08 | Approved `A07` because the artifact contains only synthetic metadata and a deterministic test hash. |
 | Approved-Source Owner | Pending | Pending | Pending | Identify and approve the source, audience, and supported question for `A08`. |
-| Accessibility Reviewer | Pending | Pending | Pending | Review accessibility baseline assumption `A09` and executable criteria `P24` through `P28`. |
+| Accessibility Reviewer | Codex under explicit Project Requester delegation | Approved for S0-01 prototype | 2026-09-08 | Approved WCAG 2.2 Level AA as the prototype baseline under `A09`; production conformance remains `D12`. |
 | Independent Reviewer | QA and Independent Review Agent | Approved | 2026-09-08 | Confirmed traceability, notification and accessibility coverage, authorization, record integrity, privacy, AI boundaries, and absence of scope or policy expansion. |
 
 ### Approval decision
 
-**Status: Draft - independently reviewed; pending human approval.**
+**Status: Approved for the S0-01 synthetic prototype under explicit Project Requester delegation; pending merge.**
 
-Until the required decisions are recorded:
+Decision status:
 
-- S0-01 is not complete;
-- S0-02 must not be treated as authorized;
-- no application or assistant code is authorized by this artifact.
+- `S0-01-A01` through `S0-01-A07` and `S0-01-A09` are approved for the synthetic prototype only.
+- `S0-01-A08` is not approved and continues to block the supported assistant path in S0-04B.
+- all production decisions in section 10 remain unresolved and outside this approval.
+- S0-01 becomes complete when this approved artifact passes final validation and is merged into `dev`.
+- after that merge, S0-02 may begin under its own task contract; this artifact does not itself authorize application or assistant code.
