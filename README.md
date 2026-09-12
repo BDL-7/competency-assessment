@@ -3,10 +3,9 @@
 Planning and build-preparation repository for the Non-CLIA laboratory
 competency assessment tracker and its separate read-only knowledge assistant.
 
-> **Status:** Phase 0 foundations and the S0-01 synthetic scenario are approved.
-> S0-02 is defining shared interfaces and a conceptual schema contract. No runnable
-> Flask application, physical database schema, migration, Azure resource, or
-> knowledge-assistant implementation is present yet.
+> **Status:** S0-01 and S0-02 are approved. S0-03 provides a runnable, tested
+> Flask application foundation. Assessment workflows, physical database schema,
+> migrations, Azure resources, and knowledge-assistant behavior are not implemented.
 
 ## Intended technical baseline
 
@@ -32,6 +31,9 @@ modify official records.
 | `agent-tasks/` | Reusable task contract and first coding sprint dependency graph |
 | `agent-tasks/s0-01-synthetic-scenario.md` | Approved synthetic scenario and observable acceptance criteria |
 | `agent-tasks/s0-02-interface-schema-contract.md` | Shared interface, conceptual schema, transaction, authorization, idempotency, and assistant contract |
+| `agent-tasks/s0-03-application-foundation.md` | Runnable application-foundation task contract and validation record |
+| `app/` | Flask factory, safe configuration, web and mock-identity boundaries, templates, static assets, and empty future module boundaries |
+| `tests/` | S0-03 factory, route, configuration, identity, and module-boundary tests |
 | `docs/` | Public repository policy and manifests; controlled binaries remain outside public Git |
 | `docs/PRODUCT.md` | Approved prototype scope, exclusions, and success conditions |
 | `docs/ARCHITECTURE.md` | Approved modular Flask and Azure boundaries for implementation |
@@ -54,18 +56,50 @@ modify official records.
 - A modern browser for the modular HTML presentation
 - Microsoft Word or approved LibreOffice tooling if PDF conversion is required
 
-Create a Python environment and install the document-building dependency:
+### Run the application foundation
+
+Create a Python environment and install the fully pinned development environment:
 
 ```powershell
 py -3.12 -m venv .venv
 .venv\Scripts\Activate.ps1
-python -m pip install -r requirements-docs.txt
+python -m pip install --upgrade pip
+python -m pip install -r requirements-dev.lock
 ```
 
-Run the repository checks:
+`.env.example` documents the supported environment names but is not loaded
+automatically. Export local values in the shell, then start Flask:
 
 ```powershell
+$env:APP_ENV = "development"
+$env:APP_SECRET_KEY = "replace-with-a-local-random-value"
+$env:APP_MOCK_AUTH_ENABLED = "false"
+python -m flask --app wsgi run
+```
+
+The startup page is at `http://127.0.0.1:5000/`; the minimal health probe is at
+`http://127.0.0.1:5000/health`. Mock identity is disabled by default. When it is
+explicitly enabled for local development or tests, its synthetic identity comes
+only from server configuration and grants no roles. Production requires
+`APP_SECRET_KEY` and rejects mock authentication.
+
+Run all application tests and repository checks:
+
+```powershell
+python -m pytest
 python scripts\verify_repository.py
+```
+
+The S0-03 foundation intentionally contains no assessment, signature, renewal,
+notification, persistence, migration, or assistant behavior.
+
+### Build repository documents
+
+Install the separate document-building dependency only when document work is
+authorized:
+
+```powershell
+python -m pip install -r requirements-docs.txt
 ```
 
 Authorized internal checkouts may contain project-specific Word builders. When
