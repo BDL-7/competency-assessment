@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Competency Assessment Tracker{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header>
+      <span class="site-name">Competency Assessment Tracker</span>
+    </header>
+    <main id="main-content" tabindex="-1">
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
