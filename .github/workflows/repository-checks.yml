@@ -19,3 +19,25 @@ jobs:
         run: python scripts/verify_repository.py
       - name: Build portable presentation example
         run: python presentations/html-workshop/build_single_file.py
+
+  application:
+    runs-on: ubuntu-latest
+    env:
+      APP_ENV: testing
+      APP_SECRET_KEY: ci-synthetic-test-secret
+      APP_DATABASE_URL: sqlite:///ci-synthetic-workflow.db
+      APP_MOCK_AUTH_ENABLED: "false"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install locked application dependencies
+        run: python -m pip install -r requirements-dev.lock
+      - name: Upgrade an empty synthetic database
+        run: python -m alembic upgrade head
+      - name: Run application tests
+        run: python -m pytest
+      - name: Verify public repository contents
+        run: python scripts/verify_repository.py
