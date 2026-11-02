@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chatbot KnowledgeBase</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 15mm;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", Calibri, Arial, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.5;
+    font-size: 11pt;
+    margin: 0;
+    padding: 24px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fff;
+  }
+  h1 {
+    font-size: 20pt;
+    color: #0b3d6b;
+    border-bottom: 3px solid #0b3d6b;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    color: #555;
+    font-size: 10pt;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-size: 14pt;
+    color: #0b3d6b;
+    margin-top: 32px;
+    margin-bottom: 10px;
+    border-left: 4px solid #0b3d6b;
+    padding-left: 10px;
+  }
+  p { margin: 8px 0; }
+  .callout {
+    background: #eef4fb;
+    border-left: 4px solid #0b3d6b;
+    padding: 10px 14px;
+    margin: 14px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .note {
+    background: #fff8e6;
+    border-left: 4px solid #d9a400;
+    padding: 10px 14px;
+    margin: 14px 0;
+    font-size: 10pt;
+    border-radius: 0 4px 4px 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 9.5pt;
+    page-break-inside: auto;
+  }
+  tr { page-break-inside: avoid; page-break-after: auto; }
+  th {
+    background: #0b3d6b;
+    color: #fff;
+    text-align: left;
+    padding: 8px 10px;
+    vertical-align: top;
+    font-weight: 600;
+  }
+  td {
+    border: 1px solid #cfd8e3;
+    padding: 8px 10px;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background: #f4f7fb; }
+  td ul { margin: 2px 0; padding-left: 18px; }
+  td li { margin: 4px 0; }
+  strong { color: #0b3d6b; }
+  .approach {
+    background: #f4f7fb;
+    border: 1px solid #cfd8e3;
+    border-left: 4px solid #0b3d6b;
+    padding: 4px 18px 10px;
+    margin: 14px 0;
+    border-radius: 0 4px 4px 0;
+    page-break-inside: avoid;
+  }
+  .approach h3 {
+    font-size: 12pt;
+    color: #0b3d6b;
+    margin: 10px 0 6px;
+  }
+  .approach ul { margin: 6px 0; padding-left: 20px; }
+  .approach li { margin: 5px 0; }
+  a { color: #0b5cab; text-decoration: none; }
+  .q { display: block; margin: 2px 0; }
+  .area-name { font-weight: 600; color: #0b3d6b; }
+  code {
+    background: #eef1f5;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 9pt;
+  }
+  .print-hint {
+    background: #e8f5e9;
+    border: 1px dashed #4caf50;
+    padding: 8px 12px;
+    font-size: 9.5pt;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  @media print { .print-hint { display: none; } body { padding: 0; } }
+</style>
+</head>
+<body>
+
+<div class="print-hint">
+</div>
+
+<h1>Chatbot KnowledgeBase</h1>
+
+<h2>Provisioning Approaches Compared</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width:22%">Approach</th>
+      <th style="width:78%">Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>EDAV BaaS (Bot as a Service) / Microbot</strong></td>
+      <td>
+        <ul>
+          <li><strong>What the provider gives us:</strong> A ready-made bot and its built-in search features. Exactly what it can do depends on EDAV.</li>
+          <li><strong>What we set up:</strong> The approved content, the bot's instructions, answer checks, and (where possible) embedding it in our app with login.</li>
+          <li><strong>Knowledge formats:</strong> Word/PDF, per EDAV's guidance. Turn approved Excel data into readable documents.</li>
+          <li><strong>Short-term fit:</strong> Least work to build, if we get access in time. Past trouble embedding it (iframe issues) is the main schedule risk.</li>
+          <li><strong>How embedding works:</strong> The bot loads inside our page in an <em>iframe</em> (a framed window-within-a-page), and the two communicate through <em>postMessage</em>, the browser's secure way to pass data between a page and an embedded frame.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>EDAV MaaS (Model as a Service)</strong></td>
+      <td>
+        <ul>
+          <li><strong>What the provider gives us:</strong> Access to a hosted model. Any extra tools depend on the service.</li>
+          <li><strong>What we set up:</strong> The chat screen, backend calls, picking and fetching sources, citations, access checks, error handling, and testing.</li>
+          <li><strong>Knowledge formats:</strong> Markdown/text as context, plus Word/PDF we parse and controlled SQL results.</li>
+          <li><strong>Short-term fit:</strong> More work, but more control. A good fit if we have a working endpoint but can't use Microbot.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Direct OpenAI API with hosted file search</strong></td>
+      <td>
+        <ul>
+          <li><strong>What the provider gives us:</strong> Model access plus a built-in file search.</li>
+          <li><strong>What we set up:</strong> The chat and backend, file uploads, source permissions, showing citations, testing, and any SQL tools.</li>
+          <li><strong>Knowledge formats:</strong> The built-in file search handles DOCX, PDF, Markdown, and more.</li>
+          <li><strong>Short-term fit:</strong> Moderate work if we're already approved to use it. Getting a new provider approved could cost more time than it saves.</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Model API with fully custom retrieval</strong></td>
+      <td>
+        <ul>
+          <li><strong>What the provider gives us:</strong> Just the model itself.</li>
+          <li><strong>What we set up:</strong> Everything — reading documents, indexing, search, ranking, SQL tools, source filtering, citations, chat, and upkeep.</li>
+          <li><strong>Knowledge formats:</strong> Documents plus structured database data.</li>
+          <li><strong>Short-term fit:</strong> The most work. Skip it for the short term unless we already have the pieces built.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="note">
+  In the table below, <strong>"Ideal"</strong> means the recommended long-term design. <strong>"Short-term"</strong> means the faster, lighter version (such as for the buildathon), using versioned reference snapshots rather than live database integration.
+</div>
+
+<h2>Knowledge Areas (by subject domain)</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width:11%">Knowledge area</th>
+      <th style="width:14%">Brief description</th>
+      <th style="width:17%">Exact source file or directory</th>
+      <th style="width:20%">Ideal (long-term) format, storage &amp; retrieval</th>
+      <th style="width:18%">Short-term format &amp; retrieval</th>
+      <th style="width:20%">Questions it could answer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="area-name">1. Competency requirements</span></td>
+      <td>Governing lab requirements</td>
+      <td>Not in repo. Example: <code>&lt;approved location&gt;/QMML and NCIRD guidance/[version].pdf</code></td>
+      <td>Approved <strong>Word/PDF</strong> in controlled storage; <strong>document RAG</strong> filtered by source/version</td>
+      <td>Approved <strong>Word/PDF</strong> loaded into EDAV's bot</td>
+      <td><span class="q">① What requirements apply?</span><span class="q">② Which elements are required?</span><span class="q">③ Where is this requirement documented?</span></td>
+    </tr>
+    <tr>
+      <td><span class="area-name">2. Assessment form instructions</span></td>
+      <td>Field meanings and what to document</td>
+      <td>Not in repo. Example: <code>&lt;approved location&gt;/Approved Non-CLIA competency form/[current form].docx</code></td>
+      <td>Approved <strong>Word/PDF</strong>, retrieved by form version/section; form fields stay in <strong>Azure SQL</strong></td>
+      <td>A short <strong>Word/PDF form guide</strong> organized by field name</td>
+      <td><span class="q">① What does this field mean?</span><span class="q">② Which fields are required?</span><span class="q">③ What belongs in evidence/comments?</span></td>
+    </tr>
+    <tr>
+      <td><span class="area-name">3. Approved test systems</span></td>
+      <td>Catalog entries and groupings</td>
+      <td>Not in repo. Example: <code>&lt;approved location&gt;/Approved Test Systems.xlsx</code></td>
+      <td><strong>Azure SQL</strong> data, read via exact read-only lookups</td>
+      <td>A dated <strong>Word/PDF catalog snapshot</strong> keeping each entry's name, grouping, and status together</td>
+      <td><span class="q">① Which systems are active in this snapshot?</span><span class="q">② Which grouping contains this system?</span><span class="q">③ What is its approved name?</span></td>
+    </tr>
+    <tr>
+      <td><span class="area-name">4. Assessment workflow</span></td>
+      <td>Work states and sequence</td>
+      <td><code>docs/WORKFLOW.md</code></td>
+      <td>Maintained <strong>Markdown</strong> as context or RAG; <strong>Python</strong> enforces rules, <strong>Azure SQL</strong> stores state</td>
+      <td>Workflow guide exported to <strong>Word/PDF</strong> for EDAV</td>
+      <td><span class="q">① What follows submission?</span><span class="q">② What does Returned mean?</span><span class="q">③ What precedes finalization?</span></td>
+    </tr>
+    <tr>
+      <td><span class="area-name">5. Roles and responsibilities</span></td>
+      <td>Duties and authority limits</td>
+      <td><code>docs/AUTHORIZATION.md</code>; <code>docs/TERMINOLOGY.md</code></td>
+      <td>Maintained <strong>Markdown</strong> role guide as context; app authorization stays separate</td>
+      <td>A <strong>Word/PDF</strong> role guide listing duties and limits</td>
+      <td><span class="q">① What does an Assessor do?</span><span class="q">② How do Team Lead and Supervisor differ?</span><span class="q">③ Can an administrator sign?</span></td>
+    </tr>
+    <tr>
+      <td><span class="area-name">6. Evidence and follow-up requirements</span></td>
+      <td>Evidence, gaps, and remedial actions</td>
+      <td><code>docs/WORKFLOW.md</code>; controlled form not in repo (example: <code>&lt;approved location&gt;/Approved Non-CLIA competency form/[current form].docx</code>)</td>
+      <td>Approved <strong>Word/PDF</strong> via <strong>document RAG</strong>; individual records kept out of general retrieval</td>
+      <td>Approved <strong>Word/PDF</strong>, organized by assessment element</td>
+      <td><span class="q">① What evidence is required?</span><span class="q">② What documents an unsuccessful element?</span><span class="q">③ What follow-up is needed?</span></td>
+    </tr>
+    <tr>
+      <td><span class="area-name">7. Due dates and renewal</span></td>
+      <td>Intervals and how dates are figured</td>
+      <td><code>docs/WORKFLOW.md</code>; final approved config source not yet in repo</td>
+      <td><strong>Azure SQL</strong> settings; <strong>Python</strong> does the exact math; Markdown explains it</td>
+      <td>A dated <strong>Word/PDF</strong> interval reference; the app still calculates official dates</td>
+      <td><span class="q">① What interval applies to this grouping?</span><span class="q">② Which date starts renewal?</span><span class="q">③ What does overdue mean?</span></td>
+    </tr>
+    <tr>
+      <td><span class="area-name">8. Signatures and finalized records</span></td>
+      <td>Signing order, locking, versioning</td>
+      <td><code>docs/WORKFLOW.md</code>; controlled form not in repo (example: <code>&lt;approved location&gt;/Approved Non-CLIA competency form/[current form].docx</code>)</td>
+      <td>Approved <strong>Word/PDF</strong> via RAG; <strong>Azure SQL/Blob</strong> records stay out of the corpus</td>
+      <td>A short approved <strong>Word/PDF</strong> procedure</td>
+      <td><span class="q">① Who signs first?</span><span class="q">② Why is a finalized record locked?</span><span class="q">③ What happens after an edit?</span></td>
+    </tr>
+    <tr>
+      <td><span class="area-name">9. Application help</span></td>
+      <td>Navigation and reporting</td>
+      <td>No help directory yet. Example: <code>docs/user-help/</code></td>
+      <td>Versioned <strong>Markdown</strong> help; RAG or context by size</td>
+      <td>Help exported to <strong>Word/PDF</strong>, matching the demo app version</td>
+      <td><span class="q">① Where are my assignments?</span><span class="q">② Where are items awaiting signature?</span><span class="q">③ How do I open reports?</span></td>
+    </tr>
+    <tr>
+      <td><span class="area-name">10. Terminology</span></td>
+      <td>Controlled definitions</td>
+      <td><code>docs/TERMINOLOGY.md</code></td>
+      <td><strong>Markdown</strong> glossary; exact lookup or small context</td>
+      <td>A <strong>Word/PDF</strong> glossary, one labeled definition per entry</td>
+      <td><span class="q">① What means Testing Personnel?</span><span class="q">② How do systems and groupings differ?</span><span class="q">③ What is an amendment?</span></td>
+    </tr>
+    <tr>
+      <td><span class="area-name">11. Support and escalation</span></td>
+      <td>Approved help routes</td>
+      <td>No support directory yet. Example: <code>docs/support/</code></td>
+      <td>Maintained <strong>Markdown</strong> directory; routes chosen deterministically</td>
+      <td>A <strong>Word/PDF</strong> support guide mapping issues to contacts</td>
+      <td><span class="q">① Who clarifies requirements?</span><span class="q">② Where do I report access issues?</span><span class="q">③ Who reviews conflicting guidance?</span></td>
+    </tr>
+    <tr>
+      <td><span class="area-name">12. Approved-source registry</span></td>
+      <td>Source versions, owners, allowed use</td>
+      <td><code>docs/SOURCE_MANIFEST.md</code>; <code>docs/controlled-sources/README.md</code></td>
+      <td><strong>Structured registry</strong> (ideally Azure SQL); filtering enforced before retrieval</td>
+      <td>A <strong>Markdown</strong> manifest for maintainers, source details inside each file, and a manually controlled upload set</td>
+      <td><span class="q">① Which source supports this answer?</span><span class="q">② What version is it?</span><span class="q">③ Who owns it?</span></td>
+    </tr>
+  </tbody>
+</table>
+
+
+</body>
+</html>
