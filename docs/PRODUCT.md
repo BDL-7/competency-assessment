@@ -44,6 +44,38 @@ The assistant uses only active approved prototype sources, returns citations,
 and escalates unsupported questions. The incomplete QMML/NCIRD corpus limits
 coverage but does not authorize invented answers.
 
+## Pilot direction recorded on 2026-11-02
+
+The requester confirmed the following planning requirements in issue #13.
+This remains one pilot application built on the existing implementation, not
+a new application or a general-purpose multi-bot platform.
+
+- Design a configurable synthetic multi-lab demonstration for approximately
+  70 human users, counting service identities separately. Propose fictional
+  lab counts, test types, test systems, and process-grouping relationships;
+  an existing operational inventory is not a prerequisite.
+- Cover five years of synthetic history and five years of clearly labeled
+  future planning relative to a configurable reference date. Future projections
+  are not completed assessments, signatures, or events that already occurred.
+- Include CLIA and Non-CLIA research/surveillance contexts in the proposed
+  demonstration design. Distinguish regulatory applicability from activity,
+  test type, test system, and process grouping. This does not authorize CLIA
+  workflow implementation or invent laboratory rules, intervals, or signatures.
+- Consider staged competency-knowledge and equipment-manual assistants within
+  the same app, with separate source scopes and the read-only controls in
+  [AI_BOUNDARY.md](AI_BOUNDARY.md). Manual answers require approved,
+  versioned sources and citations; they grant no equipment-control capability.
+  Neither bot gains access to individual assessment records by default.
+- Build and review the UI locally with synthetic data before considering any
+  deployment; see [OPERATIONS.md](OPERATIONS.md).
+
+These are planning requirements, not authorization to generate data, change
+schema, implement broader workflows, or deploy. Existing approved behavior and
+regression fixtures remain the baseline. Lab counts, population distribution,
+taxonomies, schema extensions, and laboratory-policy decisions require the
+appropriate task and owner approvals before implementation. The first-sprint
+exclusions below remain in force for executable behavior.
+
 ## Explicit first-sprint exclusions
 
 - Center/quality viewer access
