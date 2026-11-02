@@ -100,3 +100,35 @@ Interfaces merge before dependent implementations. Data changes merge before
 services that require them; services merge before web flow; app and assistant
 tracks integrate only after their individual validation; independent review is
 last. Any interface revision reopens affected task approvals.
+
+## Follow-on pilot planning requirements
+
+Issue #13 records the requester's 2026-11-02 direction without reopening or
+expanding the implementation authority of the original sprint contracts.
+Canonical requirements are maintained in [PRODUCT.md](../docs/PRODUCT.md),
+[ARCHITECTURE.md](../docs/ARCHITECTURE.md), and
+[OPERATIONS.md](../docs/OPERATIONS.md); the full conversational prompts are not
+duplicated here.
+
+Follow-on tasks must first agree the synthetic population/schema assumptions
+and evaluate the AI platform options, then implement approved local UI slices
+using synthetic data and mock assistants. A local UI may proceed without a
+final AI platform selection. Each implementation needs a separately approved
+task contract, exclusive writable paths, acceptance criteria, validation, and
+required independent reviews. No follow-on deployment is authorized.
+
+### Issue #13 documentation-only task contract
+
+- Owner: Orchestrator.
+- Authorized output: record the clarified pilot scope, Foundry evaluation
+  option, and local UI-first/no-deployment gate in existing documents only.
+- Exclusive writable paths: this file, `docs/PRODUCT.md`,
+  `docs/ARCHITECTURE.md`, and `docs/OPERATIONS.md`; lease expires when issue #13
+  is merged or abandoned.
+- Acceptance: preserve the existing baseline and human gates; distinguish
+  planning from implementation authority; record only new requirements rather
+  than duplicate the prompts.
+- Exclusions: code, data generation, schema, dependencies, AI integrations,
+  resource provisioning, and deployment.
+- Validation: review the documentation diff, run repository verification and
+  `git diff --check`, and open an issue-linked PR targeting `dev`.

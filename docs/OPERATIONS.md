@@ -11,6 +11,30 @@
 Production deployment is outside the first coding sprint and is not authorized
 by Phase 0.
 
+## Local UI-first pilot gate
+
+The requester confirmed on 2026-11-02 that the next pilot goal is to build and
+review the UI locally, with no deployment at this stage. Future authorized UI
+tasks must extend the existing Flask application using synthetic data and
+clearly labeled deterministic mock bot responses, without requiring a final
+Foundry selection or cloud resources.
+
+Local validation uses loopback only and must demonstrate the approved user
+journeys, scoped data/counts, historical versus projected labeling, typed
+errors, and keyboard/accessibility behavior. Report what is implemented,
+mocked, deferred, and untested. Supported mutations retain server-side
+authorization, CSRF, concurrency, idempotency, and locked-record controls.
+
+No remote hosting, deployment workflow enablement, resource provisioning,
+external notifications, or remote AI calls are authorized by this direction.
+A local UI calling a remote model still processes data externally and needs
+separate approval. Source publication is not deployment; check that a push
+cannot trigger deployment before publishing.
+
+Requester acceptance of the local pilot is a prerequisite to a separate
+deployment-readiness assessment, not deployment approval. All applicable
+platform, security/privacy, records, accessibility, and operational gates remain.
+
 ## Platform review gates
 
 Azure/EDAV owners must confirm App Service runtime and deployment, Entra

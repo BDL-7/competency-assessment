@@ -13,6 +13,27 @@ notifications. A separate read-only adapter uses EDAV OpenAI.
 No alternate application framework, database, cloud platform, SPA,
 microservice, Kubernetes, Azure Functions, or public API is part of Phase 0.
 
+## Microsoft Foundry evaluation option
+
+On 2026-11-02 the requester clarified that Microsoft Foundry is newly available
+as a platform option for this pilot, not a mandated replacement or an approved
+architecture selection. Evaluate it alongside the existing EDAV OpenAI direction
+without discarding the Flask, service, domain, and persistence foundation.
+
+The evaluation must distinguish AI capabilities from application hosting,
+identity, structured records, artifact storage, and audit responsibilities.
+Compare the simplest suitable model/agent and retrieval options for the staged
+assistants described in [PRODUCT.md](PRODUCT.md), including reuse, integration
+effort, source isolation, cost drivers, and local mock operation. Do not assume
+Foundry replaces the application's system-of-record or authorization controls.
+
+Verify current capabilities against official documentation and availability
+with Azure/EDAV owners. Source access, tenant/region availability, networking,
+data handling, and operational support remain approval questions. A selected
+architecture change requires owner approval and an ADR before implementation.
+Evaluation does not authorize SDK additions, resource provisioning, document
+uploads, external model calls, or deployment.
+
 ## Future module boundaries
 
 ```text
