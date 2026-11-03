@@ -62,7 +62,7 @@
 Run targeted UI tests, the full pytest suite after factory changes, compilation,
 repository verifier, and diff checks. Validate local browser navigation,
 responsive layout, keyboard/focus, labels and chat errors. Publish a PR to `dev`;
-do not merge or deploy. Exact evidence and limitations are recorded below after
+merge only with explicit requester approval; do not deploy. Exact evidence and limitations are recorded below after
 implementation.
 
 ### Recorded evidence
@@ -97,8 +97,18 @@ implementation.
   issues. A separate bounded independent Soft Studio template/CSS/interface
   review reported no significant issues, but did not rerun browser/tests or
   provide specialist conformance sign-off. The configured custom reviewer was
-  unavailable. Application/data/QA/privacy/accessibility owner sign-off and
-  requester visual acceptance remain explicit draft-PR merge gates.
+  unavailable. Application/data/QA/privacy/accessibility owner sign-off was
+  originally a draft-PR merge gate; the requester explicitly deferred it for
+  local-only integration as recorded below. This is not specialist sign-off.
+
+### Local-only integration approval
+
+On 2026-11-03, the requester approved the current UI and explicitly deferred
+specialist sign-off, authorizing PR #16 to merge into `dev` for this local-only
+pilot. All CI checks passed for the reviewed feature head. Specialist
+application/data/QA/privacy/accessibility review remains outstanding before
+any operational-use or deployment decision. This approval does not authorize
+deployment, controlled-source use, production identity/data, or broader scope.
 
 ### Exact changed-file inventory
 
@@ -148,4 +158,5 @@ review, not operational use or laboratory-policy approval.
 - Lab Atlas desktop/mobile screenshots remain in the session workspace;
   before evidence is preserved. Independent bounded revision review found no
   significant issues; it did not independently rerun the passing tests.
-  Specialist review and requester visual acceptance remain draft-PR gates.
+  Specialist review remains outstanding; requester visual acceptance and
+  local-only integration approval are recorded above.
