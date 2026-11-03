@@ -29,6 +29,15 @@
   blue-gray shell, blue/sage accents, restrained scientific grid motifs and
   precise record typography. This changes presentation only, not authority,
   schema, data, functionality or deployment scope.
+- Subsequent requester refinement removes the Lab Atlas title, uses one
+  system-font family throughout and adds coordinated lavender, peach, sage
+  and powder-blue component/page backgrounds. Scientific composition and all
+  read-only boundaries remain unchanged.
+- Pastel refinement validation: 12 web tests and all six responsive/browser
+  journeys passed, including 200% text and 57 keyboard-focus controls. Live
+  preview verified concept-name removal and one computed system-font family
+  for headings, labels, record IDs, branding and buttons. Sampled text contrast
+  across the revised pastel surfaces is at least 4.69:1.
 
 ## Acceptance
 

@@ -150,10 +150,12 @@ network requests. Use each guide's exact sample to see its synthetic citation;
 other questions escalate. No equipment instructions or approved-source answers
 are supplied. Production rejects pilot mode.
 
-The requester-selected **Lab Atlas** interface replaces the earlier Soft Studio
-direction with a structured scientific workspace: blue-gray navigation, a
-compact scope strip and assessment register, precise reference typography,
-subtle grid motifs and blue/sage accents. The overview, assessment dossier,
+The interface retains a structured scientific workspace without concept-name
+branding: pastel lavender navigation, peach attention surfaces, sage workload
+summaries, powder-blue references and layered pastel page backgrounds. A single
+system-font family keeps headings, labels, records and controls consistent.
+The compact scope strip, assessment register and subtle grid motifs remain.
+The overview, assessment dossier,
 issued-version timeline and mock reference-inquiry guides share local CSS
 tokens and inline SVGs, with no remote assets or
 JavaScript dependency. Sample-question buttons submit real CSRF-protected

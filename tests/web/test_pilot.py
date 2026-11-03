@@ -184,7 +184,9 @@ def test_demo_requires_file_target_and_mock_identity():
 def test_lab_atlas_shell_and_working_sample_forms(populated):
     client = populated.test_client()
     overview = client.get("/")
-    assert b'Lab Atlas' in overview.data
+    assert b'Lab Atlas' not in overview.data
+    assert b'LAB ATLAS' not in overview.data
+    assert b'Assessment tracker' in overview.data
     assert b'<h1>Competency overview</h1>' in overview.data
     assert b'Assessment register' in overview.data
     assert b'class="scope-strip"' in overview.data
