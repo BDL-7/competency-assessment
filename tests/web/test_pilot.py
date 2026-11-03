@@ -181,10 +181,13 @@ def test_demo_requires_file_target_and_mock_identity():
             create_app("testing", config)
 
 
-def test_soft_studio_shell_and_working_sample_forms(populated):
+def test_lab_atlas_shell_and_working_sample_forms(populated):
     client = populated.test_client()
     overview = client.get("/")
-    assert b'A little clarity for your day.' in overview.data
+    assert b'Lab Atlas' in overview.data
+    assert b'<h1>Competency overview</h1>' in overview.data
+    assert b'Assessment register' in overview.data
+    assert b'class="scope-strip"' in overview.data
     assert overview.data.count(b'id="main-content"') == 1
     assert b'class="attention-card"' in overview.data
     assert b'class="primary-nav"' in overview.data

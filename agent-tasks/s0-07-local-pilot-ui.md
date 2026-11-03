@@ -23,6 +23,12 @@
   asymmetric overview, assessment dossier, version timeline and conversational
   mock guides. Reopened #15 continues the same pending UI work; no second task
   holds these paths. Preserve actual counts and existing safe behavior.
+- Superseding visual selection: requester rejected Soft Studio's appearance
+  and selected **Lab Atlas - scientific, precise, professional** on 2026-11-03.
+  Continue #15 and draft PR #16 with a structured scope strip/register,
+  blue-gray shell, blue/sage accents, restrained scientific grid motifs and
+  precise record typography. This changes presentation only, not authority,
+  schema, data, functionality or deployment scope.
 
 ## Acceptance
 
@@ -117,3 +123,20 @@ corpus, equipment manual, live AI, record mutation or deployment is added.
 Conversation responses are deterministic and not retained. Screen-reader and
 specialist accessibility review remain outstanding. This slice is for local
 review, not operational use or laboratory-policy approval.
+
+### Lab Atlas revision evidence
+
+- Supersedes Soft Studio presentation; its screenshots/evidence above remain
+  historical. Only templates, CSS, the shell regression test, README and this
+  contract changed. No route, service, database or role changes.
+- `python -m pytest tests/web/test_pilot.py -q`: 12 passed. Browser rechecked
+  all six screens at 360/390/768/1024px and 200% root text, 57 focus controls,
+  sample submissions, long input, filters and error recovery. No page errors,
+  unexpected console/asset errors or external requests on valid journeys.
+- Outsider non-disclosure, minimized diagnostic views and uninitialized
+  503/no-database-creation checks passed again. Minimum sampled text contrast:
+  5.14:1; control boundaries: 3.41:1; focus: 6.05:1.
+- Lab Atlas desktop/mobile screenshots remain in the session workspace;
+  before evidence is preserved. Independent bounded revision review found no
+  significant issues; it did not independently rerun the passing tests.
+  Specialist review and requester visual acceptance remain draft-PR gates.

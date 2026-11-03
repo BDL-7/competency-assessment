@@ -6,7 +6,7 @@
 <div class="chat-heading"><span class="avatar {{ 'avatar-blue' if bot == 'manual' else 'avatar-lavender' }}">{{ icon('equipment' if bot == 'manual' else 'guide') }}</span><div><p class="eyebrow">SYNTHETIC MOCK ASSISTANT</p><h1>{{ title }}</h1></div></div>
 <div class="chat-layout">
 <section class="conversation" aria-label="Mock conversation">
-  <header class="conversation-header"><h2>{{ icon('message') }} A space to explore</h2><span class="badge">Mock &middot; No live AI</span></header>
+  <header class="conversation-header"><h2>{{ icon('message') }} Reference inquiry</h2><span class="badge">Mock &middot; No live AI</span></header>
   <div class="conversation-body">
     <div class="message-row"><span class="avatar {{ 'avatar-blue' if bot == 'manual' else 'avatar-lavender' }}">{{ icon('spark') }}</span><div><p class="message-label">{{ title }} <span class="muted">&middot; Mock</span></p>
     <div class="message-bubble"><p>{{ 'Explore how an equipment source answer could look. No manuals are loaded and no equipment instructions are supplied.' if bot == 'manual' else 'Explore a synthetic competency guide response. This demonstration cannot assess competency or answer from controlled laboratory sources.' }}</p>

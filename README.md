@@ -150,10 +150,12 @@ network requests. Use each guide's exact sample to see its synthetic citation;
 other questions escalate. No equipment instructions or approved-source answers
 are supplied. Production rejects pilot mode.
 
-The requester-selected **Soft Studio** interface uses a lavender navigation
-rail, ivory canvas, peach attention surfaces and sage status accents. The
-overview, assessment dossier, issued-version timeline and mock conversational
-guides share local CSS tokens and inline SVGs, with no remote assets or
+The requester-selected **Lab Atlas** interface replaces the earlier Soft Studio
+direction with a structured scientific workspace: blue-gray navigation, a
+compact scope strip and assessment register, precise reference typography,
+subtle grid motifs and blue/sage accents. The overview, assessment dossier,
+issued-version timeline and mock reference-inquiry guides share local CSS
+tokens and inline SVGs, with no remote assets or
 JavaScript dependency. Sample-question buttons submit real CSRF-protected
 forms. Narrow queues scroll within the table rather than the whole page.
 See [the UI task contract](agent-tasks/s0-07-local-pilot-ui.md) for validation

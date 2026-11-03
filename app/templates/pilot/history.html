@@ -3,7 +3,7 @@
 {% block title %}Version history | Competency Assessment Tracker{% endblock %}
 {% block content %}
 <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{{ url_for('web.work', **diagnostic) }}">Work queue</a><span aria-hidden="true">/</span><a href="{{ url_for('web.detail', record_id=record.row.id, **diagnostic) }}">Assessment detail</a><span aria-hidden="true">/</span><span>History</span></nav>
-<div class="page-heading"><p class="eyebrow">{{ record.row.id }} / RECORD HISTORY</p><h1>Every version has a place.</h1><p>Issued-version history for {{ record.row.employee }}. The original snapshot stays intact as the documentation evolves.</p></div>
+<div class="page-heading"><p class="eyebrow">{{ record.row.id }} / RECORD HISTORY</p><h1>Issued-version history</h1><p>Issued-version history for {{ record.row.employee }}. The original snapshot stays intact as the documentation evolves.</p></div>
 <div class="history-intro">{{ icon('history') }} Issued snapshots are retained separately. This demo does not amend finalized records or provide a general comparison engine.</div>
 <ol class="timeline">
 {% for v in record.versions %}

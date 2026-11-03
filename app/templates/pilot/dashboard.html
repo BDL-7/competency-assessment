@@ -2,25 +2,27 @@
 {% from "pilot/components.html" import icon, record_link %}
 {% block title %}Overview | Competency Assessment Tracker{% endblock %}
 {% block content %}
-<div class="page-heading"><p class="eyebrow">YOUR WORKSPACE</p><h1>A little clarity for your day.</h1>
-<p>Competency overview &mdash; your assigned work, its history, and a place to explore.</p></div>
+<div class="page-heading heading-row"><div><p class="eyebrow">ASSESSMENT OPERATIONS / OVERVIEW</p><h1>Competency overview</h1>
+<p class="muted">Review assigned assessments, documentation and issued records.</p></div><span class="badge badge-sage">{{ icon('shield') }} Read-only workspace</span></div>
+<section class="scope-strip" aria-label="Pilot scope"><span>{{ icon('lab') }} <strong>Synthetic Non-CLIA scenario</strong></span><span>One-record demonstration</span><span>Reference date <strong>{{ as_of }}</strong></span></section>
 <section class="overview-grid" aria-label="Visible assessment summary">
-  <div class="attention-card">
-    <div class="attention-top"><span class="eyebrow">NEEDS ATTENTION</span><span class="attention-number">{{ overdue }}<span>overdue assessment{{ '' if overdue == 1 else 's' }}</span></span></div>
-    <h2>{{ 'Keep the next step in view.' if overdue else 'Room to focus on what is next.' }}</h2>
-    <p>Dates reflect the synthetic reference date, {{ as_of }}. Overdue is a condition on active work, not a competency decision.</p>
-    <a class="button" href="{{ url_for('web.work', **diagnostic) }}">Open work queue {{ icon('arrow') }}</a>
-  </div>
-  <div class="status-summary"><p class="eyebrow">AT A GLANCE</p><h2>Your visible workload</h2>
+  <div class="status-summary"><p class="eyebrow">SCOPED RECORD SUMMARY</p><h2>Your visible workload</h2>
     <div class="summary-total"><strong>{{ rows|length }}</strong><span>assessment{{ '' if rows|length == 1 else 's' }} in your scope</span></div>
     <div class="summary-line"><span class="status-dot"></span><span>Signature pending</span><strong>{{ pending }}</strong></div>
     <div class="summary-line"><span class="status-dot sage"></span><span>Finalized</span><strong>{{ finalized }}</strong></div>
     <div class="summary-line"><span class="status-dot peach"></span><span>Overdue</span><strong>{{ overdue }}</strong></div>
-    <p class="muted"><small>Real counts from this one-record synthetic scenario. No additional work is implied.</small></p>
+    <p class="muted"><small>Scoped counts only. No additional records are implied.</small></p>
+  </div>
+  <div class="attention-card">
+    <div class="attention-top"><span class="eyebrow">RECORD REVIEW / DUE-DATE CONDITION</span>{{ icon('clock') }}</div>
+    <span class="attention-number">{{ overdue }}<span>overdue assessment{{ '' if overdue == 1 else 's' }}</span></span>
+    <h2>{{ 'Review outstanding documentation' if overdue else 'No overdue assessments in scope' }}</h2>
+    <p>Dates reflect the synthetic reference date, {{ as_of }}. Overdue is a condition on active work, not a competency decision.</p>
+    <a class="button" href="{{ url_for('web.work', **diagnostic) }}">Open work queue {{ icon('arrow') }}</a>
   </div>
 </section>
 <section aria-labelledby="next-title">
-<div class="section-heading"><h2 id="next-title">Next in your queue</h2><a class="text-link" href="{{ url_for('web.work', **diagnostic) }}">View all work {{ icon('arrow') }}</a></div>
+<div class="section-heading"><h2 id="next-title">Assessment register</h2><a class="text-link" href="{{ url_for('web.work', **diagnostic) }}">View all work {{ icon('arrow') }}</a></div>
 {% for row in rows %}
 <div class="record-feature">
   <div>{{ record_link(row, diagnostic) }}<p class="record-meta">{{ row.grouping }} &middot; {{ row.team }}</p></div>
@@ -29,8 +31,8 @@
 {% else %}<div class="panel empty-state"><span class="avatar avatar-sage">{{ icon('queue') }}</span><h3>Nothing in this scope yet</h3><p>No assessments are visible to your configured identity. Access is based on server-side assignment scope.</p></div>{% endfor %}
 </section>
 <section class="guides-grid" aria-label="Mock knowledge guides">
-  <div class="guide-card"><span class="avatar avatar-lavender">{{ icon('guide') }}</span><div><h3>Make sense of the workflow <span class="badge">Mock</span></h3><p>A synthetic example of a competency knowledge guide. No approved-source answers or personal record access.</p><a class="text-link" href="{{ url_for('web.assistant', bot='competency', **diagnostic) }}">Explore competency guide {{ icon('arrow') }}</a></div></div>
-  <div class="guide-card manual-card"><span class="avatar avatar-blue">{{ icon('equipment') }}</span><div><h3>A place for equipment knowledge <span class="badge">Mock</span></h3><p>Preview a manual-guide conversation. No manuals are loaded, and no operating instructions are supplied.</p><a class="text-link" href="{{ url_for('web.assistant', bot='manual', **diagnostic) }}">Explore equipment guide {{ icon('arrow') }}</a></div></div>
+  <div class="guide-card"><span class="avatar avatar-lavender">{{ icon('guide') }}</span><div><p class="eyebrow">KNOWLEDGE / COMPETENCY</p><h3>Workflow reference <span class="badge">Mock</span></h3><p>A synthetic example of a competency knowledge guide. No approved-source answers or personal record access.</p><a class="text-link" href="{{ url_for('web.assistant', bot='competency', **diagnostic) }}">Explore competency guide {{ icon('arrow') }}</a></div></div>
+  <div class="guide-card manual-card"><span class="avatar avatar-blue">{{ icon('equipment') }}</span><div><p class="eyebrow">KNOWLEDGE / EQUIPMENT</p><h3>Equipment reference <span class="badge">Mock</span></h3><p>Preview a manual-guide conversation. No manuals are loaded, and no operating instructions are supplied.</p><a class="text-link" href="{{ url_for('web.assistant', bot='manual', **diagnostic) }}">Explore equipment guide {{ icon('arrow') }}</a></div></div>
 </section>
 <details class="pilot-details"><summary>About this local, read-only pilot</summary><p>Explore without changing records. Editing, signing, exports and notifications are unavailable. The existing fixture is not a five-year history or multi-lab dataset. Both guides are deterministic mocks; no Foundry or EDAV connection is active.</p></details>
 {% endblock %}
