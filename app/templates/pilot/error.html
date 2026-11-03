@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% from "pilot/components.html" import icon %}
+{% block title %}Pilot request unavailable | Competency Assessment Tracker{% endblock %}
+{% block content %}
+<section class="panel empty-state"><span class="avatar avatar-peach">{{ icon('shield') }}</span><p class="eyebrow">LET'S FIND THE NEXT STEP</p><h1>Request unavailable</h1>
+<p role="alert">{{ message }}</p><a class="button secondary" href="{{ url_for('web.home') }}">Return to overview {{ icon('arrow') }}</a>
+<details class="pilot-details"><summary>Need to check local setup?</summary><p>If setup is incomplete, run the documented init-demo command from your local terminal. This page never creates or resets a database.</p></details></section>
+{% if identity and identity.user_id == 'SYN-PLAT-001' %}
+<section class="panel diagnostic-form"><p class="eyebrow">AUDITED SUPPORT ACCESS</p><h2>Diagnostic read context</h2><p class="muted">Required for minimized, audited diagnostic access. Use synthetic references only.</p>
+<form method="get" action="{{ url_for('web.home') }}"><label for="purpose">Support purpose</label><input id="purpose" name="purpose" maxlength="200" required>
+<label for="reference">Support reference</label><input id="reference" name="reference" maxlength="128" required><button>Open diagnostic overview {{ icon('arrow') }}</button></form></section>
+{% endif %}
+{% endblock %}
