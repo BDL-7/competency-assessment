@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% from "pilot/components.html" import icon %}
+{% block title %}{{ title }} | Competency Assessment Tracker{% endblock %}
+{% block content %}
+<div class="{{ 'manual-chat' if bot == 'manual' else 'competency-chat' }}">
+<div class="chat-heading"><span class="avatar {{ 'avatar-blue' if bot == 'manual' else 'avatar-lavender' }}">{{ icon('equipment' if bot == 'manual' else 'guide') }}</span><div><p class="eyebrow">SYNTHETIC MOCK ASSISTANT</p><h1>{{ title }}</h1></div></div>
+<div class="chat-layout">
+<section class="conversation" aria-label="Mock conversation">
+  <header class="conversation-header"><h2>{{ icon('message') }} A space to explore</h2><span class="badge">Mock &middot; No live AI</span></header>
+  <div class="conversation-body">
+    <div class="message-row"><span class="avatar {{ 'avatar-blue' if bot == 'manual' else 'avatar-lavender' }}">{{ icon('spark') }}</span><div><p class="message-label">{{ title }} <span class="muted">&middot; Mock</span></p>
+    <div class="message-bubble"><p>{{ 'Explore how an equipment source answer could look. No manuals are loaded and no equipment instructions are supplied.' if bot == 'manual' else 'Explore a synthetic competency guide response. This demonstration cannot assess competency or answer from controlled laboratory sources.' }}</p>
+    <p id="question-help">Use the exact sample below for a synthetic citation. Other questions demonstrate SME escalation.</p></div></div></div>
+    <form method="post" class="sample-form"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="sample-button" type="submit" name="question" value="{{ sample }}">{{ icon('message') }} {{ sample }} {{ icon('arrow') }}</button></form>
+    {% if result %}
+    <div class="question-row"><p class="message-label">Your question <span class="muted">&middot; Not retained</span></p><div class="message-bubble">{{ question }}</div></div>
+    <div class="message-row" aria-live="polite" aria-atomic="true"><span class="avatar {{ 'avatar-blue' if bot == 'manual' else 'avatar-lavender' }}">{{ icon('spark') }}</span><div><p class="message-label">Mock response</p><div class="message-bubble"><p>{{ result.text }}</p>
+    {% if result.citation %}<div class="citation">{{ icon('guide') }} <strong>Synthetic citation:</strong> {{ result.citation }}</div>{% else %}<span class="badge">Escalation &mdash; approved evidence unavailable</span>{% endif %}</div></div></div>
+    {% else %}<p class="muted"><small>No response yet. Choose the sample or enter a question below.</small></p>{% endif %}
+  </div>
+  <form method="post" class="chat-composer">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label for="question">Your question</label>
+    <textarea id="question" name="question" maxlength="500" rows="3" placeholder="Try a question in this mock workspace..." aria-describedby="question-help question-limit{% if error %} question-error{% endif %}" {% if error %}aria-invalid="true"{% endif %}>{{ question if error else '' }}</textarea>
+    {% if error %}<p id="question-error" class="error" role="alert">{{ error }}</p>{% endif %}
+    <div class="composer-actions"><small id="question-limit">Maximum 500 characters &middot; Not saved</small><button type="submit">Show mock response {{ icon('arrow') }}</button></div>
+  </form>
+</section>
+<aside class="chat-info" aria-label="Guide capabilities and boundaries">
+  <div><p class="eyebrow">ABOUT THIS GUIDE</p><h2>{{ 'Equipment source preview' if bot == 'manual' else 'Competency guide preview' }}</h2><p>Deterministic UI demonstration, not an AI service or approved laboratory guidance.</p>
+  <ul><li>Synthetic example citations</li><li>Explicit SME escalation</li><li>No conversation persistence</li></ul></div>
+  <div class="info-divider"><p class="eyebrow">NOT CONNECTED</p><p>No equipment manuals, personal records or external services are connected.</p><p>No signing, assessment decisions, record changes or equipment operations.</p></div>
+</aside>
+</div>
+</div>
+{% endblock %}

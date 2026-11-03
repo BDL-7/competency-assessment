@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "pilot/components.html" import icon %}
+{% block title %}Version history | Competency Assessment Tracker{% endblock %}
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="{{ url_for('web.work', **diagnostic) }}">Work queue</a><span aria-hidden="true">/</span><a href="{{ url_for('web.detail', record_id=record.row.id, **diagnostic) }}">Assessment detail</a><span aria-hidden="true">/</span><span>History</span></nav>
+<div class="page-heading"><p class="eyebrow">{{ record.row.id }} / RECORD HISTORY</p><h1>Every version has a place.</h1><p>Issued-version history for {{ record.row.employee }}. The original snapshot stays intact as the documentation evolves.</p></div>
+<div class="history-intro">{{ icon('history') }} Issued snapshots are retained separately. This demo does not amend finalized records or provide a general comparison engine.</div>
+<ol class="timeline">
+{% for v in record.versions %}
+<li class="timeline-item"><span class="timeline-marker" aria-hidden="true">{{ v.number }}</span>
+<article class="panel"><div class="version-header"><h2>Version {{ v.number }}{% if loop.last %} &mdash; Current{% endif %}</h2><span class="badge {{ 'badge-sage' if loop.last else 'badge-peach' }}">{{ 'Current issued snapshot' if loop.last else 'Earlier issued snapshot' }}</span></div>
+<dl class="version-facts"><div><dt>Context</dt><dd>{{ v.context }}</dd></div><div><dt>Recorded outcome</dt><dd>{{ v.outcome }}</dd></div>
+<div><dt>Follow-up at issue</dt><dd>{{ v.followup }}</dd></div><div><dt>Finalized lock / signatures</dt><dd>{{ 'Locked' if v.locked else 'Not finalized' }} &middot; {{ v.signatures|join(', ') if v.signatures else 'None recorded' }}</dd></div></dl>
+{% if v.number == 1 %}<p class="version-note">First submission returned for missing follow-up; its issued snapshot is preserved.</p>{% endif %}
+</article></li>
+{% else %}<li class="panel empty-state"><span class="avatar avatar-lavender">{{ icon('shield') }}</span><h2>History content is restricted</h2><p>Version content is not available in this diagnostic view.</p></li>{% endfor %}
+</ol>
+{% endblock %}

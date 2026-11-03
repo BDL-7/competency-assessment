@@ -28,6 +28,15 @@ def create_app(
     configure_application(application, config_name, test_config)
 
     initialize_identity(application)
+    if application.config["PILOT_DEMO_ENABLED"]:
+        from app.data.database import configure_database, get_session_factory
+        from app.data.demo import AS_OF, register_demo_command
+        from app.data.pilot import SqlPilotReader
+
+        configure_database(application)
+        application.extensions["pilot_reader"] = SqlPilotReader(get_session_factory(application), AS_OF)
+        application.config["PILOT_AS_OF"] = AS_OF
+        register_demo_command(application)
     application.register_blueprint(web_blueprint)
 
     return application

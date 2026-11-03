@@ -25,6 +25,8 @@ class BaseConfig:
     MOCK_AUTH_ENABLED = False
     MOCK_USER_ID = None
     MOCK_DISPLAY_NAME = None
+    PILOT_DEMO_ENABLED = False
+    DATABASE_URL = None
 
 
 class DevelopmentConfig(BaseConfig):
@@ -76,6 +78,8 @@ def configure_application(
         MOCK_AUTH_ENABLED=_read_boolean_environment("APP_MOCK_AUTH_ENABLED", False),
         MOCK_USER_ID=os.getenv("APP_MOCK_USER_ID"),
         MOCK_DISPLAY_NAME=os.getenv("APP_MOCK_DISPLAY_NAME"),
+        PILOT_DEMO_ENABLED=_read_boolean_environment("APP_PILOT_DEMO_ENABLED", False),
+        DATABASE_URL=os.getenv("APP_DATABASE_URL"),
     )
     if overrides:
         application.config.update(overrides)
@@ -109,6 +113,25 @@ def _validate_configuration(application: Flask) -> None:
 
     environment_name = application.config["APP_ENV"]
     mock_auth_enabled = application.config["MOCK_AUTH_ENABLED"]
+
+    demo = application.config["PILOT_DEMO_ENABLED"]
+    if not isinstance(demo, bool):
+        raise ConfigurationError("PILOT_DEMO_ENABLED must be a boolean value.")
+    if demo:
+        if environment_name not in {"development", "testing"}:
+            raise ConfigurationError("The synthetic pilot cannot run in production.")
+        if not mock_auth_enabled or _is_missing_text(application.config.get("SECRET_KEY")):
+            raise ConfigurationError("The pilot requires mock identity and a local session secret.")
+        from sqlalchemy.engine import make_url
+        from sqlalchemy.exc import ArgumentError
+        try:
+            url = make_url(application.config.get("DATABASE_URL") or "")
+        except ArgumentError as error:
+            raise ConfigurationError("The pilot requires an explicit SQLite file URL.") from error
+        if url.get_backend_name() != "sqlite" or not url.database or url.database == ":memory:":
+            raise ConfigurationError("The pilot requires an explicit SQLite file URL.")
+        application.config.update(SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE="Lax",
+                                  MAX_CONTENT_LENGTH=16 * 1024)
 
     if not isinstance(mock_auth_enabled, bool):
         raise ConfigurationError("MOCK_AUTH_ENABLED must be a boolean value.")

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "pilot/components.html" import icon, record_link %}
+{% block title %}Work queue | Competency Assessment Tracker{% endblock %}
+{% block content %}
+<div class="page-heading"><p class="eyebrow">WORKSPACE / ASSESSMENTS</p><h1>Work queue</h1><p>A focused view of your assignments. Search, filter and review &mdash; without changing a record.</p></div>
+<form class="filters" method="get">
+  {% for key, value in diagnostic.items() %}{% if value %}<input type="hidden" name="{{ key }}" value="{{ value }}">{% endif %}{% endfor %}
+  <div><label for="q">Search person, team or record</label><div class="search-input">{{ icon('search') }}<input id="q" name="q" maxlength="200" value="{{ q }}" placeholder="Find an assessment"></div></div>
+  <div><label for="state">Workflow state</label><select id="state" name="state"><option value="">All visible states</option>{% for state in states %}<option {% if state == selected_state %}selected{% endif %}>{{ state }}</option>{% endfor %}</select></div>
+  <div><label for="sort">Sort by</label><select id="sort" name="sort"><option value="due" {% if sort == 'due' %}selected{% endif %}>Due date</option><option value="person" {% if sort == 'person' %}selected{% endif %}>Person</option></select></div>
+  <button type="submit">Apply filters</button>
+</form>
+<section class="panel queue-results"><div class="section-heading"><h2>{{ total }} visible result{{ '' if total == 1 else 's' }}</h2><span class="badge badge-sage">Read-only</span></div>
+<div class="table-scroll" role="region" aria-label="Assessment results" tabindex="0"><table>
+<caption>Scoped synthetic assessments &middot; Reference date {{ as_of }}</caption>
+<thead><tr><th scope="col">Person / record</th><th scope="col">Team / grouping</th><th scope="col">State</th><th scope="col">Due date</th></tr></thead>
+<tbody>{% for row in rows %}<tr>
+<td>{{ record_link(row, diagnostic) }}</td><td>{{ row.team }}<small>{{ row.grouping }}</small></td>
+<td><span class="badge">{{ row.state }}</span></td><td>{{ row.due_date }}{% if row.overdue %}<small><span class="badge badge-peach">Overdue</span></small>{% endif %}</td>
+</tr>{% else %}<tr><td colspan="4"><div class="empty-state"><span class="avatar avatar-lavender">{{ icon('search') }}</span><h3>No matching assessments</h3><p>Adjust your filters or contact the application owner about your scope.</p><a class="text-link" href="{{ url_for('web.work', **diagnostic) }}">Clear filters {{ icon('arrow') }}</a></div></td></tr>{% endfor %}</tbody>
+</table></div>
+<nav class="pagination" aria-label="Results pages">
+{% if page > 1 %}<a href="{{ url_for('web.work', page=page-1, q=q, state=selected_state, sort=sort, **diagnostic) }}">Previous</a>{% endif %}
+<span>Page {{ page }} of {{ pages }}</span>
+{% if page < pages %}<a href="{{ url_for('web.work', page=page+1, q=q, state=selected_state, sort=sort, **diagnostic) }}">Next</a>{% endif %}
+</nav></section>
+{% endblock %}

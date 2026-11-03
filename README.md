@@ -3,9 +3,11 @@
 Planning and build-preparation repository for the Non-CLIA laboratory
 competency assessment tracker and its separate read-only knowledge assistant.
 
-> **Status:** S0-01 and S0-02 are approved. S0-03 provides a runnable, tested
-> Flask application foundation. Assessment workflows, physical database schema,
-> migrations, Azure resources, and knowledge-assistant behavior are not implemented.
+> **Status:** The Flask foundation and S0-04A synthetic domain/services,
+> SQLAlchemy models, and migration are implemented. An opt-in local read-only UI
+> provides the existing one-record scenario and deterministic mock assistants.
+> Full workflow web actions, production adapters, cloud resources, and live AI
+> are not implemented. No deployment is authorized.
 
 ## Intended technical baseline
 
@@ -90,8 +92,73 @@ python -m pytest
 python scripts\verify_repository.py
 ```
 
-The S0-03 foundation intentionally contains no assessment, signature, renewal,
-notification, persistence, migration, or assistant behavior.
+Without opt-in pilot mode, the home and health routes remain foundation-only.
+The framework-neutral workflow service is tested separately; this UI does not
+wire its mutation commands or a full persistence unit of work.
+
+### Run the local read-only pilot
+
+Use the existing environment with `requirements-dev.lock` installed. In a new
+PowerShell session, configure only synthetic local values:
+
+```powershell
+$env:APP_ENV = "development"
+$env:APP_SECRET_KEY = [guid]::NewGuid().ToString()
+$env:APP_PILOT_DEMO_ENABLED = "true"
+$env:APP_MOCK_AUTH_ENABLED = "true"
+$env:APP_MOCK_USER_ID = "SYN-EMP-001"
+$env:APP_MOCK_DISPLAY_NAME = "Testing Person One"
+$env:APP_DATABASE_URL = "sqlite:///instance/synthetic-pilot.db"
+Remove-Item Env:DATABASE_URL -ErrorAction SilentlyContinue
+.venv\Scripts\python.exe -m flask --app wsgi init-demo
+.venv\Scripts\python.exe -m flask --app wsgi run --host 127.0.0.1 --no-reload --no-debugger
+```
+
+Open `http://127.0.0.1:5000/`. Stop with Ctrl+C. Do not bind to a public
+interface. The app does not load `.env.example` automatically. A request never
+creates or seeds the schema. `init-demo` migrates a **new dedicated SQLite file**,
+seeds the fixture, and writes an adjacent synthetic ownership manifest.
+Repeating setup for an owned demo changes no records; unknown existing targets
+are rejected, never reset. Choose a new file if setup is incomplete. Alembic's
+separate `DATABASE_URL` override must be unset so it cannot redirect setup.
+
+| Capability | Local pilot status |
+| --- | --- |
+| Overview, scoped counts, queue search/state/sort/pagination | Implemented, read-only |
+| Detail and two issued-version snapshots | Implemented, synthetic fixture |
+| Testing Personnel/final signatures | Not recorded; current signature is pending; no signing UI |
+| Competency and equipment guides | Deterministic mock forms with synthetic citations/escalation |
+| Read auditing and scoped diagnostics | Implemented; diagnostic content minimized |
+| Assessment editing, export, production notifications and Blob access | Deferred |
+| Multi-lab/70-user dataset, five-year history and projections, CLIA workflows | Not implemented in this slice |
+| Foundry/EDAV calls, production identity, deployment | Not enabled |
+
+The visible reference date is **2027-02-20**, not today's date. Version 1
+preserves missing follow-up; version 2 documents synthetic follow-up and awaits
+Testing Personnel signature. The fixture is demonstration data, not proof of
+laboratory compliance or valid electronic signatures.
+
+Personas are fixed by trusted server configuration, not browser controls.
+Restart with another existing synthetic user ID to review its scope; changing a
+display label never grants authority. `SYN-OUT-001` sees no records. Platform
+Admin (`SYN-PLAT-001`) requires a synthetic support purpose/reference and sees
+only minimized status, not assessment content. Access writes minimized audit
+observations but never mutates business records.
+
+Mock chat accepts at most 500 characters, retains no conversation, and makes no
+network requests. Use each guide's exact sample to see its synthetic citation;
+other questions escalate. No equipment instructions or approved-source answers
+are supplied. Production rejects pilot mode.
+
+The requester-selected **Soft Studio** interface uses a lavender navigation
+rail, ivory canvas, peach attention surfaces and sage status accents. The
+overview, assessment dossier, issued-version timeline and mock conversational
+guides share local CSS tokens and inline SVGs, with no remote assets or
+JavaScript dependency. Sample-question buttons submit real CSRF-protected
+forms. Narrow queues scroll within the table rather than the whole page.
+See [the UI task contract](agent-tasks/s0-07-local-pilot-ui.md) for validation
+evidence and outstanding review gates; visual polish does not change record
+scope or imply live AI.
 
 ### Build repository documents
 

@@ -12,6 +12,7 @@ from app.domain import (AssessmentState,AssignmentState,CommandResult,Notificati
 from app.notifications import MinimalNotification,NonDeliveringNotificationAdapter
 from app.reporting import AssessmentSummary
 from app.services.contracts import *
+from app.services.pilot import effective_scope
 
 def _utc(value:datetime)->datetime:
     return value.replace(tzinfo=UTC) if value.tzinfo is None else value.astimezone(UTC)
@@ -295,15 +296,7 @@ class WorkflowService:
                 self._audit(u,actor,"diagnostic_read_denied","report","assessment_status",request_id,correlation_id,"Denied","Diagnostic purpose or reference missing")
                 u.commit();return AssessmentQueryResult("Rejected",correlation_id,(),RejectionCode.FORBIDDEN.value,"Diagnostic purpose and reference are required.")
             employee=u.aggregates.get_user(actor.user_id).employee_id
-            scope=AssessmentQueryScope(
-                actor_user_id=actor.user_id,employee_id=employee,
-                own_employee_id=employee if any(r.role==Role.EMPLOYEE.value for r in effective) else None,
-                own_assessment_ids=tuple(r.assessment_id for r in effective if r.role==Role.EMPLOYEE.value and r.assessment_id),
-                team_ids=tuple(r.team_id for r in effective if r.role==Role.TEAM_LEAD.value and r.team_id),
-                assessor_assessment_ids=tuple(r.assessment_id for r in effective if r.role==Role.ASSESSOR.value and r.assessment_id),
-                technical_supervisor_assessment_ids=tuple(r.assessment_id for r in effective if r.role==Role.TECHNICAL_SUPERVISOR.value and r.assessment_id),
-                configuration_versions=tuple(r.configuration_scope for r in effective if r.role==Role.SQUAD_ADMIN.value and r.configuration_scope),
-                diagnostic=diagnostic)
+            scope=effective_scope(actor.user_id,employee,tuple(effective),self._clock())
             accesses=u.queries.list_assessment_access(scope)
             rows=tuple(AssessmentSummary(x.assessment.id,x.assignment.id,x.assessment.state,x.assignment.due_date,
                 is_overdue(due_date=x.assignment.due_date,as_of=as_of,active=x.assessment.state!=AssessmentState.FINALIZED.value),x.current_version_number) for x in accesses)
