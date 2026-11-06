@@ -51,7 +51,8 @@ artifacts/generated/
 artifacts/renders/
 presentations/html-workshop/CRVLB-competency-assessment-system.html
 presentations/html-workshop/competency-assessment-system-presenter.html
-presentations/html-workshop/Competency-Assessment-Tracker-Presentation.zip
+presentations/html-workshop/*.pdf
+presentations/html-workshop/*.zip
 
 # Historical binary render packages; retain their manifests and source files
 artifacts/archive/**/brief/**/*.pdf
@@ -70,6 +71,9 @@ scripts/documents/*.py
 data/authoritative/*.xlsx
 data/migration/*.xlsx
 data/reference/*.xlsx
+
+# Optional local training inputs; publication requires separate release approval
+docs/buildathon-resources/*.xlsx
 
 # Project-specific presentation content and notes require release approval
 presentations/html-workshop/.workshop/
