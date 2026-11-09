@@ -1,4 +1,4 @@
-window.DECK_CONTENT = {
+window.DECK = {
   meta: {
     shortTitle: "Presentation Example",
     title: "Public-safe presentation example",

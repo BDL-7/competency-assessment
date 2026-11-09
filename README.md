@@ -1,97 +1,97 @@
 # Competency Assessment Tracker
 
-Planning and build-preparation repository for the Non-CLIA laboratory
-competency assessment tracker and its separate read-only knowledge assistant.
+A Non-CLIA laboratory competency assessment application and separate read-only
+knowledge assistant, built as a server-rendered Flask modular monolith.
 
-> **Status:** No runnable Flask application is present yet. The repository
-> currently contains public-safe build tooling, repository policy, presentation
-> framework files, and pointers to controlled project inputs.
+> **Current status:** The Flask foundation, synthetic domain/services,
+> SQLAlchemy mappings and Alembic migration are implemented. An opt-in local
+> read-only pilot shows one synthetic assessment, two issued versions and
+> deterministic mock guides. Full workflow web actions, production adapters,
+> cloud resources and live AI are not implemented. No deployment is authorized.
 
-## Intended technical baseline
+## Start here
 
-- Server-rendered Flask application on Azure App Service
-- Microsoft Entra ID authentication
-- Azure SQL for structured records
-- Private Azure Blob Storage for approved artifacts
-- Managed identity, Azure Key Vault, and Application Insights
-- Minimal-content email notifications with delivery history
-- Separate read-only EDAV/OpenAI knowledge assistant
-
-The application will control records and workflow. AI may explain approved
-requirements with citations, but it must not score, approve, sign, notify, or
-modify official records.
-
-## Repository map
-
-| Directory | Purpose |
+| Goal | Guide |
 | --- | --- |
-| `docs/` | Public repository policy and manifests; controlled binaries remain outside public Git |
-| `data/` | Data classification guidance and future synthetic fixtures |
-| `presentations/html-workshop/` | Reusable HTML presentation framework; project content is release-controlled |
-| `scripts/documents/` | Build requirements; project-specific builders remain release-controlled |
-| `scripts/maintenance/` | Historical repository-maintenance utilities |
-| `scripts/verify_repository.py` | Public-repository safety and structure checks |
-| `artifacts/archive/` | Historical manifests and reproducible source; large binary renders stay out of normal Git |
+| Install, configure, start and test the application | [Development](docs/DEVELOPMENT.md) |
+| Run the current synthetic local demonstration | [Buildathon walkthrough](docs/BUILDATHON.md) |
+| Find authoritative guidance and design documents | [Documentation index](docs/README.md) |
+| Open/build the public synthetic presentation | [HTML presentation framework](presentations/html-workshop/README.md) |
+| Contribute safely | [Contributing](CONTRIBUTING.md), [Security](SECURITY.md), [Agent contract](AGENTS.md) |
 
-## Development prerequisites
+The application requires **Python 3.12**. A modern browser is sufficient for the
+public presentation. Word/PDF conversion tools and internal document builders
+are optional and are not prerequisites for running the application.
 
-- Python 3.12
-- Windows PowerShell for the historical maintenance scripts
-- A modern browser for the modular HTML presentation
-- Microsoft Word or approved LibreOffice tooling if PDF conversion is required
+## What the local pilot demonstrates
 
-Create a Python environment and install the document-building dependency:
+- Scoped overview, queue search/filter/sort, detail and issued-version history.
+- One assessment awaiting Testing Personnel signature; no signatures recorded.
+- Explicit participant relationships, role denials and minimized read auditing.
+- Competency and equipment-guide mock forms with synthetic citations/escalation.
+- A fixed synthetic reference date of **2027-02-20**, not today's date.
 
-```powershell
-py -3.12 -m venv .venv
-.venv\Scripts\Activate.ps1
-python -m pip install -r requirements-docs.txt
-```
+Business records are read-only; access auditing still writes minimized
+observations. The framework-neutral workflow service is tested separately with
+in-memory persistence ports. The local UI does not wire its mutation commands
+or a full persistence unit of work.
 
-Run the repository checks:
+Editing, signing, exports, production notifications, Blob access, a multi-lab
+population, five-year history/projections, CLIA workflows, production identity,
+live AI and deployment are not enabled. See the
+[pilot contract](agent-tasks/s0-07-local-pilot-ui.md) for existing evidence and
+outstanding specialist reviews. Prototype success is not operational approval.
 
-```powershell
-python scripts\verify_repository.py
-```
+## Repository units
 
-Authorized internal checkouts may contain project-specific Word builders. When
-present, they can be run locally with:
+| Unit | Responsibility |
+| --- | --- |
+| [app/](app/) | Flask composition, approved domain/service/data boundaries, local UI, templates and static assets |
+| [migrations/](migrations/) | Application-owned schema history |
+| [tests/](tests/) | Domain, service, authorization, SQL persistence, migration, web and presentation regression checks |
+| [docs/](docs/) | Current guidance, source manifests and architecture decisions |
+| [agent-tasks/](agent-tasks/) | Task contracts, acceptance criteria and approval history |
+| [data/](data/) | Classification and protected-source manifests, not public operational rows |
+| [presentations/](presentations/) | Public synthetic HTML framework; project content remains release-controlled |
+| [scripts/](scripts/) | Repository verifier, internal-builder guidance and historical maintenance utilities |
+| [artifacts/](artifacts/) | Generated-output guidance and retained historical evidence |
+| [.github/workflows/](.github/workflows/) | Existing repository/application checks; no deployment job |
 
-```powershell
-python scripts\documents\build_business_value_need.py
-python scripts\documents\build_consolidated_documents.py
-```
+Root Python manifests, lockfiles, WSGI and Alembic configuration remain at their
+existing entry points. Historical maintenance scripts are not setup commands;
+do not run them as a general cleanup operation.
 
-The builders and generated documents are intentionally excluded from the public
-baseline. Do not publish them without document-owner and information-security
-approval.
+## Approved direction and authority
 
-The presentation framework can be opened through
-`presentations/html-workshop/example.html`. Project-specific deck content and
-presenter notes are not included in the public source baseline.
+The approved technical direction remains Flask on Azure App Service, Entra ID,
+Azure SQL, private Blob Storage, managed identity, Key Vault, monitoring and
+minimal-content notifications. A separate read-only EDAV/OpenAI adapter remains
+the baseline; Foundry is an evaluation option, not an approved replacement.
 
-## Controlled inputs
+AI may explain approved sources with citations but may not score, approve,
+sign, deliver official notifications, grant access or change official records.
+Administrative membership does not grant assessment or signature authority.
 
-Raw workforce trackers, governed workbooks, controlled forms, project-plan
-binaries, and presenter notes are not published to this public repository.
-Authorized team members should follow `docs/SOURCE_MANIFEST.md` and
-`data/DATA_CLASSIFICATION.md` to obtain and validate those inputs.
+Begin with [Product scope](docs/PRODUCT.md),
+[Source authority](docs/SOURCE_AUTHORITY.md) and
+[Architecture](docs/ARCHITECTURE.md). The
+[first-sprint graph](agent-tasks/first-coding-sprint.md) and earlier contracts
+preserve historical planning and approvals; they are not blanket authorization
+to implement deferred work. The
+[public architecture one-pager](docs/project/ca-architecture-one-pager.md)
+is a platform-review summary, not a replacement for governing documents.
 
-Never commit identifiable workforce data, credentials, tokens, connection
-strings, private keys, or confidential presenter notes. Use synthetic data for
-development, demonstrations, documentation, and automated tests.
+## Protected materials and reuse
 
-## Source authority
+Controlled forms, project-plan binaries, governed catalogs, operational
+workbooks and confidential presenter notes remain outside public Git. Obtain
+authorized inputs through [Source manifest](docs/SOURCE_MANIFEST.md) and follow
+[Data classification](data/DATA_CLASSIFICATION.md).
 
-When authorized copies are available, authority is:
+Use synthetic data for development, tests and demonstrations. Do not publish
+local workbooks, controlled content, credentials or generated releases without
+the applicable owner/release approval. Advisory knowledge-format comparisons
+are not approved assistant sources.
 
-1. Controlled laboratory policies and approved forms
-2. Current Competency Assessment Tracker Project Plan
-3. App Architecture and Implementation Guide
-4. Approved test-system catalog
-5. Migration workbooks for lineage evidence only
-6. Presentations and generated artifacts for communication, not policy
-
-See `SECURITY.md` and `CONTRIBUTING.md` before adding project inputs.
-
-No open-source license has been approved yet; see `LICENSE.md` before reuse.
+No open-source license has been approved; see [License status](LICENSE.md)
+before external reuse.

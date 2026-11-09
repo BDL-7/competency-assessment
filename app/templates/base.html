@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Competency Assessment Tracker{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%231c5366'/%3E%3Cpath d='M12 6h8M14 6v9L8 25h16l-6-10V6M11 20h10' fill='none' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body class="{{ 'pilot-app' if pilot else 'foundation-app' }}">
+    {% from "pilot/components.html" import icon %}
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    {% if pilot %}
+    <aside class="sidebar" aria-label="Application workspace">
+      <a class="brand" href="{{ url_for('web.home', **diagnostic) }}">
+        <span class="brand-symbol">{{ icon('lab') }}</span>
+        <span>Competency<span class="brand-subtitle">Assessment tracker</span></span>
+      </a>
+      <p class="nav-section">ASSESSMENT WORKSPACE</p>
+      <nav aria-label="Primary" class="primary-nav">
+        <a href="{{ url_for('web.home', **diagnostic) }}" {% if request.endpoint == 'web.home' %}aria-current="page"{% endif %}>{{ icon('overview') }}<span>Overview</span></a>
+        <a href="{{ url_for('web.work', **diagnostic) }}" {% if request.endpoint in ['web.work', 'web.detail', 'web.history'] %}aria-current="page"{% endif %}>{{ icon('queue') }}<span>Work queue</span></a>
+        <span class="nav-section">KNOWLEDGE GUIDES</span>
+        <a href="{{ url_for('web.assistant', bot='competency', **diagnostic) }}" {% if request.view_args and request.view_args.get('bot') == 'competency' %}aria-current="page"{% endif %}>{{ icon('guide') }}<span>Competency guide</span><small class="mock-tag">MOCK</small></a>
+        <a href="{{ url_for('web.assistant', bot='manual', **diagnostic) }}" {% if request.view_args and request.view_args.get('bot') == 'manual' %}aria-current="page"{% endif %}>{{ icon('equipment') }}<span>Equipment guide</span><small class="mock-tag">MOCK</small></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="local-note">{{ icon('shield') }}<div><strong>Local research pilot</strong><p>Synthetic data. Read-only records.<br>No deployment or external AI.</p></div></div>
+        <div class="user-context"><span class="avatar avatar-lavender">{{ icon('person') }}</span><span><strong>{{ identity.display_name if identity else 'No identity configured' }}</strong><small>Server-configured mock identity</small></span></div>
+      </div>
+    </aside>
+    <div class="workspace">
+      <header class="workspace-topbar">
+        <span class="workspace-label">Assessment workspace <span class="separator">/</span> <strong>Local read-only pilot</strong></span>
+        <span class="reference-date">{{ icon('clock') }}<span>Synthetic reference date <strong>{{ as_of }}</strong></span></span>
+      </header>
+      <main id="main-content" tabindex="-1">
+        {% block content %}{% endblock %}
+      </main>
+      <footer>{{ icon('shield') }}<span>Local read-only demonstration &middot; Not approved laboratory guidance &middot; No valid electronic signatures or equipment operations</span></footer>
+    </div>
+    {% else %}
+    <header class="foundation-header">
+      <a class="site-name" href="{{ url_for('web.home') }}">Competency Assessment Tracker</a>
+    </header>
+    <main id="main-content" tabindex="-1" class="foundation-content">
+      {{ self.content() }}
+    </main>
+    {% endif %}
+  </body>
+</html>

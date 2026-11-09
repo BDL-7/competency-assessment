@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "pilot/components.html" import icon %}
+{% block title %}Assessment detail | Competency Assessment Tracker{% endblock %}
+{% block content %}
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="{{ url_for('web.work', **diagnostic) }}">Work queue</a><span aria-hidden="true">/</span><span>{{ record.row.id }}</span></nav>
+<div class="page-heading heading-row"><div><p class="eyebrow">ASSESSMENT DOSSIER</p><h1>{{ record.row.employee }}</h1><p class="muted">{{ record.row.team }} &middot; {{ record.row.grouping }}</p></div><span class="badge">{{ record.row.state }}</span></div>
+<div class="dossier-layout">
+<div class="panel dossier-content">
+{% if record.diagnostic %}<div class="empty-state"><span class="avatar avatar-lavender">{{ icon('shield') }}</span><h2>Minimized diagnostic view</h2><p>Assessment content and participant details are withheld. This access is audited with your support context.</p></div>
+{% elif record.versions %}
+{% set v = record.versions[-1] %}
+<div class="section-heading"><h2>Current issued version {{ v.number }}</h2><span class="badge badge-sage">Issued snapshot</span></div>
+<p class="muted">The assessor's recorded documentation, kept separate from previous issued versions.</p>
+<section class="dossier-section"><p class="eyebrow">ASSESSMENT CONTEXT</p><h3>{{ v.context }}</h3><p>{{ v.method }}</p></section>
+<section class="dossier-section"><p class="eyebrow">RECORDED OUTCOME</p><p>{{ v.outcome }}</p></section>
+<section class="dossier-section"><p class="eyebrow">EVIDENCE</p><p>{{ v.evidence }}</p></section>
+<section class="note-sage"><h3>Follow-up documentation</h3><p>{{ v.followup }}</p></section>
+<div class="pending-note">{{ icon('clock') }}<div><strong>Signature status</strong><p>{% if v.signatures %}{{ v.signatures|join(', ') }}{% else %}None recorded. Testing Personnel signature is pending; final signature must follow.{% endif %}</p></div></div>
+<section class="dossier-section"><a class="text-link" href="{{ url_for('web.history', record_id=record.row.id, **diagnostic) }}">{{ icon('history') }} View issued-version history {{ icon('arrow') }}</a></section>
+{% else %}<h2>No issued version available</h2><p class="muted">This view contains assignment status only.</p>{% endif %}
+</div>
+<aside class="assignment-sidebar" aria-label="Assignment context">
+  <section class="panel"><p class="eyebrow">ASSIGNMENT SUMMARY</p><h2>Dates &amp; context</h2><dl class="assignment-facts"><dt>Due date</dt><dd>{{ record.row.due_date }}</dd><dt>Condition at {{ as_of }}</dt><dd>{% if record.row.overdue %}<span class="badge badge-peach">Overdue</span>{% else %}Not overdue{% endif %}</dd><dt>Actions</dt><dd>Read-only. Editing, signing and finalization are unavailable.</dd></dl></section>
+  {% if not record.diagnostic %}
+  <section class="panel"><p class="eyebrow">EXPLICIT RELATIONSHIPS</p><h2>People on this record</h2>
+  {% for label, name in record.participants %}<div class="participant"><span class="avatar {{ 'avatar-sage' if loop.first else 'avatar-lavender' }}">{{ icon('person') }}</span><div><small>{{ label }}</small><strong>{{ name }}</strong></div></div>{% endfor %}</section>
+  {% endif %}
+</aside>
+</div>
+{% endblock %}
