@@ -1,0 +1,37 @@
+{
+  "dataset_id": "SYN-BUILDATHON-EDGE-CASES-V1",
+  "synthetic_only": true,
+  "source_basis": "purpose-built scenarios; not derived from operational records",
+  "cases": [
+    {
+      "case_id": "SYN-EDGE-001",
+      "kind": "optional_information_missing",
+      "scenario": "A fictional scenario omits a non-required descriptive value.",
+      "expected_handling": "Show the value as unavailable; do not invent a replacement."
+    },
+    {
+      "case_id": "SYN-EDGE-002",
+      "kind": "work_in_progress_incomplete",
+      "scenario": "A fictional work-in-progress scenario has not yet supplied all expected evidence.",
+      "expected_handling": "Make incompleteness visible; do not represent the scenario as finalized."
+    },
+    {
+      "case_id": "SYN-EDGE-003",
+      "kind": "conflicting_candidate_values",
+      "scenario": "Two fictional candidate values disagree for the same descriptive attribute.",
+      "expected_handling": "Surface the conflict for authorized human review; do not select or normalize either value."
+    },
+    {
+      "case_id": "SYN-EDGE-004",
+      "kind": "future_projection",
+      "scenario": "A fictional future planning item is included for a projected period.",
+      "expected_handling": "Label it as projected; do not represent it as a completed assessment, signature, or event."
+    },
+    {
+      "case_id": "SYN-EDGE-005",
+      "kind": "source_format_variation",
+      "scenario": "Fictional input examples use different labels for a comparable concept.",
+      "expected_handling": "Preserve the candidates and flag mapping for review; do not treat any label as an approved canonical term."
+    }
+  ]
+}
