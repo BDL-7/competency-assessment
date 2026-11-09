@@ -50,6 +50,7 @@ Thumbs.db
 artifacts/generated/
 artifacts/renders/
 /CAT-KB.zip
+/data/synthetic/buildathon/users.csv
 presentations/html-workshop/CRVLB-competency-assessment-system.html
 presentations/html-workshop/competency-assessment-system-presenter.html
 presentations/html-workshop/*.pdf

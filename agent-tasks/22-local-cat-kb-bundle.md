@@ -3,17 +3,18 @@
 ## Contract
 
 - Task: #22; owner: Orchestrator.
-- Goal: make the generated CAT-KB bundle easy to find in a developer's local
-  checkout without publishing or tracking the ZIP.
-- Business reason: allow local buildathon access to the partial knowledge
-  bundle while retaining repository content controls.
+- Goal: keep generated local-only buildathon assets available in a developer's
+  checkout without publishing or tracking them.
+- Business reason: allow local access to the partial CAT-KB bundle and
+  synthetic user roster while retaining repository content controls.
 - Required context: `AGENTS.md`, `docs/SOURCE_AUTHORITY.md`,
   `docs/PRODUCT.md`, and the issue #22 description.
 - Source of truth: the approved source manifest and existing archive contents.
 - Dependencies: an already generated `CAT-KB.zip` bundle.
 - Approved assumptions: the archive is stored at repository-root path
-  `CAT-KB.zip` locally; Git ignores only this root-level filename. The ZIP is
-  not part of the PR, Git history, or public releases.
+  `CAT-KB.zip`, and the generated roster at
+  `data/synthetic/buildathon/users.csv`; Git ignores only these exact paths.
+  Neither file is part of the PR, Git history, or public releases.
 - Allowed files:
   - `.gitignore`
   - `agent-tasks/22-local-cat-kb-bundle.md`
@@ -27,11 +28,13 @@
   existing ZIP in the repository root, and PR targeting `dev`.
 - Acceptance criteria:
   - `CAT-KB.zip` exists at the repository root in the local checkout.
-  - `git check-ignore` confirms it is ignored.
-  - The ignore pattern is anchored to the repository root.
+  - The generated synthetic roster stays at its documented local path.
+  - `git check-ignore` confirms both local-only files are ignored.
+  - Ignore patterns are exact and do not hide other ZIP or CSV files.
   - Git index and PR diff contain no ZIP archive.
 - Validation commands:
   - `git check-ignore -v -- CAT-KB.zip`
+  - `git check-ignore -v -- data/synthetic/buildathon/users.csv`
   - `git ls-files --error-unmatch CAT-KB.zip` must fail because it is not tracked.
   - `git diff --check`
 - Security/privacy: keep only the previously generated partial bundle; the
