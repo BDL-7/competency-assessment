@@ -49,6 +49,7 @@ Thumbs.db
 # Generated and rendered outputs
 artifacts/generated/
 artifacts/renders/
+/CAT-KB.zip
 presentations/html-workshop/CRVLB-competency-assessment-system.html
 presentations/html-workshop/competency-assessment-system-presenter.html
 presentations/html-workshop/*.pdf
