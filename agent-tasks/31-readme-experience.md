@@ -60,4 +60,35 @@
 
 ## Validation and handoff
 
-Pending README implementation, independent review and CI.
+- Publication: issue #31, branch `31-readme-experience`, draft PR #32;
+  verified base `dev`. Bootstrap commit contains only this contract, as
+  approved by the requester.
+- Exact changed files: `README.md` and this contract. No runtime, policy,
+  schema, dependency, data or repository-layout changes.
+- Editorial comparison: replaced the implementation-first opening with an
+  audience/purpose introduction, added a short section navigation, made the
+  six-screen assessment journey the primary action, separated available
+  behavior from its boundary, and grouped deeper links by reader intent.
+  Removed the secondary startup path from the primary demo instructions,
+  placing it in developer navigation instead. Detailed architecture and
+  optional presentation guidance remain linked rather than repeated.
+- Evidence: scope from `docs/PRODUCT.md`; installation and commands from
+  `docs/DEVELOPMENT.md` and `docs/BUILDATHON.md`; current pilot from
+  `app/__init__.py`, `app/config.py`, `app/web/routes.py`, `app/data/demo.py`,
+  `app/ai/mock.py` and the pilot tests. Fixture versus standalone examples,
+  source-handling controls and reuse status match their canonical guides.
+- Validation: all 38 README local links, including heading anchors, passed;
+  README is ASCII; working-tree repository verification passed for 142
+  tracked files; whitespace checks passed.
+- Preflight selected this contract and correctly returned 1 for the local
+  Python 3.14.2 runtime. It is not supported Python 3.12 validation.
+  Documentation-only changes add no local application regression run.
+- Independent read-only review found no significant issues and confirmed
+  local links/anchors and whitespace checks. It did not inspect protected
+  inputs, run the full tests or grant human/operational approval.
+- Publication validation: staged-content verification is required before
+  the README commit; current-head Python 3.12 CI evidence is recorded in
+  PR #32 after publication rather than inferred from older runs.
+- No unresolved README design or scope decisions. Existing specialist,
+  source-owner and operational gates remain unchanged.
+- Next owner: requester reviews draft PR #32; no merge or promotion to `main`.
