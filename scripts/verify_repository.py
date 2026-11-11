@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import ast
+import argparse
+import os
 import re
 import subprocess
 import sys
@@ -59,18 +61,51 @@ TEXT_SUFFIXES = {
 
 def tracked_files() -> list[str]:
     result = subprocess.run(
-        ["git", "ls-files"],
+        ["git", "ls-files", "-z"],
         cwd=ROOT,
         check=True,
         capture_output=True,
-        text=True,
     )
-    return [line.strip().replace("\\", "/") for line in result.stdout.splitlines() if line.strip()]
+    return [os.fsdecode(name) for name in result.stdout.split(b"\0") if name]
 
 
-def main() -> int:
+def staged_files() -> dict[str, str]:
+    result = subprocess.run(
+        ["git", "ls-files", "--stage", "-z"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+    )
+    files: dict[str, str] = {}
+    for entry in result.stdout.split(b"\0"):
+        if not entry:
+            continue
+        metadata, name = entry.split(b"\t", 1)
+        mode, object_id, stage = metadata.split()
+        path = os.fsdecode(name)
+        if stage != b"0":
+            raise ValueError(f"Unresolved index conflict: {path}")
+        if mode not in (b"100644", b"100755", b"120000"):
+            raise ValueError(f"Unsupported index entry: {path}")
+        files[path] = object_id.decode("ascii")
+    return files
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--staged",
+        action="store_true",
+        help="inspect the complete Git index and its staged bytes",
+    )
+    args = parser.parse_args(argv)
     errors: list[str] = []
-    tracked = tracked_files()
+    try:
+        index = staged_files() if args.staged else None
+        tracked = list(index) if index is not None else tracked_files()
+    except (subprocess.CalledProcessError, ValueError) as exc:
+        print(f"Repository verification failed: unable to inspect Git index ({exc}).")
+        return 1
     tracked_set = set(tracked)
 
     missing = sorted(REQUIRED - tracked_set)
@@ -92,8 +127,20 @@ def main() -> int:
             errors.append(f"Historical binary belongs in archive storage or Git LFS: {name}")
 
         path = ROOT / name
-        if path.suffix.lower() in TEXT_SUFFIXES and path.is_file():
-            content = path.read_bytes()
+        if path.suffix.lower() in TEXT_SUFFIXES and (index is not None or path.is_file()):
+            if index is not None:
+                try:
+                    content = subprocess.run(
+                        ["git", "cat-file", "blob", index[name]],
+                        cwd=ROOT,
+                        check=True,
+                        capture_output=True,
+                    ).stdout
+                except subprocess.CalledProcessError:
+                    errors.append(f"Could not read staged content: {name}")
+                    continue
+            else:
+                content = path.read_bytes()
             if name != "scripts/verify_repository.py" and SECRET_PATTERN.search(content):
                 errors.append(f"Potential secret marker requires review: {name}")
             if path.suffix.lower() == ".py":
@@ -108,7 +155,8 @@ def main() -> int:
             print(f"- {error}")
         return 1
 
-    print(f"Repository verification passed for {len(tracked)} tracked files.")
+    source = "staged" if args.staged else "tracked"
+    print(f"Repository verification passed for {len(tracked)} {source} files.")
     return 0
 
 
