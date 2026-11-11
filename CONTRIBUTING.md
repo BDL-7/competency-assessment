@@ -1,5 +1,12 @@
 # Contributing
 
+Start with the [development guide](docs/DEVELOPMENT.md) for Python setup,
+tests and the issue-numbered branch/PR workflow targeting `dev`.
+Agent changes need [AGENTS.md](AGENTS.md) and a
+[current task contract](agent-tasks/README.md); finding a contract does not grant
+a lease or approval. [Completed delivery records](docs/archive/README.md) are
+historical evidence, not current setup instructions.
+
 1. Do not add controlled or identifiable source data to this public repository.
 2. Use synthetic fixtures for application and migration tests.
 3. Keep generated output under `artifacts/generated/` or `artifacts/renders/`.

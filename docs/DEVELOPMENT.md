@@ -64,7 +64,7 @@ Run from the root in a new shell without pilot settings or a `DATABASE_URL`
 migration override:
 
 ```powershell
-.venv\Scripts\python.exe scripts\agent_preflight.py --task 25-agent-workflow-safeguards.md
+.venv\Scripts\python.exe scripts\agent_preflight.py --task YOUR-APPROVED-TASK.md
 .venv\Scripts\python.exe -m pytest
 .venv\Scripts\python.exe -m pip check
 .venv\Scripts\python.exe scripts\verify_repository.py
@@ -72,7 +72,9 @@ migration override:
 git diff --check
 ```
 
-Replace the example with the selected filename under `agent-tasks`. Run
+Replace `YOUR-APPROVED-TASK.md` with the selected filename directly under
+`agent-tasks`; it is a placeholder, not a runnable task selection. Use the
+[current task index](../agent-tasks/README.md), not an archived delivery record. Run
 preflight explicitly at the start of work; it reports the interpreter actually
 running it and returns a nonzero status for an unsupported version or missing
 task. Finding a file does not establish approval or a path lease. The staged
@@ -121,8 +123,10 @@ tests/
   migration/
   end_to_end/
   web/
-agent-tasks/
+agent-tasks/              current task contracts and baseline specifications
+data/examples/            fictional roster generator and scenario catalog
 docs/architecture-decisions/
+docs/archive/             completed documentary history, not setup
 ```
 
 Keep the approved module boundaries and current paths. The live assistant and
@@ -170,9 +174,13 @@ Only authorized internal document work requires:
 Approved internal checkouts may provide
 `scripts\documents\build_business_value_need.py` and
 `scripts\documents\build_consolidated_documents.py`. They are intentionally
-absent from public Git and generate controlled documents; see the
-[builder manifest](../scripts/documents/README.md). Word or approved LibreOffice
+absent from public Git because they embed controlled planning content.
+Their generated outputs belong under ignored `artifacts/generated/` or an
+approved document-management location. `requirements-docs.txt` records the
+public dependency baseline for approved builders. Word or approved LibreOffice
 conversion tooling is needed only for that work, not application setup.
 
-Do not run `scripts\maintenance` utilities during onboarding. They record
-historical moves/archive operations and may change protected local materials.
+The former maintenance utilities are retained as
+[non-executable historical snapshots](archive/README.md#maintenance-snapshots).
+Their old filesystem operations are not setup commands; do not restore or run
+them against a current checkout.

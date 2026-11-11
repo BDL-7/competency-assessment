@@ -16,6 +16,34 @@ Record metadata only after authorization.
 
 Hashes verify authorized local copies without publishing their content.
 
-The public one-pager summarizes the current technical baseline but does not
-replace the controlled Project Plan or App Architecture and Implementation
-Guide.
+The [public architecture one-pager](architecture-one-pager.md) summarizes the
+technical baseline for platform support review; it does not replace the
+controlled Project Plan or App Architecture and Implementation Guide.
+
+## Obtain and verify protected sources
+
+The Project Plan, Architecture and Implementation Guide, Business Value document,
+controlled competency forms and laboratory guidance are not published here.
+Obtain authorized copies through the approved internal channel and check them
+against this manifest before use. The Project Plan governs scope/workflow;
+the Architecture Guide governs technical implementation. A presentation may
+record a newer stakeholder decision but cannot silently override either.
+
+For approved, versioned laboratory sources, authorized environments must retain:
+
+- document owner;
+- version and effective date;
+- approval status;
+- cryptographic hash;
+- retirement or supersession status;
+- permitted use and distribution classification.
+
+The assistant may use only the approved corpus, must cite the governing source,
+and cannot assess evidence, approve competency, sign or change official records.
+Availability in a local directory is not approval for publication or ingestion.
+See [source authority](SOURCE_AUTHORITY.md) and the
+[assistant boundary](AI_BOUNDARY.md).
+
+Public guidance previously under `docs/project/` and `docs/controlled-sources/`
+is consolidated here. Existing ignored local documents stay at their current
+paths; this reorganization does not move, release or change them.
