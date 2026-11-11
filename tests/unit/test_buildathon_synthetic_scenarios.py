@@ -4,13 +4,12 @@ import csv
 import json
 from pathlib import Path
 
-from data.synthetic.buildathon.generate_users import generate_users
+from data.examples.generate_users import FIELDNAMES, OUTPUT_PATH, generate_users
 
 CATALOG_PATH = (
     Path(__file__).parents[2]
     / "data"
-    / "synthetic"
-    / "buildathon"
+    / "examples"
     / "edge-cases.json"
 )
 EXPECTED_USER_COUNT = 70
@@ -23,7 +22,7 @@ def test_catalog_is_explicitly_synthetic_and_scenario_only():
     assert catalog["source_basis"] == (
         "purpose-built scenarios; not derived from operational records"
     )
-    assert catalog["cases"]
+    assert len(catalog["cases"]) == 5
     assert all(case["case_id"].startswith("SYN-EDGE-") for case in catalog["cases"])
     assert all("scenario" in case and "expected_handling" in case for case in catalog["cases"])
 
@@ -43,7 +42,26 @@ def test_user_generator_writes_varied_fictional_roles(tmp_path):
 
     assert generate_users(roster_path) == EXPECTED_USER_COUNT
     with roster_path.open(encoding="utf-8", newline="") as roster_file:
-        users = list(csv.DictReader(roster_file))
+        reader = csv.DictReader(roster_file)
+        assert reader.fieldnames == list(FIELDNAMES)
+        users = list(reader)
+
+    assert OUTPUT_PATH == CATALOG_PATH.with_name("users.csv")
+    role_counts = {}
+    for user in users:
+        roles = user["illustrative_demo_roles"]
+        role_counts[roles] = role_counts.get(roles, 0) + 1
+    assert role_counts == {
+        "employee": 36,
+        "team_lead": 8,
+        "assessor": 10,
+        "technical_supervisor": 5,
+        "employee;assessor": 4,
+        "team_lead;assessor": 3,
+        "squad_admin": 2,
+        "platform_admin": 1,
+        "assessor;technical_supervisor": 1,
+    }
 
     assert len(users) == EXPECTED_USER_COUNT
     assert len({user["synthetic_user_id"] for user in users}) == EXPECTED_USER_COUNT

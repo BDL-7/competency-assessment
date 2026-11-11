@@ -100,5 +100,32 @@
 
 ## Validation and handoff
 
-Implementation evidence is recorded here after validation. Historical results
-in archived contracts do not establish current validation or specialist approval.
+- Bootstrap: issue #28, branch `28-repository-cleanup`, draft PR #29; verified
+  base `dev`. The requester-approved bootstrap exception published only this
+  contract before opening the PR.
+- Targeted local regression: 12 tests passed on Python 3.14.2. Manual preflight
+  selected this contract and correctly returned 1 for the unsupported runtime.
+  These results do not replace Python 3.12 CI; supported-runtime results are
+  recorded against the reviewed PR head.
+- Read-only baseline reconciliation accounted for every removed path. Eight
+  contracts, two maintenance snapshots, generator and scenario JSON preserved
+  their contents exactly (12 moves); the one-pager changed only its relative
+  source-manifest link. Advisory Markdown/HTML changed only the consolidated
+  source reference; PDF and all application/migration/dependency/presentation
+  files stayed unchanged.
+- All 170 local tracked Markdown file/folder/heading links passed.
+- All 17 protected-path checks passed, including old/new roster paths, private
+  source/builder paths and generated outputs. All 141 resulting tracked paths
+  remain eligible; no existing ignore protection was removed.
+- Working-tree and staged repository verification passed for 141 tracked files;
+  staged whitespace checks passed. Only exact leased paths were staged.
+- The configured custom reviewer could not launch because its selected model
+  was unavailable. The standard independent read-only code reviewer completed
+  the integration review against `origin/dev` and found no significant issues.
+  It did not rerun tests or inspect local protected inputs.
+- Historical results in archived contracts remain history, not current
+  validation or specialist approval. Existing operational/specialist gates and
+  knowledge-format ownership remain unresolved; no deployment or merge occurred.
+- Next owner: requester reviewing draft PR #29 and its current Python 3.12 CI.
+  The PR's changed-file view is the exact handoff inventory, including renames
+  and guidance consolidated into current documents.
