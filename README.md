@@ -1,102 +1,108 @@
 # Competency Assessment Tracker
 
-A server-rendered Flask prototype for laboratory competency assessment.
-[Product planning](docs/PRODUCT.md) covers both **CLIA and non-CLIA research
-and surveillance contexts**; the current executable demonstration uses a
-synthetic Non-CLIA scenario.
+A server-rendered Flask prototype for laboratory competency assessments:
+the evidence recorded, the follow-up documented and the history retained.
+It is intended for Testing Personnel, Assigned Team Leads, Assessors and
+Technical Supervisors, with separate responsibilities for each.
 
-> **Local prototype, fictional data.** The opt-in pilot provides read-only
-> assessment views and deterministic mock guides. It does not implement CLIA
-> workflows or production integrations and is not approved for operational use
-> or deployment. Including CLIA in planning is not a claim of regulatory compliance.
+[Product planning](docs/PRODUCT.md) covers **both CLIA and non-CLIA laboratories**
+in research and surveillance contexts. The executable pilot currently
+demonstrates a **synthetic Non-CLIA scenario**, not that full planned scope.
 
-## Run locally
+> **For local evaluation only.** Fictional records, read-only assessment views
+> and deterministic mock guides. No operational-use or deployment approval;
+> no claim of regulatory compliance, validation or production readiness.
 
-1. **Prepare the environment:** follow the
-   [Python 3.12 installation steps](docs/DEVELOPMENT.md#local-prerequisites-and-installation).
-   Install the pinned development dependencies; cloud services and document
-   conversion tools are not needed.
-2. **Open the demo:** follow the
-   [dedicated synthetic setup](docs/BUILDATHON.md#initialize-a-dedicated-synthetic-demo),
-   then open `http://127.0.0.1:5000/`. Use a new, dedicated database and keep
-   the server on loopback; never reset an unknown database.
-3. **Explore and test:** use the
-   [six-screen walkthrough](docs/BUILDATHON.md#six-screen-walkthrough) and
-   [test commands](docs/DEVELOPMENT.md#tests-and-repository-checks).
+[Try the pilot](#try-the-pilot) | [What is built](#what-is-built-and-what-is-not) |
+[Find your next step](#find-your-next-step) | [Repository map](#repository-map)
 
-Prefer the minimal foundation without demo data? Use
-[foundation startup](docs/DEVELOPMENT.md#configuration-and-foundation-startup).
-These linked guides are the maintained homes for commands and recovery steps.
+## Try the pilot
 
-## What works today
+Start here to see the application. No cloud account, live model or document
+conversion tools are needed.
 
-| Surface | Current behavior |
+1. **Set up Python 3.12.** Follow the
+   [installation steps](docs/DEVELOPMENT.md#local-prerequisites-and-installation)
+   from the repository root, using the pinned development dependencies.
+2. **Initialize and run the demo.** Follow the
+   [PowerShell setup](docs/BUILDATHON.md#initialize-a-dedicated-synthetic-demo),
+   then open `http://127.0.0.1:5000/`. Use a new, dedicated synthetic database,
+   keep the server on loopback and never reset an unknown database.
+3. **Follow one assessment.** Use the
+   [six-screen walkthrough](docs/BUILDATHON.md#six-screen-walkthrough) to move
+   from the overview and work queue to recorded evidence, follow-up and
+   issued-version history, then try the two mock guides.
+
+**What to expect:** one assessment, two issued versions, seven synthetic
+identities and **zero recorded signatures**. The second version awaits a
+signature; you cannot sign it in this UI. Dates are evaluated against the fixed
+synthetic reference date **2027-02-20**, not today's date.
+
+Setup commands, identity changes and recovery steps stay in the walkthrough
+so there is one maintained set of instructions.
+
+## What is built, and what is not
+
+| Layer | Available today | Boundary |
+| --- | --- | --- |
+| Local pilot | Scoped overview, searchable work queue, assessment detail and issued history | Business records are read-only; access auditing still writes minimized observations |
+| Mock guides | Competency and equipment-guide forms with synthetic citations and unsupported-question escalation | Deterministic examples, not live AI, loaded manuals or approved laboratory guidance |
+| Workflow services | Assessment, follow-up, signing, finalization and renewal exercised through in-memory persistence ports | Tested separately; not available as UI actions |
+| SQL persistence | SQLAlchemy mappings, Alembic migrations and scoped pilot reads | No complete SQL-backed workflow mutation unit of work |
+
+**Not implemented:** multi-lab coverage, five-year history/projections and CLIA
+workflows. Editing, signing, export, production identity and notifications,
+Blob access and live AI are not enabled in the UI. The
+[pilot contract](agent-tasks/s0-07-local-pilot-ui.md) records the current boundary
+and outstanding specialist reviews.
+
+## Find your next step
+
+| If you are here to... | Go to... |
 | --- | --- |
-| Local pilot | Scoped overview, searchable work queue, assessment detail and issued-version history: **one assessment, two versions, seven synthetic identities, zero signatures** |
-| Mock guides | Competency and equipment-guide forms with deterministic synthetic citations and escalation; no live AI or approved laboratory guidance |
-| Workflow services | Synthetic assessment, follow-up, signing, finalization and renewal behavior tested separately through in-memory persistence ports; not exposed as UI actions |
-| SQL layer | SQLAlchemy mappings, Alembic schema history and scoped pilot reads; no full SQL-backed workflow mutation unit of work |
-| Separate examples | A local generator for 70 fictional people and five data-quality scenarios; not loaded into the app or used to grant permissions |
+| Evaluate the product | [Scope and exclusions](docs/PRODUCT.md), [assessment workflow](docs/WORKFLOW.md) and [roles](docs/AUTHORIZATION.md) |
+| Develop the application | [Developer guide](docs/DEVELOPMENT.md) for configuration, foundation-only startup and [tests/checks](docs/DEVELOPMENT.md#tests-and-repository-checks); [architecture](docs/ARCHITECTURE.md) for the technical baseline |
+| Contribute a change | [Contributing](CONTRIBUTING.md) and the [issue-linked workflow](docs/DEVELOPMENT.md#git-and-task-workflow); agent work also needs [AGENTS.md](AGENTS.md) and an approved, scoped [task contract](agent-tasks/README.md) |
 
-The pilot uses a fixed synthetic reference date of **2027-02-20**, not today's
-date. Business records are read-only, but access auditing writes minimized
-observations. Its pending signature is not a completed signature.
+For terminology, design decisions, optional presentation tooling and deeper
+controls, use the [documentation guide](docs/README.md).
 
-Editing, signing, export, production identity/notifications, Blob access and
-live AI are not enabled in the UI. Multi-lab coverage, five-year
-history/projections and CLIA workflows are not implemented. See the
-[pilot contract](agent-tasks/s0-07-local-pilot-ui.md) for evidence and outstanding
-specialist reviews; prototype success is not operational approval.
+## Repository map
 
-## Find your way
-
-| Work on | Start here |
+| Location | What belongs here |
 | --- | --- |
-| Application | [app/](app/) - Flask composition, domain/services, SQL persistence, templates and assets |
-| Tests and schema | [tests/](tests/), [migrations/](migrations/) and [testing strategy](docs/TESTING.md) |
-| Setup, design and controls | [Documentation guide](docs/README.md) |
-| Fictional examples and private-input boundaries | [Data guide](data/README.md) |
-| Optional presentation tools | [Reusable HTML framework](presentations/html-workshop/README.md); synthetic examples, not the current project pitch |
+| [app/](app/) | Flask application, domain and services, SQL persistence, templates and assets |
+| [tests/](tests/) and [migrations/](migrations/) | Synthetic test coverage and ordered database schema changes |
+| [docs/](docs/README.md) and [agent-tasks/](agent-tasks/README.md) | Maintained guidance, baseline contracts and task-specific scope |
+| [data/](data/README.md) | Fictional examples and guidance for keeping real inputs private; not the application's database |
+| [scripts/](scripts/) and [artifacts/](artifacts/) | Manual repository checks and guidance for ignored generated outputs |
 
-Root WSGI, Alembic and dependency files remain the application entry points.
-The [development guide](docs/DEVELOPMENT.md) explains the direct dependency
-manifests, pinned locks and optional tooling. [scripts/](scripts/) contains
-manual repository checks; [artifacts/](artifacts/) explains ignored output
-destinations. [Documentary history](docs/archive/README.md) is separate from
-current setup instructions.
+At the root, [wsgi.py](wsgi.py) exposes the Flask application;
+[alembic.ini](alembic.ini) configures migrations. Dependency manifests and locks
+are explained in the developer guide. Completed delivery records live in the
+[documentary archive](docs/archive/README.md), not the active setup path.
 
-## Product and laboratory context
+## Keep the demo fictional
 
-Start with [scope and exclusions](docs/PRODUCT.md),
-[workflow](docs/WORKFLOW.md), [roles](docs/AUTHORIZATION.md) and
-[terminology](docs/TERMINOLOGY.md). They distinguish approved prototype rules,
-broader planning and unresolved laboratory decisions.
+The app's small fixture and the separate
+[70-person roster examples](data/examples/README.md) serve different purposes.
+The roster and its five data-quality scenarios are **not loaded into the app**;
+illustrative role labels grant no permissions.
 
-The approved technical direction remains Flask on Azure App Service with Entra
-ID, Azure SQL and private Blob Storage. See [architecture](docs/ARCHITECTURE.md)
-for the full baseline and gated platform evaluations; these are not all
-implemented integrations. The [architecture one-pager](docs/architecture-one-pager.md)
-is a public platform-review summary, not governing authority.
+Use synthetic data for development, tests and demonstrations. Keep controlled
+forms, operational workbooks, identifiable workforce data, credentials and
+confidential notes out of public files, prompts, logs and PRs. Follow
+[data classification](data/DATA_CLASSIFICATION.md), [security](SECURITY.md) and
+[authorized source access](docs/SOURCE_MANIFEST.md).
 
-AI may explain approved sources with citations, but may not score, approve,
-sign, deliver official notifications, grant access or change official records.
-Administrative membership does not confer assessment or signature authority.
-See [source authority](docs/SOURCE_AUTHORITY.md),
-[authorized source access](docs/SOURCE_MANIFEST.md) and the
-[read-only assistant boundary](docs/AI_BOUNDARY.md).
+Laboratory rules come from [governing sources](docs/SOURCE_AUTHORITY.md), not
+demo behavior. AI may not determine competency, approve or sign assessments,
+deliver official notifications, grant access or change official records;
+see the [read-only assistant boundary](docs/AI_BOUNDARY.md). Administrative
+membership does not confer assessment or signature authority. Knowledge-format
+comparisons are advisory references, not an approved assistant corpus.
 
-## Contribute safely
+---
 
-Use synthetic data for development, tests and demonstrations. Controlled forms,
-catalogs, operational workbooks, credentials and confidential notes must not be
-published without the applicable approvals. Knowledge-format comparisons are
-advisory references, not an approved assistant corpus.
-
-Follow [contributing](CONTRIBUTING.md), [security](SECURITY.md),
-[data classification](data/DATA_CLASSIFICATION.md) and the
-[issue-linked development workflow](docs/DEVELOPMENT.md#git-and-task-workflow).
-Agent work also follows [AGENTS.md](AGENTS.md) and a scoped
-[current task contract](agent-tasks/README.md).
-
-No open-source license has been approved. Read the [reuse notice](LICENSE.md)
-before using this material outside the project.
+**Reuse:** no open-source license has been approved.
+Read the [reuse notice](LICENSE.md) before using this material outside the project.
