@@ -4,7 +4,8 @@
 2. Use synthetic fixtures for application and migration tests.
 3. Keep generated output under `artifacts/generated/` or `artifacts/renders/`.
 4. Update `docs/SOURCE_MANIFEST.md` when a governing source changes.
-5. Run `python scripts/verify_repository.py` before opening a pull request.
+5. Run `python scripts/verify_repository.py` and
+   `python scripts/verify_repository.py --staged` before publication.
 6. Document architecture decisions that change roles, signature authority,
    workflow states, data retention, notifications, or AI boundaries.
 

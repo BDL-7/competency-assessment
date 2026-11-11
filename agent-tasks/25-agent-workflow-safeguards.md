@@ -55,3 +55,15 @@
 - Human approval gate: repository changes require normal human PR review;
   no policy, deployment, or operational use is authorized.
 - Path lease owner and expiry: Orchestrator; expires when issue #25 is closed.
+
+## Validation and review
+
+- The eight focused synthetic tests passed locally on Python 3.14.2. This
+  unsupported runtime does not replace the required Python 3.12 CI run.
+- The manual preflight correctly reported the local Python 3.14.2 mismatch
+  and returned a nonzero status without modifying the environment.
+- Both the existing working-tree verifier and the new index verifier passed;
+  staged whitespace checks passed.
+- Independent review reported no significant findings. It did not establish
+  Python 3.12 validation; record CI results in the pull-request handoff.
+- Human review and merge remain outstanding. No deployment is authorized.

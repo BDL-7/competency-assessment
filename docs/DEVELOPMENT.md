@@ -64,11 +64,21 @@ Run from the root in a new shell without pilot settings or a `DATABASE_URL`
 migration override:
 
 ```powershell
+.venv\Scripts\python.exe scripts\agent_preflight.py --task 25-agent-workflow-safeguards.md
 .venv\Scripts\python.exe -m pytest
 .venv\Scripts\python.exe -m pip check
 .venv\Scripts\python.exe scripts\verify_repository.py
+.venv\Scripts\python.exe scripts\verify_repository.py --staged
 git diff --check
 ```
+
+Replace the example with the selected filename under `agent-tasks`. Run
+preflight explicitly at the start of work; it reports the interpreter actually
+running it and returns a nonzero status for an unsupported version or missing
+task. Finding a file does not establish approval or a path lease. The staged
+check examines the complete Git index and its staged bytes, not unstaged
+working-tree edits. It is an additional limited check, not a guarantee that
+content is safe to publish or a substitute for human review.
 
 CI uses Python 3.12, installs `requirements-dev.lock`, upgrades an empty
 synthetic SQLite database, runs the full pytest suite and verifies public
