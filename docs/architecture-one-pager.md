@@ -93,4 +93,4 @@ The controlled Competency Assessment Tracker Project Plan governs product scope
 and workflow. The controlled App Architecture and Implementation Guide governs
 technical implementation. Obtain authorized copies through the approved
 document channel and verify their metadata using
-[`../SOURCE_MANIFEST.md`](../SOURCE_MANIFEST.md).
+[`SOURCE_MANIFEST.md`](SOURCE_MANIFEST.md).

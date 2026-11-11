@@ -2,11 +2,18 @@
 
 ## Purpose
 
-The Competency Assessment Tracker is a controlled Non-CLIA laboratory
-application for assignments, due dates, assessment documentation, required
-follow-up, signatures, notifications, reporting, audit history, artifacts, and
-renewal. A separate read-only knowledge assistant explains supported
-requirements from approved sources with citations and SME escalation.
+The Competency Assessment Tracker is a laboratory application prototype whose
+product planning includes both CLIA and non-CLIA research/surveillance contexts.
+The current executable demonstration uses a synthetic Non-CLIA scenario;
+expanded planning does not authorize CLIA workflow implementation or establish
+regulatory compliance.
+
+The intended application covers assignments, due dates, assessment documentation,
+required follow-up, signatures, notifications, reporting, audit history, artifacts
+and renewal. A separate read-only knowledge assistant is intended to explain
+supported requirements from approved sources with citations and SME escalation.
+These intended capabilities are not all available in the local UI; see the
+[current demonstration boundary](BUILDATHON.md#demonstration-boundary).
 
 ## Approved prototype baseline
 

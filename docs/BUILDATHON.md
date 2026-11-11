@@ -110,7 +110,7 @@ separate gates. Local visual acceptance is not production conformance approval.
 
 Current #17 validation passed all 48 page-layout checks: six screens at
 360/390/768/1024px with 16px and 32px root text. A bounded
-[responsive-text repair](../agent-tasks/buildathon-responsive-text.md) corrected
+[responsive-text repair](archive/tasks/buildathon-responsive-text.md) corrected
 eight pre-existing enlarged-text overflow cases without clipping content.
 The guides also passed synthetic citation/escalation checks and 500-character
 questions at 360px/32px text. The browser input bridge did not dispatch Tab/Enter,

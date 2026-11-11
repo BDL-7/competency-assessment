@@ -1,97 +1,102 @@
 # Competency Assessment Tracker
 
-A Non-CLIA laboratory competency assessment application and separate read-only
-knowledge assistant, built as a server-rendered Flask modular monolith.
+A server-rendered Flask prototype for laboratory competency assessment.
+[Product planning](docs/PRODUCT.md) covers both **CLIA and non-CLIA research
+and surveillance contexts**; the current executable demonstration uses a
+synthetic Non-CLIA scenario.
 
-> **Current status:** The Flask foundation, synthetic domain/services,
-> SQLAlchemy mappings and Alembic migration are implemented. An opt-in local
-> read-only pilot shows one synthetic assessment, two issued versions and
-> deterministic mock guides. Full workflow web actions, production adapters,
-> cloud resources and live AI are not implemented. No deployment is authorized.
+> **Local prototype, fictional data.** The opt-in pilot provides read-only
+> assessment views and deterministic mock guides. It does not implement CLIA
+> workflows or production integrations and is not approved for operational use
+> or deployment. Including CLIA in planning is not a claim of regulatory compliance.
 
-## Start here
+## Run locally
 
-| Goal | Guide |
+1. **Prepare the environment:** follow the
+   [Python 3.12 installation steps](docs/DEVELOPMENT.md#local-prerequisites-and-installation).
+   Install the pinned development dependencies; cloud services and document
+   conversion tools are not needed.
+2. **Open the demo:** follow the
+   [dedicated synthetic setup](docs/BUILDATHON.md#initialize-a-dedicated-synthetic-demo),
+   then open `http://127.0.0.1:5000/`. Use a new, dedicated database and keep
+   the server on loopback; never reset an unknown database.
+3. **Explore and test:** use the
+   [six-screen walkthrough](docs/BUILDATHON.md#six-screen-walkthrough) and
+   [test commands](docs/DEVELOPMENT.md#tests-and-repository-checks).
+
+Prefer the minimal foundation without demo data? Use
+[foundation startup](docs/DEVELOPMENT.md#configuration-and-foundation-startup).
+These linked guides are the maintained homes for commands and recovery steps.
+
+## What works today
+
+| Surface | Current behavior |
 | --- | --- |
-| Install, configure, start and test the application | [Development](docs/DEVELOPMENT.md) |
-| Run the current synthetic local demonstration | [Buildathon walkthrough](docs/BUILDATHON.md) |
-| Find authoritative guidance and design documents | [Documentation index](docs/README.md) |
-| Open/build the public synthetic presentation | [HTML presentation framework](presentations/html-workshop/README.md) |
-| Contribute safely | [Contributing](CONTRIBUTING.md), [Security](SECURITY.md), [Agent contract](AGENTS.md) |
+| Local pilot | Scoped overview, searchable work queue, assessment detail and issued-version history: **one assessment, two versions, seven synthetic identities, zero signatures** |
+| Mock guides | Competency and equipment-guide forms with deterministic synthetic citations and escalation; no live AI or approved laboratory guidance |
+| Workflow services | Synthetic assessment, follow-up, signing, finalization and renewal behavior tested separately through in-memory persistence ports; not exposed as UI actions |
+| SQL layer | SQLAlchemy mappings, Alembic schema history and scoped pilot reads; no full SQL-backed workflow mutation unit of work |
+| Separate examples | A local generator for 70 fictional people and five data-quality scenarios; not loaded into the app or used to grant permissions |
 
-The application requires **Python 3.12**. A modern browser is sufficient for the
-public presentation. Word/PDF conversion tools and internal document builders
-are optional and are not prerequisites for running the application.
+The pilot uses a fixed synthetic reference date of **2027-02-20**, not today's
+date. Business records are read-only, but access auditing writes minimized
+observations. Its pending signature is not a completed signature.
 
-## What the local pilot demonstrates
+Editing, signing, export, production identity/notifications, Blob access and
+live AI are not enabled in the UI. Multi-lab coverage, five-year
+history/projections and CLIA workflows are not implemented. See the
+[pilot contract](agent-tasks/s0-07-local-pilot-ui.md) for evidence and outstanding
+specialist reviews; prototype success is not operational approval.
 
-- Scoped overview, queue search/filter/sort, detail and issued-version history.
-- One assessment awaiting Testing Personnel signature; no signatures recorded.
-- Explicit participant relationships, role denials and minimized read auditing.
-- Competency and equipment-guide mock forms with synthetic citations/escalation.
-- A fixed synthetic reference date of **2027-02-20**, not today's date.
+## Find your way
 
-Business records are read-only; access auditing still writes minimized
-observations. The framework-neutral workflow service is tested separately with
-in-memory persistence ports. The local UI does not wire its mutation commands
-or a full persistence unit of work.
-
-Editing, signing, exports, production notifications, Blob access, a multi-lab
-population, five-year history/projections, CLIA workflows, production identity,
-live AI and deployment are not enabled. See the
-[pilot contract](agent-tasks/s0-07-local-pilot-ui.md) for existing evidence and
-outstanding specialist reviews. Prototype success is not operational approval.
-
-## Repository units
-
-| Unit | Responsibility |
+| Work on | Start here |
 | --- | --- |
-| [app/](app/) | Flask composition, approved domain/service/data boundaries, local UI, templates and static assets |
-| [migrations/](migrations/) | Application-owned schema history |
-| [tests/](tests/) | Domain, service, authorization, SQL persistence, migration, web and presentation regression checks |
-| [docs/](docs/) | Current guidance, source manifests and architecture decisions |
-| [agent-tasks/](agent-tasks/) | Task contracts, acceptance criteria and approval history |
-| [data/](data/) | Classification and protected-source manifests, not public operational rows |
-| [presentations/](presentations/) | Public synthetic HTML framework; project content remains release-controlled |
-| [scripts/](scripts/) | Repository verifier, internal-builder guidance and historical maintenance utilities |
-| [artifacts/](artifacts/) | Generated-output guidance and retained historical evidence |
-| [.github/workflows/](.github/workflows/) | Existing repository/application checks; no deployment job |
+| Application | [app/](app/) - Flask composition, domain/services, SQL persistence, templates and assets |
+| Tests and schema | [tests/](tests/), [migrations/](migrations/) and [testing strategy](docs/TESTING.md) |
+| Setup, design and controls | [Documentation guide](docs/README.md) |
+| Fictional examples and private-input boundaries | [Data guide](data/README.md) |
+| Optional presentation tools | [Reusable HTML framework](presentations/html-workshop/README.md); synthetic examples, not the current project pitch |
 
-Root Python manifests, lockfiles, WSGI and Alembic configuration remain at their
-existing entry points. Historical maintenance scripts are not setup commands;
-do not run them as a general cleanup operation.
+Root WSGI, Alembic and dependency files remain the application entry points.
+The [development guide](docs/DEVELOPMENT.md) explains the direct dependency
+manifests, pinned locks and optional tooling. [scripts/](scripts/) contains
+manual repository checks; [artifacts/](artifacts/) explains ignored output
+destinations. [Documentary history](docs/archive/README.md) is separate from
+current setup instructions.
 
-## Approved direction and authority
+## Product and laboratory context
 
-The approved technical direction remains Flask on Azure App Service, Entra ID,
-Azure SQL, private Blob Storage, managed identity, Key Vault, monitoring and
-minimal-content notifications. A separate read-only EDAV/OpenAI adapter remains
-the baseline; Foundry is an evaluation option, not an approved replacement.
+Start with [scope and exclusions](docs/PRODUCT.md),
+[workflow](docs/WORKFLOW.md), [roles](docs/AUTHORIZATION.md) and
+[terminology](docs/TERMINOLOGY.md). They distinguish approved prototype rules,
+broader planning and unresolved laboratory decisions.
 
-AI may explain approved sources with citations but may not score, approve,
+The approved technical direction remains Flask on Azure App Service with Entra
+ID, Azure SQL and private Blob Storage. See [architecture](docs/ARCHITECTURE.md)
+for the full baseline and gated platform evaluations; these are not all
+implemented integrations. The [architecture one-pager](docs/architecture-one-pager.md)
+is a public platform-review summary, not governing authority.
+
+AI may explain approved sources with citations, but may not score, approve,
 sign, deliver official notifications, grant access or change official records.
-Administrative membership does not grant assessment or signature authority.
+Administrative membership does not confer assessment or signature authority.
+See [source authority](docs/SOURCE_AUTHORITY.md),
+[authorized source access](docs/SOURCE_MANIFEST.md) and the
+[read-only assistant boundary](docs/AI_BOUNDARY.md).
 
-Begin with [Product scope](docs/PRODUCT.md),
-[Source authority](docs/SOURCE_AUTHORITY.md) and
-[Architecture](docs/ARCHITECTURE.md). The
-[first-sprint graph](agent-tasks/first-coding-sprint.md) and earlier contracts
-preserve historical planning and approvals; they are not blanket authorization
-to implement deferred work. The
-[public architecture one-pager](docs/project/ca-architecture-one-pager.md)
-is a platform-review summary, not a replacement for governing documents.
+## Contribute safely
 
-## Protected materials and reuse
+Use synthetic data for development, tests and demonstrations. Controlled forms,
+catalogs, operational workbooks, credentials and confidential notes must not be
+published without the applicable approvals. Knowledge-format comparisons are
+advisory references, not an approved assistant corpus.
 
-Controlled forms, project-plan binaries, governed catalogs, operational
-workbooks and confidential presenter notes remain outside public Git. Obtain
-authorized inputs through [Source manifest](docs/SOURCE_MANIFEST.md) and follow
-[Data classification](data/DATA_CLASSIFICATION.md).
+Follow [contributing](CONTRIBUTING.md), [security](SECURITY.md),
+[data classification](data/DATA_CLASSIFICATION.md) and the
+[issue-linked development workflow](docs/DEVELOPMENT.md#git-and-task-workflow).
+Agent work also follows [AGENTS.md](AGENTS.md) and a scoped
+[current task contract](agent-tasks/README.md).
 
-Use synthetic data for development, tests and demonstrations. Do not publish
-local workbooks, controlled content, credentials or generated releases without
-the applicable owner/release approval. Advisory knowledge-format comparisons
-are not approved assistant sources.
-
-No open-source license has been approved; see [License status](LICENSE.md)
-before external reuse.
+No open-source license has been approved. Read the [reuse notice](LICENSE.md)
+before using this material outside the project.
