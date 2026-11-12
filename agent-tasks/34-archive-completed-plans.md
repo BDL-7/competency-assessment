@@ -83,4 +83,27 @@
 
 ## Validation and handoff
 
-Pending implementation, independent review and current-head CI.
+- Publication: issue #34, branch `34-archive-completed-plans`, draft PR #35.
+  Verified target `dev` before implementation. Requester-approved bootstrap
+  published only this contract.
+- Eight moves reconciled against `origin/dev`: six text-identical records;
+  the sprint graph and pilot record differ only in mechanical relative links.
+  Original approvals, pending reviews, literal historical paths and commands
+  remain preserved.
+- All 202 tracked Markdown local links/anchors passed. Working-tree repository
+  verification passed for 143 indexed paths; final staged verification covers
+  the new archive locations. Whitespace checks passed.
+- Preflight selected this contract and returned 1 for local Python 3.14.2,
+  correctly identifying the unsupported runtime. No local application tests
+  were added/run for this documentation-only change. Existing Python 3.12 CI
+  remains required; final-head evidence is recorded in PR #35 after publication.
+- Current walkthrough, canonical requirements, prototype assumption/source
+  gates and original pending reviews remain linked. Archive retention has no
+  timer: explicit later requester deletion approval is required.
+- Private/untracked/ignored inputs and runtime files remain untouched.
+- Independent read-only review against `origin/dev`: no significant issues.
+  It reviewed the documentation and leased archive destinations only, did
+  not run full tests or inspect private/unrelated inputs, and does not provide
+  human or specialist approval.
+- Handoff: final staged checks and independent review precede publication;
+  requester reviews draft PR #35 next. No merge or deployment.

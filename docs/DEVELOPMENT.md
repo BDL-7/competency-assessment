@@ -123,7 +123,7 @@ tests/
   migration/
   end_to_end/
   web/
-agent-tasks/              current task contracts and baseline specifications
+agent-tasks/              current task contracts; completed baselines are archived
 data/examples/            fictional roster generator and scenario catalog
 docs/architecture-decisions/
 docs/archive/             completed documentary history, not setup
