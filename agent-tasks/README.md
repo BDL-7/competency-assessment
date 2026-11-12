@@ -1,28 +1,28 @@
-# Current Tasks and Baseline Contracts
+# Current Tasks
 
-Use this directory to select an approved task and understand the specifications
-it depends on. A file's presence is not approval or a writable lease.
+Use this directory to select current work. A file's presence is not approval
+or a writable lease. Implementation proceeds through separately approved app
+changes, not the historical first-sprint execution sequence.
 
 ## Current work
 
 | Contract | Scope |
 | --- | --- |
-| [Repository cleanup (#28)](28-repository-cleanup.md) | Organization and developer onboarding only; no runtime, policy or schema changes |
+| [Archive completed plans (#34)](34-archive-completed-plans.md) | Historical documentation and navigation only; no runtime, policy or private-file changes |
 
-## Retained baselines and open gates
+## Requirements and retained decisions
 
-| Reference | Why it remains here |
+| Need | Start here |
 | --- | --- |
-| [Synthetic scenario](s0-01-synthetic-scenario.md) | Acceptance criteria, prototype-only assumptions and unresolved production/source decisions |
-| [Interface contract](s0-02-interface-schema-contract.md) | Shared service/domain/persistence interfaces and traceability, not the physical schema |
-| [Workflow slice](s0-04a-workflow-vertical-slice.md) | Current behavior/control contract; recorded review gates must not be inferred complete from merge status |
-| [Local pilot](s0-07-local-pilot-ui.md) | Current read-only UI boundary and deferred specialist reviews |
-| [First-sprint graph](first-coding-sprint.md) | Baseline dependencies and deferred tracks, not authorization to execute them |
+| Current scope, controls and implementation guidance | [Documentation guide](../docs/README.md) |
+| Current demo and outstanding reviews | [Local walkthrough](../docs/BUILDATHON.md) |
+| Original acceptance criteria, prototype decisions, interface agreements and approval evidence | [Archived baselines and open gates](../docs/archive/README.md#retained-baselines-and-open-gates) |
 
-[Completed delivery records](../docs/archive/README.md) retain original approvals,
-validation and limitations. Their old paths and commands describe history, not
-current onboarding. Preflight accepts only a contract filename directly in this
-directory; it does not select archived work or establish authorization.
+Completed tasks and the old sprint graph are [archived](../docs/archive/README.md),
+not current work. Archiving does not revoke still-applicable decisions, approve
+pending reviews or make historical feature targets implemented today.
+Preflight accepts only a contract filename directly in this directory; it does
+not select archived work or establish authorization.
 
 ## Contract template
 

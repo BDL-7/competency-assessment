@@ -14,8 +14,9 @@ channel; this index does not approve their release or assistant use.
   planned coverage is not a claim that every layer is implemented.
 - [Operations and gates](OPERATIONS.md): local-only intent, specialist reviews and
   production/deployment gates.
-- [Current task contracts](../agent-tasks/README.md): writable scope, acceptance,
-  baseline specifications and unresolved approval gates.
+- [Current task contracts](../agent-tasks/README.md): writable scope and acceptance
+  for current work; [archived baselines and open gates](archive/README.md#retained-baselines-and-open-gates)
+  preserve original decisions without presenting old phases as today's task list.
 - [Fictional examples](../data/examples/README.md): separate roster generator
   and data-quality scenarios, not the app's local demo fixture.
 

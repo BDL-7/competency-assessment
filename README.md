@@ -53,8 +53,10 @@ so there is one maintained set of instructions.
 **Not implemented:** multi-lab coverage, five-year history/projections and CLIA
 workflows. Editing, signing, export, production identity and notifications,
 Blob access and live AI are not enabled in the UI. The
-[pilot contract](agent-tasks/s0-07-local-pilot-ui.md) records the current boundary
-and outstanding specialist reviews.
+[walkthrough](docs/BUILDATHON.md#demonstration-acceptance-and-limitations) records
+the current boundary and outstanding specialist reviews; the
+[original pilot contract](docs/archive/tasks/s0-07-local-pilot-ui.md) retains
+its approval and delivery history.
 
 ## Find your next step
 
@@ -73,7 +75,7 @@ controls, use the [documentation guide](docs/README.md).
 | --- | --- |
 | [app/](app/) | Flask application, domain and services, SQL persistence, templates and assets |
 | [tests/](tests/) and [migrations/](migrations/) | Synthetic test coverage and ordered database schema changes |
-| [docs/](docs/README.md) and [agent-tasks/](agent-tasks/README.md) | Maintained guidance, baseline contracts and task-specific scope |
+| [docs/](docs/README.md) and [agent-tasks/](agent-tasks/README.md) | Maintained guidance and current task-specific scope; completed plans are archived |
 | [data/](data/README.md) | Fictional examples and guidance for keeping real inputs private; not the application's database |
 | [scripts/](scripts/) and [artifacts/](artifacts/) | Manual repository checks and guidance for ignored generated outputs |
 
