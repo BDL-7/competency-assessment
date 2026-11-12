@@ -16,7 +16,7 @@ signature. Future dates are demonstration values, not events that happened today
 This is not a multi-lab dataset, five-year history/projection, CLIA workflow,
 laboratory compliance demonstration or valid electronic-signature system.
 See [PRODUCT.md](PRODUCT.md) and the
-[pilot contract](../agent-tasks/s0-07-local-pilot-ui.md).
+[original pilot contract](archive/tasks/s0-07-local-pilot-ui.md).
 
 ## Initialize a dedicated synthetic demo
 

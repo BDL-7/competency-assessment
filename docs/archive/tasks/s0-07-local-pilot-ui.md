@@ -114,25 +114,25 @@ deployment, controlled-source use, production identity/data, or broader scope.
 
 This includes the preserved pending UI implementation and its redesign:
 
-- Configuration/composition: [`.env.example`](../.env.example),
-  [`app/__init__.py`](../app/__init__.py), [`app/config.py`](../app/config.py).
-- Read services/data/setup: [`app/services/pilot.py`](../app/services/pilot.py),
-  [`app/services/workflow.py`](../app/services/workflow.py),
-  [`app/data/pilot.py`](../app/data/pilot.py),
-  [`app/data/demo.py`](../app/data/demo.py).
-- Routes/mock answers: [`app/web/routes.py`](../app/web/routes.py),
-  [`app/ai/mock.py`](../app/ai/mock.py).
-- Visual system/shell: [`app/static/styles.css`](../app/static/styles.css),
-  [`app/templates/base.html`](../app/templates/base.html),
-  [`app/templates/pilot/components.html`](../app/templates/pilot/components.html).
-- Screens: [`dashboard.html`](../app/templates/pilot/dashboard.html),
-  [`work.html`](../app/templates/pilot/work.html),
-  [`detail.html`](../app/templates/pilot/detail.html),
-  [`history.html`](../app/templates/pilot/history.html),
-  [`assistant.html`](../app/templates/pilot/assistant.html),
-  [`error.html`](../app/templates/pilot/error.html).
-- Tests/documentation: [`tests/web/test_pilot.py`](../tests/web/test_pilot.py),
-  [`README.md`](../README.md), this task contract.
+- Configuration/composition: [`.env.example`](../../../.env.example),
+  [`app/__init__.py`](../../../app/__init__.py), [`app/config.py`](../../../app/config.py).
+- Read services/data/setup: [`app/services/pilot.py`](../../../app/services/pilot.py),
+  [`app/services/workflow.py`](../../../app/services/workflow.py),
+  [`app/data/pilot.py`](../../../app/data/pilot.py),
+  [`app/data/demo.py`](../../../app/data/demo.py).
+- Routes/mock answers: [`app/web/routes.py`](../../../app/web/routes.py),
+  [`app/ai/mock.py`](../../../app/ai/mock.py).
+- Visual system/shell: [`app/static/styles.css`](../../../app/static/styles.css),
+  [`app/templates/base.html`](../../../app/templates/base.html),
+  [`app/templates/pilot/components.html`](../../../app/templates/pilot/components.html).
+- Screens: [`dashboard.html`](../../../app/templates/pilot/dashboard.html),
+  [`work.html`](../../../app/templates/pilot/work.html),
+  [`detail.html`](../../../app/templates/pilot/detail.html),
+  [`history.html`](../../../app/templates/pilot/history.html),
+  [`assistant.html`](../../../app/templates/pilot/assistant.html),
+  [`error.html`](../../../app/templates/pilot/error.html).
+- Tests/documentation: [`tests/web/test_pilot.py`](../../../tests/web/test_pilot.py),
+  [`README.md`](../../../README.md), this task contract.
 
 ### Remaining limitations
 

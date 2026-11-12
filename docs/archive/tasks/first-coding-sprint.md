@@ -105,9 +105,9 @@ last. Any interface revision reopens affected task approvals.
 
 Issue #13 records the requester's 2026-11-02 direction without reopening or
 expanding the implementation authority of the original sprint contracts.
-Canonical requirements are maintained in [PRODUCT.md](../docs/PRODUCT.md),
-[ARCHITECTURE.md](../docs/ARCHITECTURE.md), and
-[OPERATIONS.md](../docs/OPERATIONS.md); the full conversational prompts are not
+Canonical requirements are maintained in [PRODUCT.md](../../PRODUCT.md),
+[ARCHITECTURE.md](../../ARCHITECTURE.md), and
+[OPERATIONS.md](../../OPERATIONS.md); the full conversational prompts are not
 duplicated here.
 
 Follow-on tasks must first agree the synthetic population/schema assumptions
