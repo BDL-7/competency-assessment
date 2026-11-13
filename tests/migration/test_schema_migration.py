@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+import shutil
 from pathlib import Path
-from uuid import uuid4
 
 import pytest
 from alembic import command
@@ -30,14 +30,30 @@ def migration_config(database_path: Path) -> Config:
     return config
 
 
-def isolated_database(name: str) -> Path:
-    directory = Path("instance") / "test-databases"
-    directory.mkdir(parents=True, exist_ok=True)
-    return directory / f"{name}-{uuid4().hex}.db"
+@pytest.fixture
+def isolated_database_directory(tmp_path: Path):
+    try:
+        yield tmp_path
+    finally:
+        shutil.rmtree(tmp_path)
 
 
-def test_clean_upgrade_is_repeatable_and_does_not_seed_operational_rows() -> None:
-    database_path = isolated_database("clean")
+@pytest.fixture
+def engine_cleanup(isolated_database_directory: Path):
+    engines = []
+    yield engines.append
+    for engine in reversed(engines):
+        engine.dispose()
+
+
+def isolated_database(directory: Path, name: str) -> Path:
+    return directory / f"{name}.db"
+
+
+def test_clean_upgrade_is_repeatable_and_does_not_seed_operational_rows(
+    isolated_database_directory: Path, engine_cleanup,
+) -> None:
+    database_path = isolated_database(isolated_database_directory, "clean")
     config = migration_config(database_path)
 
     command.upgrade(config, "head")
@@ -47,21 +63,23 @@ def test_clean_upgrade_is_repeatable_and_does_not_seed_operational_rows() -> Non
     application.config["DATABASE_URL"] = f"sqlite:///{database_path.as_posix()}"
     resources = configure_database(application)
     engine = resources["engine"]
+    engine_cleanup(engine)
     assert APPLICATION_TABLES <= set(inspect(engine).get_table_names())
     with engine.connect() as connection:
         assert connection.scalar(text("PRAGMA foreign_keys")) == 1
         for table_name in APPLICATION_TABLES:
             assert connection.scalar(text(f'SELECT COUNT(*) FROM "{table_name}"')) == 0
-    engine.dispose()
-    database_path.unlink()
 
 
-def test_foreign_keys_are_enforced_and_parent_deletion_is_restricted() -> None:
-    database_path = isolated_database("foreign-keys")
+def test_foreign_keys_are_enforced_and_parent_deletion_is_restricted(
+    isolated_database_directory: Path, engine_cleanup,
+) -> None:
+    database_path = isolated_database(isolated_database_directory, "foreign-keys")
     command.upgrade(migration_config(database_path), "head")
     application = Flask(__name__)
     application.config["DATABASE_URL"] = f"sqlite:///{database_path.as_posix()}"
     engine = configure_database(application)["engine"]
+    engine_cleanup(engine)
 
     with engine.begin() as connection:
         connection.execute(text(
@@ -85,16 +103,17 @@ def test_foreign_keys_are_enforced_and_parent_deletion_is_restricted() -> None:
                 "(id, team_id, display_label, is_active, created_at) "
                 "VALUES ('SYN-BAD', 'MISSING', 'Synthetic Missing', 1, CURRENT_TIMESTAMP)"
             ))
-    engine.dispose()
-    database_path.unlink()
 
 
-def test_identity_and_logical_effect_uniqueness_constraints_exist() -> None:
-    database_path = isolated_database("constraints")
+def test_identity_and_logical_effect_uniqueness_constraints_exist(
+    isolated_database_directory: Path, engine_cleanup,
+) -> None:
+    database_path = isolated_database(isolated_database_directory, "constraints")
     command.upgrade(migration_config(database_path), "head")
     application = Flask(__name__)
     application.config["DATABASE_URL"] = f"sqlite:///{database_path.as_posix()}"
     engine = configure_database(application)["engine"]
+    engine_cleanup(engine)
     inspector = inspect(engine)
 
     required_unique_columns = {
@@ -142,5 +161,3 @@ def test_identity_and_logical_effect_uniqueness_constraints_exist() -> None:
     for table_name in retained_tables:
         for foreign_key in inspector.get_foreign_keys(table_name):
             assert foreign_key["options"].get("ondelete") == "RESTRICT"
-    engine.dispose()
-    database_path.unlink()

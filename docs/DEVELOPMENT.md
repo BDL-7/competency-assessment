@@ -134,6 +134,35 @@ its `tests/ai_evals/` remain future authorized work, not a missing prerequisite
 for the deterministic mock UI. Adding a tool or platform requires an approved
 task and, when it changes architecture, an ADR.
 
+### Folders visible in a local checkout
+
+| Folder | Purpose |
+| --- | --- |
+| `.git/` | Git's version history and repository metadata; Git requires it at the root |
+| `.github/` | GitHub-specific workflows and repository instructions |
+| `.venv/` | Your installed Python environment; ignored by Git and not application source |
+| `__pycache__/` | Automatically generated Python bytecode; safe to recreate |
+| `.pytest-data-temp/` | Temporary local scratch/output, not application source |
+| `instance/` | Local runtime data and databases, excluded from Git; tests use separate temporary databases |
+| `agent-tasks/` | Human-readable task contracts, not executable agents |
+
+`app/` is the Python application package. Python caches and the environment
+are generated beside the project because that is how Python and its tools work;
+they are not extra source folders to combine or move.
+
+Root `wsgi.py` is the standard Flask import target used by
+`flask --app wsgi`. `alembic.ini` is the standard migration configuration
+loaded by Alembic. `requirements.in` and `requirements.lock` describe and pin
+runtime dependencies; the `-dev` pair adds test tools and is used by CI.
+`requirements-docs.txt` is optional and only for authorized document builders.
+`SECURITY.md` stays at root so GitHub and contributors can find the reporting
+instructions. These files are small, active entry points rather than misplaced
+application modules.
+
+Migration and persistence tests use temporary per-test databases. Never use a
+test database as the local demo or point a test/migration command at an unknown
+database. The two workflows have different data lifecycles.
+
 ## Git and task workflow
 
 1. Create or identify the issue.
