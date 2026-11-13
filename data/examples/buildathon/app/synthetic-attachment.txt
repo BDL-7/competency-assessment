@@ -1,0 +1,5 @@
+SYNTHETIC DEMONSTRATION ONLY
+Source: SYN-ATTACHMENT-1, version SYN-1.
+This harmless shared attachment illustrates metadata and integrity checks.
+It is not a completed form, laboratory evidence, or an operational document.
+No person, specimen, instrument result, or laboratory requirement is recorded.
