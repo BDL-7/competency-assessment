@@ -2,7 +2,7 @@
 
 | Data class | Examples | Git policy |
 | --- | --- | --- |
-| Synthetic | Invented employees, assessments, teams, and test systems | Commit |
+| Synthetic | Invented employees, assessments, teams, and test systems | Source fixtures may be committed outside `data/`; generated workbooks remain ignored |
 | Schema and mapping | Field definitions and approved value mappings without operational rows | Commit after review |
 | Governed reference | Approved test-system catalog | Commit only with owner and release approval |
 | Migration source | MIST and HIR operational trackers | Never commit raw to public Git |
@@ -14,6 +14,11 @@ lineage. It must not silently normalize ambiguous values. Tests and demos must
 use synthetic fixtures.
 
 ## Source versus local output
+
+The entire `data/` directory is ignored. Never force-add it; Git ignore does not
+remove previously committed content from history or keep local files private
+outside Git. Use only approved channels for controlled material. Clean clones
+regenerate synthetic files from tracked fixtures outside this directory.
 
 Keep application source, tests, synthetic fixtures, canonical guidance, manifests
 and public presentation HTML/JavaScript/CSS/assets tracked. The presentation

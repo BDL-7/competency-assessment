@@ -29,10 +29,10 @@ without a new approved task.
 
 | Archived record | Issue | Current entry point |
 | --- | --- | --- |
-| [Synthetic examples](tasks/20-synthetic-buildathon-data.md) | #20 | [Fictional examples](../../data/examples/README.md); the old local CSV remains ignored |
+| [Synthetic examples](tasks/20-synthetic-buildathon-data.md) | #20 | [Synthetic data inventory](../DATA_INVENTORY.md); local outputs remain ignored |
 | [Local knowledge bundle](tasks/22-local-cat-kb-bundle.md) | #22 | [Source access and approval](../SOURCE_MANIFEST.md); the local bundle is not an approved assistant corpus |
 | [Workflow safeguards](tasks/25-agent-workflow-safeguards.md) | #25 | [Manual preflight and checks](../DEVELOPMENT.md#tests-and-repository-checks) |
-| [Ignore policy](tasks/buildathon-ignore-policy.md) | #17, BR-06 | [Data classification](../../data/DATA_CLASSIFICATION.md) and [current ignore rules](../../.gitignore) |
+| [Ignore policy](tasks/buildathon-ignore-policy.md) | #17, BR-06 | [Data classification](../DATA_CLASSIFICATION.md) and [current ignore rules](../../.gitignore) |
 | [Onboarding](tasks/buildathon-onboarding.md) | #17, BR-01 | [Development](../DEVELOPMENT.md) and [local walkthrough](../BUILDATHON.md) |
 | [Presentation repair](tasks/buildathon-presentation.md) | #17, BR-02 | [Reusable public framework](../../presentations/html-workshop/README.md) |
 | [Responsive-text repair](tasks/buildathon-responsive-text.md) | #17, BR-05 | [Demo acceptance and limitations](../BUILDATHON.md#demonstration-acceptance-and-limitations) |
@@ -42,7 +42,7 @@ without a new approved task.
 | [Domain/interface agreement](tasks/s0-02-interface-schema-contract.md) | #7, S0-02 | [Architecture](../ARCHITECTURE.md) and the retained agreement below; not the executable SQL schema |
 | [Workflow implementation contract](tasks/s0-04a-workflow-vertical-slice.md) | #11, S0-04A | [Current demo](../BUILDATHON.md); historical workflow UI targets are not current UI capabilities |
 | [Local pilot delivery](tasks/s0-07-local-pilot-ui.md) | #15, S0-07 | [Local walkthrough](../BUILDATHON.md) for maintained instructions; original visual selections and integration approval remain history |
-| [Repository organization](tasks/28-repository-cleanup.md) | #28 | [Documentation](../README.md), [data guide](../../data/README.md) and this archive; not current writable leases |
+| [Repository organization](tasks/28-repository-cleanup.md) | #28 | [Documentation](../README.md), [data guide](../DATA_INVENTORY.md) and this archive; not current writable leases |
 | [README refinement](tasks/31-readme-experience.md) | #31 | [Main README](../../README.md); original PR validation remains historical |
 
 All rows above originated at `agent-tasks/<same filename>`. Issues #5, #7,

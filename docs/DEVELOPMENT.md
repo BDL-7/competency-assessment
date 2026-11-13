@@ -124,7 +124,8 @@ tests/
   end_to_end/
   web/
 agent-tasks/              current task contracts; completed baselines are archived
-data/examples/            fictional roster generator and scenario catalog
+tests/fixtures/synthetic/ tracked fictional buildathon source fixtures
+data/                     ignored local data and generated workbooks
 docs/architecture-decisions/
 docs/archive/             completed documentary history, not setup
 ```

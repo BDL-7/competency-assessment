@@ -79,7 +79,7 @@ controls, use the [documentation guide](docs/README.md).
 | [app/](app/) | Flask application, domain and services, SQL persistence, templates and assets |
 | [tests/](tests/) and [migrations/](migrations/) | Synthetic test coverage and ordered database schema changes |
 | [docs/](docs/README.md) and [agent-tasks/](agent-tasks/README.md) | Maintained guidance and current task-specific scope; completed plans are archived |
-| [data/](data/README.md) | Fictional examples and guidance for keeping real inputs private; not the application's database |
+| [Data inventory](docs/DATA_INVENTORY.md) | Generate flat local workbooks under ignored `data/`; public synthetic source fixtures remain tracked separately |
 | [scripts/](scripts/) and [artifacts/](artifacts/) | Manual repository checks and guidance for ignored generated outputs |
 
 At the root, [wsgi.py](wsgi.py) exposes the Flask application;
@@ -104,15 +104,15 @@ Keeping their standard names and locations lets common tools find them.
 
 ## Keep the demo fictional
 
-The app's small fixture and the separate
-[70-person roster examples](data/examples/README.md) serve different purposes.
-The roster and its five data-quality scenarios are **not loaded into the app**;
-illustrative role labels grant no permissions.
+The app's small UI fixture and the separate
+[70-person workbook pack](docs/DATA_INVENTORY.md) serve different purposes.
+The pack can be loaded into a separate synthetic database, but the current UI
+uses only its original demo. Illustrative role labels grant no permissions.
 
 Use synthetic data for development, tests and demonstrations. Keep controlled
 forms, operational workbooks, identifiable workforce data, credentials and
 confidential notes out of public files, prompts, logs and PRs. Follow
-[data classification](data/DATA_CLASSIFICATION.md), [security](SECURITY.md) and
+[data classification](docs/DATA_CLASSIFICATION.md), [security](SECURITY.md) and
 [authorized source access](docs/SOURCE_MANIFEST.md).
 
 Laboratory rules come from [governing sources](docs/SOURCE_AUTHORITY.md), not
