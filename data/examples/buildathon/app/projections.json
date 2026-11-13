@@ -1,0 +1,234 @@
+{
+  "dataset_id": "SYN-BUILDATHON-PACK-1",
+  "synthetic_only": true,
+  "reference_date": "2026-11-13",
+  "basis": "Purpose-built; existing synthetic demo and roster, not operational sources",
+  "limitation": "Snapshot fixtures, not legally valid signatures or event replay",
+  "projections": [
+    {
+      "id": "SYN-L1-2027-PROJECTION",
+      "team_id": "SYN-L1-TEAM",
+      "employee_id": "SYN-HUMAN-001",
+      "process_grouping_id": "SYN-L1-PROCESS",
+      "planned_date": "2027-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L1-2028-PROJECTION",
+      "team_id": "SYN-L1-TEAM",
+      "employee_id": "SYN-HUMAN-001",
+      "process_grouping_id": "SYN-L1-PROCESS",
+      "planned_date": "2028-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L1-2029-PROJECTION",
+      "team_id": "SYN-L1-TEAM",
+      "employee_id": "SYN-HUMAN-001",
+      "process_grouping_id": "SYN-L1-PROCESS",
+      "planned_date": "2029-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L1-2030-PROJECTION",
+      "team_id": "SYN-L1-TEAM",
+      "employee_id": "SYN-HUMAN-001",
+      "process_grouping_id": "SYN-L1-PROCESS",
+      "planned_date": "2030-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L1-2031-PROJECTION",
+      "team_id": "SYN-L1-TEAM",
+      "employee_id": "SYN-HUMAN-001",
+      "process_grouping_id": "SYN-L1-PROCESS",
+      "planned_date": "2031-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L2-2027-PROJECTION",
+      "team_id": "SYN-L2-TEAM",
+      "employee_id": "SYN-HUMAN-015",
+      "process_grouping_id": "SYN-L2-PROCESS",
+      "planned_date": "2027-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L2-2028-PROJECTION",
+      "team_id": "SYN-L2-TEAM",
+      "employee_id": "SYN-HUMAN-015",
+      "process_grouping_id": "SYN-L2-PROCESS",
+      "planned_date": "2028-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L2-2029-PROJECTION",
+      "team_id": "SYN-L2-TEAM",
+      "employee_id": "SYN-HUMAN-015",
+      "process_grouping_id": "SYN-L2-PROCESS",
+      "planned_date": "2029-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L2-2030-PROJECTION",
+      "team_id": "SYN-L2-TEAM",
+      "employee_id": "SYN-HUMAN-015",
+      "process_grouping_id": "SYN-L2-PROCESS",
+      "planned_date": "2030-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L2-2031-PROJECTION",
+      "team_id": "SYN-L2-TEAM",
+      "employee_id": "SYN-HUMAN-015",
+      "process_grouping_id": "SYN-L2-PROCESS",
+      "planned_date": "2031-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L3-2027-PROJECTION",
+      "team_id": "SYN-L3-TEAM",
+      "employee_id": "SYN-HUMAN-029",
+      "process_grouping_id": "SYN-L3-PROCESS",
+      "planned_date": "2027-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L3-2028-PROJECTION",
+      "team_id": "SYN-L3-TEAM",
+      "employee_id": "SYN-HUMAN-029",
+      "process_grouping_id": "SYN-L3-PROCESS",
+      "planned_date": "2028-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L3-2029-PROJECTION",
+      "team_id": "SYN-L3-TEAM",
+      "employee_id": "SYN-HUMAN-029",
+      "process_grouping_id": "SYN-L3-PROCESS",
+      "planned_date": "2029-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L3-2030-PROJECTION",
+      "team_id": "SYN-L3-TEAM",
+      "employee_id": "SYN-HUMAN-029",
+      "process_grouping_id": "SYN-L3-PROCESS",
+      "planned_date": "2030-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L3-2031-PROJECTION",
+      "team_id": "SYN-L3-TEAM",
+      "employee_id": "SYN-HUMAN-029",
+      "process_grouping_id": "SYN-L3-PROCESS",
+      "planned_date": "2031-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L4-2027-PROJECTION",
+      "team_id": "SYN-L4-TEAM",
+      "employee_id": "SYN-HUMAN-043",
+      "process_grouping_id": "SYN-L4-PROCESS",
+      "planned_date": "2027-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L4-2028-PROJECTION",
+      "team_id": "SYN-L4-TEAM",
+      "employee_id": "SYN-HUMAN-043",
+      "process_grouping_id": "SYN-L4-PROCESS",
+      "planned_date": "2028-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L4-2029-PROJECTION",
+      "team_id": "SYN-L4-TEAM",
+      "employee_id": "SYN-HUMAN-043",
+      "process_grouping_id": "SYN-L4-PROCESS",
+      "planned_date": "2029-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L4-2030-PROJECTION",
+      "team_id": "SYN-L4-TEAM",
+      "employee_id": "SYN-HUMAN-043",
+      "process_grouping_id": "SYN-L4-PROCESS",
+      "planned_date": "2030-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L4-2031-PROJECTION",
+      "team_id": "SYN-L4-TEAM",
+      "employee_id": "SYN-HUMAN-043",
+      "process_grouping_id": "SYN-L4-PROCESS",
+      "planned_date": "2031-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L5-2027-PROJECTION",
+      "team_id": "SYN-L5-TEAM",
+      "employee_id": "SYN-HUMAN-057",
+      "process_grouping_id": "SYN-L5-PROCESS",
+      "planned_date": "2027-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L5-2028-PROJECTION",
+      "team_id": "SYN-L5-TEAM",
+      "employee_id": "SYN-HUMAN-057",
+      "process_grouping_id": "SYN-L5-PROCESS",
+      "planned_date": "2028-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L5-2029-PROJECTION",
+      "team_id": "SYN-L5-TEAM",
+      "employee_id": "SYN-HUMAN-057",
+      "process_grouping_id": "SYN-L5-PROCESS",
+      "planned_date": "2029-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L5-2030-PROJECTION",
+      "team_id": "SYN-L5-TEAM",
+      "employee_id": "SYN-HUMAN-057",
+      "process_grouping_id": "SYN-L5-PROCESS",
+      "planned_date": "2030-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    },
+    {
+      "id": "SYN-L5-2031-PROJECTION",
+      "team_id": "SYN-L5-TEAM",
+      "employee_id": "SYN-HUMAN-057",
+      "process_grouping_id": "SYN-L5-PROCESS",
+      "planned_date": "2031-02-15",
+      "status": "projected",
+      "note": "Planning only; not an assignment, completed record or notification"
+    }
+  ]
+}
