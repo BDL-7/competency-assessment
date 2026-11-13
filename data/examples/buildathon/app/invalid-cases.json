@@ -1,0 +1,13 @@
+{
+  "synthetic_only": true,
+  "cases": [
+    {"id": "SYN-BAD-001", "table": "employee", "row": 0, "field": "id", "value": "REAL-001", "expected_error": "non-synthetic ID"},
+    {"id": "SYN-BAD-002", "table": "application_user", "row": 0, "field": "is_mock_identity", "value": false, "expected_error": "Only mock identities"},
+    {"id": "SYN-BAD-003", "table": "assessment_version", "row": 1, "field": "is_locked", "value": false, "expected_error": "Finalization requires"},
+    {"id": "SYN-BAD-004", "table": "signature", "row": 0, "field": "signed_at", "value": "2030-01-01T00:00:00+00:00", "expected_error": "future completed event"},
+    {"id": "SYN-BAD-005", "table": "assessment_document", "row": 0, "field": "sha256", "value": "incorrect", "expected_error": "Attachment hash mismatch"},
+    {"id": "SYN-BAD-006", "table": "employee", "row": 0, "field": "team_id", "value": "SYN-UNKNOWN-TEAM", "expected_error": "14 humans per team"},
+    {"id": "SYN-BAD-007", "table": "application_user", "row": 0, "field": "employee_id", "value": "SYN-UNKNOWN-PERSON", "expected_error": "Relational integrity failed"},
+    {"id": "SYN-BAD-008", "table": "employee", "row": 0, "field": "display_label", "value": null, "expected_error": "required"}
+  ]
+}

@@ -1,13 +1,17 @@
 # Fictional data examples
 
-These are development experiments, **not application seed data**. They are
-purpose-built and do not use HIR/MIST content.
+The original roster/scenario examples are development experiments, **not app
+seed data**. The newer [buildathon pack](../README.md) provides tracked connected
+records with a separate explicit loader. Both are purpose-built and do not use
+HIR/MIST content.
 
 | File | What it provides |
 | --- | --- |
 | [generate_users.py](generate_users.py) | A deterministic local roster of 70 fictional people with varied illustrative roles; service identities are not included |
 | [edge-cases.json](edge-cases.json) | Five fictional scenarios covering missing/incomplete information, conflicting values, future projections and source-format variation; not assessment records |
 | `users.csv` (generated, ignored) | The generator's local output, not a tracked dataset or app input |
+| [buildathon/app/records.json](buildathon/app/records.json) | Connected synthetic database inputs; see the single [file index and load instructions](../README.md) |
+| [buildathon/chatbot/demo-guide.txt](buildathon/chatbot/demo-guide.txt) | Fictional software guidance for a separate, approved demonstration upload; not laboratory policy |
 
 From the repository root, after [Python setup](../../docs/DEVELOPMENT.md#local-prerequisites-and-installation):
 

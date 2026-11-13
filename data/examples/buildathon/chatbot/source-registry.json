@@ -1,0 +1,24 @@
+{
+  "synthetic_only": true,
+  "hash_basis": "SHA-256 of UTF-8 text with LF line endings",
+  "upload_files": [
+    "demo-guide.txt"
+  ],
+  "note": "Fixture metadata, not an active app source registry or access-control implementation. Upload only the explicit text allowlist after platform/source approval; do not upload app records or evaluation expectations.",
+  "sources": [
+    {
+      "source_id": "SYN-COMPETENCY-GUIDE-1",
+      "file": "demo-guide.txt",
+      "title": "Fictional competency software demonstration",
+      "owner": "Synthetic buildathon maintainer",
+      "version": "SYN-1",
+      "effective_date": "2026-11-13",
+      "retired_date": null,
+      "active": true,
+      "access_classification": "synthetic_buildathon_demo",
+      "approval_status": "synthetic_demo_only_not_laboratory_approved",
+      "assistant_available": false,
+      "sha256": "5bdc2afe09db74bad7ebcc62828c85507c10f80955f2e3fef2c75df8eb108dd0"
+    }
+  ]
+}

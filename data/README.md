@@ -1,58 +1,120 @@
-# Data: examples and protected inputs
+# Buildathon data and knowledge index
 
-This directory does **not** contain the laboratory's operational datasets.
-Its public contents are handling guidance and [fictional examples](examples/README.md).
-The application's SQL persistence code lives separately in [app/data](../app/data/).
+Start here to find the actual files. All public demonstration records and
+chatbot examples are **fictional**, not copied or inferred from operational
+workbooks. The equipment-manual chatbot is a separate future pilot.
 
-## Choose the right synthetic resource
+**App inputs and chatbot uploads are different sets.** Do not upload individual
+assessment records, identity/scope files or evaluation expectations as chatbot
+knowledge. No upload or live integration is performed by this repository.
 
-| Resource | Purpose | Loaded by the app? |
-| --- | --- | --- |
-| [Local pilot fixture](../docs/BUILDATHON.md) | One assessment, two issued versions and seven synthetic identities for the current read-only UI | Yes, only through explicit `init-demo` setup |
-| [Fictional examples](examples/README.md) | Deterministic generator for 70 fictional people and five data-quality scenarios | No; illustrative roles grant no access |
+## File index
 
-These are purpose-built fictional resources, not samples or anonymized copies
-of operational trackers. Keep projections distinct from completed activity.
+`READY` means a tracked file is usable for the stated **synthetic** purpose.
+It does not mean production readiness, laboratory approval or a live bot.
+`MISSING` means the actual authorized input is not provided in public Git.
+`REFERENCE` means guidance, code or a deferred source, not a loadable dataset.
 
-## Competency-Assessment app: data-source inventory
+Multiple categories deliberately share one relational JSON file: the table key
+identifies where to look inside it. These are not duplicate datasets.
 
-The repository defines source requirements, while the local prototype runs on
-synthetic data. The table describes each source's role, location/status, and
-access boundary. Controlled workbook and document contents are not part of
-public Git and must not be used to create synthetic fixtures.
+| Category | Exact file path / table key | What is there | Destination | Status |
+| --- | --- | --- | --- | --- |
+| Fictional people and team memberships | [records.json](examples/buildathon/app/records.json): `employee`, `team` | 70 humans, 5 teams of 14; stable IDs; optional role descriptions | Synthetic app database | READY |
+| Application identities and person links | [records.json](examples/buildathon/app/records.json): `application_user` | 70 mock human identities linked to people; 2 unlinked mock service identities | Synthetic app database | READY |
+| Explicit application roles and scopes | [records.json](examples/buildathon/app/records.json): `role_assignment` | 175 explicit synthetic scope rows, including out-of-scope and diagnostic personas; roster labels grant nothing | Synthetic app database | READY |
+| Test systems, groupings, configuration and mappings | [records.json](examples/buildathon/app/records.json): `test_system`, `process_grouping`, `process_grouping_test_system` | 5 fictional systems/groupings/mappings; reused 12-month demo setting, not laboratory policy | Synthetic app database | READY |
+| Assignments, participants, dates and states | [records.json](examples/buildathon/app/records.json): `assignment`, `assessment` | 25 representative assessments, 5 assessed people across 5 historical years; explicit lead/assessor/supervisor links | Synthetic app database | READY, representative subset |
+| Assessment drafts, versions, elements, evidence and follow-up | [records.json](examples/buildathon/app/records.json): `assessment_draft`, `assessment_draft_element`, `assessment_version`, `assessment_element` | 50 versions and corresponding drafts/elements; earlier missing follow-up retained, current follow-up documented | Synthetic app database | READY |
+| Synthetic signatures and finalization | [records.json](examples/buildathon/app/records.json): `signature`, `assessment_version` | 20 locked finalized examples, 40 fictional version-bound signatures; 5 unsigned pending examples | Synthetic app database | READY; not legal signatures |
+| Renewal examples | [records.json](examples/buildathon/app/records.json): `renewal` | 20 synthetic completion/next-date snapshots | Synthetic app database | READY; no real policy |
+| Artifact metadata and sample attachment | [records.json](examples/buildathon/app/records.json): `assessment_document`; [synthetic-attachment.txt](examples/buildathon/app/synthetic-attachment.txt) | 25 metadata references to one harmless fictional text attachment and its SHA-256 | Database plus local fixture file | READY; no Blob integration |
+| Notification and attempt examples | [records.json](examples/buildathon/app/records.json): `notification_event`, `notification_attempt` | 25 events/attempts explicitly marked not delivered | Synthetic app database | READY; no email |
+| Audit examples | [records.json](examples/buildathon/app/records.json): `audit_event` | 25 fictional snapshot observations, not proof of actual historical actions | Synthetic app database | READY |
+| Historical coverage | [records.json](examples/buildathon/app/records.json) | Assessment years 2022-2026; reference date 2026-11-13; assignments may begin earlier | Synthetic app database | READY |
+| Future planning | [projections.json](examples/buildathon/app/projections.json) | 25 explicitly projected items for 2027-2031; no completed assessments/signatures/events | Planning input only; never loaded as transactions | READY |
+| Invalid input and relationship examples | [invalid-cases.json](examples/buildathon/app/invalid-cases.json) | 8 mutation cases rejected by the pack validator | Validation only, never seed | READY |
+| Other data-quality scenarios | [edge-cases.json](examples/edge-cases.json) | 5 existing scenario descriptions: missing/incomplete information, conflicts, projections and source-format variation | Scenario design/testing | READY as scenarios, not records |
+| Chatbot demonstration corpus | [demo-guide.txt](examples/buildathon/chatbot/demo-guide.txt) | Fictional field/evidence guidance, catalog, roles, workflow, signing/locking/amendment explanation, dates, terms, navigation, notifications and escalation | Only this text file is a candidate knowledge upload | READY as synthetic text; platform approval/import untested |
+| Chatbot source metadata and upload allowlist | [source-registry.json](examples/buildathon/chatbot/source-registry.json) | Source ID, version, owner label, effective date, hash, classification and explicit synthetic status | Maintainer/platform configuration; not general retrieval content | READY as fixture; not active app registry |
+| Cited answers and safety/evaluation examples | [evaluations.json](examples/buildathon/chatbot/evaluations.json) | Supported/cited answer; unsupported, conflicting, retired, restricted, insufficient, injection, prohibited-action and individual-record cases | Manual/platform evaluation; do not upload as knowledge | READY as specifications; live bot not evaluated |
+| Loader, generator and validation | [buildathon_pack.py](../scripts/buildathon_pack.py); [test_buildathon_pack.py](../tests/unit/test_buildathon_pack.py) | Repeatable generation, integrity checks, explicit new-database loading and regressions | Local Python tools | READY; supported-version CI evidence required |
+| Original 70-person example | [generate_users.py](examples/generate_users.py) | Existing generator reused by the pack; its standalone `users.csv` remains ignored | Optional local roster experiment | REFERENCE; use tracked pack for app inputs |
+| Original one-record UI demo | [demo.py](../app/data/demo.py); [BUILDATHON.md](../docs/BUILDATHON.md) | Existing read-only UI setup, unchanged | Original dedicated demo database | READY for original walkthrough |
+| Governing project, architecture and business documents | [SOURCE_MANIFEST.md](../docs/SOURCE_MANIFEST.md) | Source requirements only; obtain controlled copies through approved channel | Authorized planning/review | MISSING actual sources in public Git |
+| Current approved Non-CLIA form and instructions | [SOURCE_MANIFEST.md](../docs/SOURCE_MANIFEST.md) | Current-version/owner verification requirements, not the controlled form | Approved corpus after access/ingestion approval | MISSING; synthetic guide is not a substitute for real guidance |
+| Actual QMML/NCIRD laboratory guidance | [SOURCE_MANIFEST.md](../docs/SOURCE_MANIFEST.md); [CAT_KB.md](../docs/CAT_KB.md) | Source requirements and knowledge-format recommendations, not the approved full corpus | Approved corpus after access/ingestion approval | MISSING |
+| Actual Approved Test Systems catalog | [SOURCE_MANIFEST.md](../docs/SOURCE_MANIFEST.md) | Governed-source approval requirements; no catalog rows | Approved configuration/corpus only after owner review | MISSING; fictional systems are not approved catalog values |
+| Canonical public workflow/role/term explanations | [WORKFLOW.md](../docs/WORKFLOW.md), [AUTHORIZATION.md](../docs/AUTHORIZATION.md), [TERMINOLOGY.md](../docs/TERMINOLOGY.md) | Maintained prototype explanations underlying the fictional guide | Implementation reference; not automatically approved bot sources | REFERENCE |
+| Real support/SME directory | [CAT_KB.md](../docs/CAT_KB.md) | Identifies need; fictional guide requests review without inventing real contacts | Source-owner-approved support route | MISSING actual directory |
+| MIST/HIR trackers | [DATA_MIGRATION.md](../docs/DATA_MIGRATION.md) | Local ignored migration inputs described, never app feeds or synthetic inputs | Separately approved restricted migration only | REFERENCE; not a buildathon dependency |
+| CA Relational Tables workbook | [SOURCE_AUTHORITY.md](../docs/SOURCE_AUTHORITY.md) | Local ignored non-authoritative design reference described | Optional authorized design review only | REFERENCE; not the canonical dataset |
 
-| Data source/category | Where it lives and current status | Access and buildathon use |
-| --- | --- | --- |
-| Governing project, technical, and business documents | Controlled copies are outside public Git; requirements and metadata fields are listed in the [source manifest](../docs/SOURCE_MANIFEST.md). | Obtain through the approved internal channel. Verify owner, current version, approval date, and hash before relying on them; do not reproduce controlled contents here. |
-| Approved Non-CLIA assessment form V04 | Controlled source; not published in the repository. | Use only the authorized current copy and verify its document control/version/effective date. Its prototype field baseline is provisional. |
-| QMML and NCIRD laboratory guidance | [CAT_KB.md](../docs/CAT_KB.md) is an advisory link index; the full approved corpus is not acquired in the repository. | Request approved, versioned materials from the source owner. The index is not sufficient for answers; assistant use requires approval and active source registration. |
-| Approved Test Systems catalog | Governed workbook is excluded from public Git; the [source manifest](../docs/SOURCE_MANIFEST.md) records its approval requirements. | Obtain/use the owner-approved version. Approval is required before operational loading or public release; record authorized source metadata. Do not copy workbook rows into examples. |
-| MIST and HIR legacy trackers | Local operational workbooks are ignored by Git and are not application data feeds. | Migration-only, through the authorized custodian and restricted staging. Preserve workbook/sheet/row lineage. Raw rows and derivatives must not enter public Git or synthetic fixtures; migration execution is outside the local pilot. |
-| CA Relational Tables workbook | Local, ignored, non-authoritative design reference. | Optional design context only. Current project decisions, controlled sources, and implemented app models take precedence. |
-| App records and configuration | Entities are defined in [models.py](../app/data/models.py) and [migrations](../migrations/). The local pilot uses a dedicated synthetic SQLite file configured through `APP_DATABASE_URL`; see [database.py](../app/data/database.py) and [.env.example](../.env.example). | Local demo access is through scoped app reads. Initialize only a new dedicated synthetic database as described in [BUILDATHON.md](../docs/BUILDATHON.md). Production Azure SQL access is not enabled and requires platform approval and the approved managed-identity path. |
-| Identity and authorization | Local synthetic identity support is in [identity.py](../app/auth/identity.py); app roles and scopes are represented in app data. Microsoft Entra ID is the production direction. | Mock identity is for development/testing and does not itself grant roles. Production identity/access is not enabled; do not treat illustrative roster labels as permissions. |
-| Assessment artifacts | Metadata is represented with app records; private Azure Blob Storage is the intended production direction in [ARCHITECTURE.md](../docs/ARCHITECTURE.md). | Blob access is not implemented in the local pilot. Intended access is private and authorized per request, not public links or direct workbook sharing. |
-| Competency assistant source corpus | The intended design is a bounded, approved, versioned corpus. Current [mock.py](../app/ai/mock.py) contains deterministic synthetic answers; no live corpus or model calls are enabled. | Future sources must be owner-approved, access-filtered, cited, and versioned. The assistant remains read-only; see [AI_BOUNDARY.md](../docs/AI_BOUNDARY.md). |
-| Synthetic demo and test data | [demo.py](../app/data/demo.py), [the 70-person generator](examples/generate_users.py), [the edge-case catalog](examples/edge-cases.json), and synthetic fixtures under [tests](../tests/). | Use these resources for local development and tests. The app demo is one assessment and is not representative operational data. Build on them rather than copying workforce or assessment records. |
-| Other planned integrations | Email delivery and Azure Monitor/Application Insights telemetry are in architecture/operations direction but are not enabled in the local pilot. EDAV OpenAI is the documented assistant-provider direction; Microsoft Foundry is an evaluation option. | These are planned integrations, not current data sources. Do not treat them as active services or upload controlled sources without approval. |
+## Use the pack
 
-### Existing synthetic coverage and gaps
+Use the pinned environment in [DEVELOPMENT.md](../docs/DEVELOPMENT.md).
+Python **3.12** is the supported validation runtime. From the repository root:
 
-| Category | Already present | Possible buildathon coverage to add under an approved task |
-| --- | --- | --- |
-| People and roles | 70 fictional human rows with varied illustrative role combinations; seven mock identities in the one-team app demo | Distinguish roster roles from app authorization. Add service identities separately and more group relationships only if the approved demo needs them. |
-| Test systems and process groupings | One synthetic test system, grouping, and mapping in the app demo | Add fictional relationships for UI variety; do not use governed catalog values or invent laboratory rules. |
-| Assignments and assessment history | One assignment and one assessment with two versions; the first preserves missing follow-up and the second records synthetic follow-up | Add synthetic examples for UI states and history only within approved workflow behavior. Current demo has zero signatures and is read-only. |
-| Data-quality cases | Five cataloged scenarios: optional information missing, incomplete work in progress, conflicting candidate values, future projection, and source-format variation | Consider duplicate/unlinked identities, unmatched relationships, missing/inactive configuration, and due-date/reference-date boundaries. Surface ambiguity; do not silently merge, map, or resolve it. |
-| Scale and time | Current demo is one record; product planning describes a multi-lab example and five years of synthetic history plus five years of future planning | Treat broader scale as a future synthetic-data task. Keep projected items separate from completed assessments, signatures, or events. |
-| Competency chatbot | Synthetic mock answer/citation and unsupported-question escalation | Add synthetic evaluations for supported answers with citations, unsupported/conflicting/retired/inaccessible sources, and prompt injection after an approved corpus is available. The bot has no individual assessment-record access by default. |
-| Equipment-manual chatbot | Documentation may mention this as a future add-on/separate pilot | No equipment manuals or knowledge base are needed for this buildathon. |
+```powershell
+.venv\Scripts\python.exe scripts\buildathon_pack.py validate
+.venv\Scripts\python.exe -m pytest tests\unit\test_buildathon_pack.py -q
+```
 
-The examples above are candidate coverage, not authorization to change schema,
-workflow, roles, data sources, or policy. Follow [data
-classification](DATA_CLASSIFICATION.md), the [source
-manifest](../docs/SOURCE_MANIFEST.md), and [migration
-controls](../docs/DATA_MIGRATION.md). Preserve source workbook, sheet, row,
-and source-identifier lineage; do not silently resolve ambiguous values. Do
-not copy identifiable workforce data into documentation, fixtures,
-demonstrations, logs, or AI prompts.
+The files are already tracked; generation is **not** required to find them.
+To reproduce them under an approved task:
+
+```powershell
+.venv\Scripts\python.exe scripts\buildathon_pack.py generate
+```
+
+Load valid app records into a **new** dedicated SQLite file:
+
+```powershell
+if (Test-Path Env:DATABASE_URL) { Remove-Item Env:DATABASE_URL }
+New-Item -ItemType Directory -Force instance | Out-Null
+.venv\Scripts\python.exe scripts\buildathon_pack.py load --database instance\buildathon-pack.db
+```
+
+The loader uses the existing Alembic migration and foreign-key enforcement.
+It rejects existing files, including its own previous output: select a new
+filename rather than reset. It does not load projections, invalid cases or
+chatbot text into app tables. Failed targets are preserved for inspection;
+never reuse an unknown/partial database. No production connection is supported.
+Text fixture hashes use canonical UTF-8/LF content so Git's Windows checkout
+line endings do not change the expected values. These are fixture integrity
+checks, not governed source approval.
+
+**The larger database is an import/service fixture, not a new UI mode.** The
+current UI requires its original ownership marker and reference date, so it
+deliberately rejects this separate pack database. Do not copy or forge that
+marker. Use [BUILDATHON.md](../docs/BUILDATHON.md) for the unchanged UI walkthrough.
+Connecting a larger fixture to that UI requires a separately approved app task.
+
+For chatbot preparation, the allowlist contains **only**
+[demo-guide.txt](examples/buildathon/chatbot/demo-guide.txt). Keep the registry
+and evaluation cases alongside it for maintainers. Select an approved platform,
+confirm text import, source/citation behavior and access controls before upload.
+The source registry leaves `assistant_available` false: creating these files
+does not activate them in the app's mock assistant. Evaluation validation checks
+fixture coverage/citation text, not live model behavior.
+
+## Boundaries and remaining gaps
+
+- The pack represents finalization and pending-signature snapshots, not every
+  lifecycle transition. Only five people have assessment history; the other
+  people exercise roster, participant, administrative or no-access cases.
+- Earlier issued versions are preserved. A correction to an already finalized
+  record is not seeded; actual amendment execution remains a separate app task,
+  not a capability supplied by this pack.
+- Knowledge documents are fictional software examples, not laboratory advice.
+  Real guidance/form/catalog and actual escalation contacts remain owner gates.
+- SQL Server/Azure SQL, Entra ID, Blob, email, telemetry, live AI and deployment
+  are not enabled. No credentials or operational inputs are needed here.
+- Real-data replacement uses the existing app columns, stable IDs and explicit
+  references. It still requires approved per-source mapping, restricted staging,
+  lineage and reconciliation; real workbooks are not drop-in substitutes.
+
+Follow [classification](DATA_CLASSIFICATION.md),
+[source authority](../docs/SOURCE_AUTHORITY.md), and
+[assistant boundaries](../docs/AI_BOUNDARY.md). A local controlled filename,
+schema, source index or mock citation is not proof of usable approved content.
