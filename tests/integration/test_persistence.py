@@ -1,8 +1,8 @@
 """Persistence boundary integration checks."""
 
+import shutil
 from datetime import date
 from pathlib import Path
-from uuid import uuid4
 
 import pytest
 from alembic import command
@@ -19,14 +19,30 @@ from app.data import (
 )
 
 
-def isolated_database(name: str) -> Path:
-    directory = Path("instance") / "test-databases"
-    directory.mkdir(parents=True, exist_ok=True)
-    return directory / f"{name}-{uuid4().hex}.db"
+@pytest.fixture
+def isolated_database_directory(tmp_path: Path):
+    try:
+        yield tmp_path
+    finally:
+        shutil.rmtree(tmp_path)
 
 
-def test_configured_session_factory_persists_synthetic_records() -> None:
-    database_path = isolated_database("persistence")
+@pytest.fixture
+def engine_cleanup(isolated_database_directory: Path):
+    engines = []
+    yield engines.append
+    for engine in reversed(engines):
+        engine.dispose()
+
+
+def isolated_database(directory: Path, name: str) -> Path:
+    return directory / f"{name}.db"
+
+
+def test_configured_session_factory_persists_synthetic_records(
+    isolated_database_directory: Path, engine_cleanup,
+) -> None:
+    database_path = isolated_database(isolated_database_directory, "persistence")
     config = Config("alembic.ini")
     config.set_main_option("sqlalchemy.url", f"sqlite:///{database_path.as_posix()}")
     command.upgrade(config, "head")
@@ -35,6 +51,7 @@ def test_configured_session_factory_persists_synthetic_records() -> None:
     application.config["DATABASE_URL"] = f"sqlite:///{database_path.as_posix()}"
     resources = configure_database(application)
     assert resources["engine"] is not None
+    engine_cleanup(resources["engine"])
     factory = get_session_factory(application)
 
     with factory.begin() as session:
@@ -56,18 +73,19 @@ def test_configured_session_factory_persists_synthetic_records() -> None:
     with factory() as session:
         assert session.get(Team, "SYN-TEAM").display_label == "Synthetic Team"
         assert session.get(ApplicationUser, "SYN-USER").employee_id == "SYN-EMP"
-    resources["engine"].dispose()
-    database_path.unlink()
 
 
-def test_duplicate_synthetic_identity_is_rejected() -> None:
-    database_path = isolated_database("identity")
+def test_duplicate_synthetic_identity_is_rejected(
+    isolated_database_directory: Path, engine_cleanup,
+) -> None:
+    database_path = isolated_database(isolated_database_directory, "identity")
     config = Config("alembic.ini")
     config.set_main_option("sqlalchemy.url", f"sqlite:///{database_path.as_posix()}")
     command.upgrade(config, "head")
     application = Flask(__name__)
     application.config["DATABASE_URL"] = f"sqlite:///{database_path.as_posix()}"
-    configure_database(application)
+    resources = configure_database(application)
+    engine_cleanup(resources["engine"])
     factory = get_session_factory(application)
 
     with factory.begin() as session:
@@ -82,18 +100,19 @@ def test_duplicate_synthetic_identity_is_rejected() -> None:
                 id="SYN-USER-2", identity_provider_subject="SYN-SUBJECT",
                 is_mock_identity=True, is_active=True,
             ))
-    application.extensions["database"]["engine"].dispose()
-    database_path.unlink()
 
 
-def test_draft_element_shape_persists_for_immutable_copy_forward() -> None:
-    database_path = isolated_database("draft-element")
+def test_draft_element_shape_persists_for_immutable_copy_forward(
+    isolated_database_directory: Path, engine_cleanup,
+) -> None:
+    database_path = isolated_database(isolated_database_directory, "draft-element")
     config = Config("alembic.ini")
     config.set_main_option("sqlalchemy.url", f"sqlite:///{database_path.as_posix()}")
     command.upgrade(config, "head")
     application = Flask(__name__)
     application.config["DATABASE_URL"] = f"sqlite:///{database_path.as_posix()}"
-    configure_database(application)
+    resources = configure_database(application)
+    engine_cleanup(resources["engine"])
     factory = get_session_factory(application)
 
     with factory.begin() as session:
@@ -195,6 +214,3 @@ def test_draft_element_shape_persists_for_immutable_copy_forward() -> None:
             session.execute(
                 delete(AssessmentDraft).where(AssessmentDraft.id == "SYN-DRAFT")
             )
-
-    application.extensions["database"]["engine"].dispose()
-    database_path.unlink()

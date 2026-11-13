@@ -16,6 +16,9 @@ demonstrates a **synthetic Non-CLIA scenario**, not that full planned scope.
 [Try the pilot](#try-the-pilot) | [What is built](#what-is-built-and-what-is-not) |
 [Find your next step](#find-your-next-step) | [Repository map](#repository-map)
 
+**Local demo address after setup:** [`http://127.0.0.1:5000/`](http://127.0.0.1:5000/)
+This loopback address works on your computer; it is not a deployed website.
+
 ## Try the pilot
 
 Start here to see the application. No cloud account, live model or document
@@ -83,6 +86,21 @@ At the root, [wsgi.py](wsgi.py) exposes the Flask application;
 [alembic.ini](alembic.ini) configures migrations. Dependency manifests and locks
 are explained in the developer guide. Completed delivery records live in the
 [documentary archive](docs/archive/README.md), not the active setup path.
+
+## Why some files stay at the root
+
+These are tool entry points and repository guidance, not stray application code.
+Keeping their standard names and locations lets common tools find them.
+
+| File or folder | What it is for |
+| --- | --- |
+| `.git/` | Git's repository history and metadata; do not move it |
+| `.github/` | GitHub workflows and repository instructions |
+| `wsgi.py`, `alembic.ini`, `pyproject.toml` | Flask server entry point, migration settings and Python tool settings |
+| `requirements.in`, `requirements.lock` | Runtime dependencies and their pinned install |
+| `requirements-dev.in`, `requirements-dev.lock` | Test/development dependencies and their pinned install; CI uses the lock |
+| `requirements-docs.txt` | Optional document-building tools, not needed to run the app |
+| `SECURITY.md`, `CONTRIBUTING.md`, `LICENSE.md` | Security reporting, contribution guidance and reuse status |
 
 ## Keep the demo fictional
 
