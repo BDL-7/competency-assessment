@@ -21,7 +21,7 @@ REQUIRED = {
     "LICENSE.md",
     "README.md",
     "SECURITY.md",
-    "data/DATA_CLASSIFICATION.md",
+    "docs/DATA_CLASSIFICATION.md",
     "docs/SOURCE_MANIFEST.md",
     "presentations/html-workshop/example.html",
     "requirements-docs.txt",
@@ -29,7 +29,6 @@ REQUIRED = {
 FORBIDDEN_PREFIXES = (
     "artifacts/generated/",
     "artifacts/renders/",
-    "data/migration/",
 )
 FORBIDDEN_EXACT = {
     "presentations/html-workshop/deck-content.js",
@@ -116,6 +115,8 @@ def main(argv: list[str] | None = None) -> int:
         lower = name.lower()
         if lower == ".env" or (lower.startswith(".env.") and lower != ".env.example"):
             errors.append(f"Environment file must not be tracked: {name}")
+        if lower.startswith("data/"):
+            errors.append(f"Local data directory must not be tracked: {name}")
         forbidden_prefix = name.startswith(FORBIDDEN_PREFIXES) and not name.endswith("/README.md")
         if name in FORBIDDEN_EXACT or forbidden_prefix:
             errors.append(f"Controlled/generated path must not be tracked: {name}")

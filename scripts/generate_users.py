@@ -3,7 +3,7 @@
 import csv
 from pathlib import Path
 
-OUTPUT_PATH = Path(__file__).with_name("users.csv")
+OUTPUT_PATH = Path(__file__).resolve().parents[1] / "data" / "users.csv"
 ROLE_GROUPS = (
     (36, ("employee",)),
     (8, ("team_lead",)),
