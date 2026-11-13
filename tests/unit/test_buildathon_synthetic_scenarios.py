@@ -4,12 +4,13 @@ import csv
 import json
 from pathlib import Path
 
-from data.examples.generate_users import FIELDNAMES, OUTPUT_PATH, generate_users
+from scripts.generate_users import FIELDNAMES, OUTPUT_PATH, generate_users
 
 CATALOG_PATH = (
     Path(__file__).parents[2]
-    / "data"
-    / "examples"
+    / "tests"
+    / "fixtures"
+    / "synthetic"
     / "edge-cases.json"
 )
 EXPECTED_USER_COUNT = 70
@@ -46,7 +47,7 @@ def test_user_generator_writes_varied_fictional_roles(tmp_path):
         assert reader.fieldnames == list(FIELDNAMES)
         users = list(reader)
 
-    assert OUTPUT_PATH == CATALOG_PATH.with_name("users.csv")
+    assert OUTPUT_PATH == Path(__file__).parents[2] / "data" / "users.csv"
     role_counts = {}
     for user in users:
         roles = user["illustrative_demo_roles"]

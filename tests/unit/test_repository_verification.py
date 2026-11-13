@@ -65,6 +65,15 @@ def test_staged_path_policy_and_synthetic_fixture_exception(repository, capsys):
     assert "tests/fixtures/synthetic/example.xlsx" not in output
 
 
+def test_staged_data_directory_is_never_public(repository, capsys):
+    local = repository / "data" / "notes.txt"
+    local.parent.mkdir()
+    local.write_text("synthetic\n", encoding="utf-8")
+    git(repository, "add", "--", "data/notes.txt")
+    assert verify_repository.main(["--staged"]) == 1
+    assert "Local data directory must not be tracked: data/notes.txt" in capsys.readouterr().out
+
+
 def test_staged_invalid_python_and_required_deletion(repository, capsys):
     (repository / "broken.py").write_text("def broken(:\n", encoding="utf-8")
     git(repository, "add", "--", "broken.py")

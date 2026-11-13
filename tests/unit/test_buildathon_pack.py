@@ -11,8 +11,8 @@ from scripts import buildathon_pack as pack
 
 def inputs():
     return (
-        pack.read_json(pack.PACK / "app" / "records.json"),
-        pack.read_json(pack.PACK / "app" / "projections.json"),
+        pack.read_json(pack.PACK / "records.json"),
+        pack.read_json(pack.PACK / "projections.json"),
     )
 
 
@@ -115,10 +115,9 @@ def test_environment_override_rejected_without_creating_file(tmp_path, monkeypat
 
 
 def test_corpus_hash_citation_and_upload_allowlist(tmp_path, monkeypatch):
-    chatbot = tmp_path / "chatbot"
-    chatbot.mkdir()
-    for path in (pack.PACK / "chatbot").iterdir():
-        (chatbot / path.name).write_bytes(path.read_bytes())
+    chatbot = tmp_path
+    for name in ("source-registry.json", "demo-guide.txt", "evaluations.json"):
+        (chatbot / name).write_bytes((pack.PACK / name).read_bytes())
     monkeypatch.setattr(pack, "PACK", tmp_path)
     assert pack.validate_corpus() == 9
     (chatbot / "demo-guide.txt").write_text("SYNTHETIC DEMONSTRATION ONLY\nChanged source", encoding="utf-8")
@@ -140,7 +139,7 @@ def test_text_hash_is_stable_across_windows_and_unix_checkouts(tmp_path):
 
 
 def test_inventory_local_links_resolve():
-    index = pack.ROOT / "data" / "README.md"
+    index = pack.ROOT / "docs" / "DATA_INVENTORY.md"
     targets = re.findall(r"\]\(([^)]+)\)", index.read_text(encoding="utf-8"))
     assert targets
     for target in targets:

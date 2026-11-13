@@ -25,9 +25,9 @@ from sqlalchemy.exc import IntegrityError
 from app.data.database import configure_database
 from app.data.demo import initialize_demo
 from app.data.models import Base
-from data.examples.generate_users import generate_users
+from scripts.generate_users import generate_users
 
-PACK = ROOT / "data" / "examples" / "buildathon"
+PACK = ROOT / "tests" / "fixtures" / "synthetic"
 REFERENCE = date(2026, 11, 13)
 TABLES = (
     "team", "employee", "application_user", "test_system", "process_grouping",
@@ -106,7 +106,7 @@ def generate_app() -> tuple[dict, dict]:
         "SYN-ADM-001", "SYN-PLAT-001", "SYN-OUT-001",
     )
     projections = []
-    artifact = PACK / "app" / "synthetic-attachment.txt"
+    artifact = PACK / "synthetic-attachment.txt"
     artifact_hash = text_hash(artifact)
     for lab in range(1, 6):
         prefix = f"SYN-L{lab}"
@@ -378,7 +378,7 @@ def validate_app(payload: dict, projections: dict) -> dict[str, int]:
                 raise ValueError(f"Unmatched projection {key}")
     if len({item["id"] for item in projected}) != len(projected):
         raise ValueError("Duplicate projection ID")
-    expected_hash = text_hash(PACK / "app" / "synthetic-attachment.txt")
+    expected_hash = text_hash(PACK / "synthetic-attachment.txt")
     if any(row["sha256"] != expected_hash for row in tables["assessment_document"]):
         raise ValueError("Attachment hash mismatch")
     engine = create_engine("sqlite://")
@@ -394,15 +394,15 @@ def validate_app(payload: dict, projections: dict) -> dict[str, int]:
 
 
 def validate_corpus() -> int:
-    registry = read_json(PACK / "chatbot" / "source-registry.json")
+    registry = read_json(PACK / "source-registry.json")
     if registry.get("synthetic_only") is not True:
         raise ValueError("Synthetic corpus marker required")
     if registry["upload_files"] != [source["file"] for source in registry["sources"]]:
         raise ValueError("Upload allowlist must exactly match registered text sources")
     sources = {}
     for source in registry["sources"]:
-        path = PACK / "chatbot" / source["file"]
-        if path.parent != PACK / "chatbot" or path.suffix != ".txt":
+        path = PACK / source["file"]
+        if path.parent != PACK or path.suffix != ".txt":
             raise ValueError("Only explicit chatbot text sources may be uploaded")
         content = path.read_text(encoding="utf-8")
         if "SYNTHETIC DEMONSTRATION ONLY" not in content:
@@ -412,7 +412,7 @@ def validate_corpus() -> int:
         if source["approval_status"] != "synthetic_demo_only_not_laboratory_approved":
             raise ValueError("Synthetic sources must not claim laboratory approval")
         sources[source["source_id"]] = (source, content)
-    evaluations = read_json(PACK / "chatbot" / "evaluations.json")["cases"]
+    evaluations = read_json(PACK / "evaluations.json")["cases"]
     required = {"supported", "unsupported", "conflicting", "retired", "inaccessible",
                 "insufficient", "prompt_injection", "prohibited_action", "individual_record"}
     if {case["kind"] for case in evaluations} != required:
@@ -429,15 +429,15 @@ def validate_corpus() -> int:
 
 def validate_pack() -> dict:
     counts = validate_app(
-        read_json(PACK / "app" / "records.json"),
-        read_json(PACK / "app" / "projections.json"),
+        read_json(PACK / "records.json"),
+        read_json(PACK / "projections.json"),
     )
-    cases = read_json(PACK / "app" / "invalid-cases.json")["cases"]
+    cases = read_json(PACK / "invalid-cases.json")["cases"]
     for case in cases:
-        payload = read_json(PACK / "app" / "records.json")
+        payload = read_json(PACK / "records.json")
         payload["tables"][case["table"]][case["row"]][case["field"]] = case["value"]
         try:
-            validate_app(payload, read_json(PACK / "app" / "projections.json"))
+            validate_app(payload, read_json(PACK / "projections.json"))
         except ValueError as error:
             if case["expected_error"] not in str(error):
                 raise ValueError(f"Wrong rejection for {case['id']}: {error}") from error
@@ -447,9 +447,15 @@ def validate_pack() -> dict:
             "chatbot_fixture_cases": validate_corpus()}
 
 
-def load_database(path: Path) -> dict:
+def load_database(path: Path, payload: dict | None = None, projections: dict | None = None) -> dict:
     """Create only a new explicit SQLite target; never reset an existing file."""
-    result = validate_pack()
+    if (payload is None) != (projections is None):
+        raise ValueError("Both records and projections are required")
+    if payload is None:
+        result = validate_pack()
+        payload = read_json(PACK / "records.json")
+    else:
+        result = {"tables": validate_app(payload, projections)}
     path = path.resolve()
     if path.suffix != ".db" or not path.parent.is_dir():
         raise ValueError("Choose a .db file in an existing dedicated directory")
@@ -465,7 +471,7 @@ def load_database(path: Path) -> dict:
         config.set_main_option("script_location", str(ROOT / "migrations"))
         config.set_main_option("sqlalchemy.url", str(engine.url).replace("%", "%%"))
         command.upgrade(config, "head")
-        insert_records(engine, read_json(PACK / "app" / "records.json"))
+        insert_records(engine, payload)
     finally:
         engine.dispose()
     return result
@@ -473,12 +479,12 @@ def load_database(path: Path) -> dict:
 
 def generate() -> None:
     records, projections = generate_app()
-    write_json(PACK / "app" / "records.json", records)
-    write_json(PACK / "app" / "projections.json", projections)
-    registry_path = PACK / "chatbot" / "source-registry.json"
+    write_json(PACK / "records.json", records)
+    write_json(PACK / "projections.json", projections)
+    registry_path = PACK / "source-registry.json"
     registry = read_json(registry_path)
     for source in registry["sources"]:
-        source["sha256"] = text_hash(PACK / "chatbot" / source["file"])
+        source["sha256"] = text_hash(PACK / source["file"])
     write_json(registry_path, registry)
 
 

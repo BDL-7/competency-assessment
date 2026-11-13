@@ -17,8 +17,8 @@ channel; this index does not approve their release or assistant use.
 - [Current task contracts](../agent-tasks/README.md): writable scope and acceptance
   for current work; [archived baselines and open gates](archive/README.md#retained-baselines-and-open-gates)
   preserve original decisions without presenting old phases as today's task list.
-- [Fictional examples](../data/examples/README.md): separate roster generator
-  and data-quality scenarios, not the app's local demo fixture.
+- [Buildathon data inventory](DATA_INVENTORY.md): flat ignored local workbooks,
+  synthetic source fixtures and their limitations.
 
 ## Authority and product boundaries
 
@@ -28,7 +28,7 @@ channel; this index does not approve their release or assistant use.
   Non-CLIA baseline and implementation exclusions.
 - [Source access and manifest](SOURCE_MANIFEST.md): authorized metadata,
   availability and protected project/laboratory-source requirements.
-- [Data classification](../data/DATA_CLASSIFICATION.md): public versus
+- [Data classification](DATA_CLASSIFICATION.md): public versus
   controlled data; synthetic fixtures only.
 
 ## Design and controls
