@@ -21,6 +21,7 @@
   - `app/data/unit_of_work.py`
   - `app/data/__init__.py`
   - `app/data/pilot.py`
+  - `migrations/env.py`
   - `tests/integration/test_persistence.py`
   - `docs/ARCHITECTURE.md`
   - `docs/WORKFLOW.md`
@@ -75,3 +76,42 @@ the context fields required by the non-optional service record; missing values
 raise a mapping error rather than being invented.
 
 Bootstrap commit contains this contract only.
+
+Requester approved extending this exact lease to `migrations/env.py` after a
+targeted check demonstrated that Alembic logging configuration disabled the
+application's transaction-failure logger. Preserve existing loggers without
+changing schema, migration revisions or workflow policy.
+
+New notification events retain the existing synthetic fixture's
+`not_delivered_prototype` status. Timestamp writes require an explicit timezone
+and normalize to UTC; SQLite's naive UTC reads are restored to aware values.
+
+## Implementation handoff
+
+The ten Allowed Files above are the exact changed paths. Implemented four
+schema-compatible SQL support ports and `SqlSupportUnitOfWork`, not a full
+aggregate adapter. The shared scope predicate is unchanged; current-version
+number reads additionally constrain ownership in SQL without loading version
+content. No service/UI mutation wiring or schema revision changed.
+
+- Python 3.12.10 selected-task preflight passed.
+- Full suite: 148 passed before the final scoped-read refinement and additional
+  event-collision parameter. The final affected persistence/pilot/migration
+  selection then passed all 32 cases, including the refined query.
+- Tests exercise canonical success/rejection/failure results, UTC round trips,
+  explicit commit, default/explicit/exception rollback, closed transaction use,
+  duplicate event/attempt rollback, competing-session idempotency, attributable
+  user audits, unsupported mapping rejection and non-disclosing error logs.
+- All 25 local links/anchors across four changed public documents passed.
+  Dependency integrity and safe working/staged verification (165 files) passed.
+- Independent review of the implementation and both final bounded deltas found
+  no material defects; it was not human approval.
+- Final staged-content and final-head CI evidence is recorded in draft PR #61,
+  targeting `dev`; no merge is authorized.
+
+Only synthetic SQLite behavior was exercised. Full SQL aggregate writes,
+optimistic assessment-update concurrency, complete workflow finalization,
+service-principal storage, live Azure SQL and new CLIA/non-CLIA UI journeys
+remain unimplemented/unverified. Missing mappings are listed above; the next
+owner must resolve them explicitly under a new lease, without inventing
+authentication, approval or laboratory metadata.

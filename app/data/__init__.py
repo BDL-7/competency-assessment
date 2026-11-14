@@ -8,6 +8,7 @@ from app.data.models import (
     ProcessGrouping, ProcessGroupingTestSystem, Renewal, RoleAssignment,
     Signature, Team, TestSystem,
 )
+from app.data.unit_of_work import SqlSupportUnitOfWork
 
 __all__ = [
     "ApplicationUser", "Assessment", "AssessmentDocument", "AssessmentDraft",
@@ -15,5 +16,5 @@ __all__ = [
     "Base", "Employee", "IdempotencyRecord", "NotificationAttempt",
     "NotificationEvent", "ProcessGrouping", "ProcessGroupingTestSystem",
     "Renewal", "RoleAssignment", "Signature", "Team", "TestSystem",
-    "configure_database", "get_session_factory",
+    "configure_database", "get_session_factory", "SqlSupportUnitOfWork",
 ]

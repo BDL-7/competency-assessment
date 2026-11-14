@@ -53,10 +53,27 @@ or "verified". No live platform evidence was obtained by the documentation task.
 | Developer tools | GitHub/Copilot | Development assistance | No runtime authority | Not a chatbot, identity provider or authorization engine | No product dependence on external authoring tools |
 
 [ADR 0003](architecture-decisions/0003-buildathon-transition.md) records the
-proposed transition, not an accepted replacement. The application still needs
-SQL unit-of-work/repository implementations: service tests using fake ports are
-not proof of persistent workflow mutations. The multi-lab loader is not yet the
+proposed transition, not an accepted replacement. Shared SQL support ports now
+persist idempotency results, user audit events and non-delivering notification
+events/attempts in one explicitly committed transaction, and reuse the pilot's
+SQL scope predicate for queries. See [the support-port contract](../agent-tasks/60-shared-sql-persistence.md).
+This is not the full workflow unit of work: aggregate writes and missing
+identity/configuration/signature mappings remain unimplemented. Service tests
+using fake aggregate ports are not proof of persistent workflow mutations.
+The multi-lab loader is not yet the
 UI setup path, and neither is a live Azure integration.
+
+The SQL support transaction rolls back by default and closes its session;
+committed/closed ports cannot silently start another transaction. Existing
+database uniqueness constraints protect support-effect identities. Unsupported
+actor kinds, replay-only result state, ambiguous timestamps and incomplete
+notification context fail explicitly instead of being fabricated. Errors log
+categories without SQL parameters or record payloads. Alembic preserves existing
+application loggers when configuring migration logging.
+
+Only local synthetic SQLite behavior is verified for these ports. Aggregate
+optimistic concurrency, complete finalization atomicity, service-principal
+persistence and live Azure SQL remain separate work and evidence gates.
 
 ## Future module boundaries
 
