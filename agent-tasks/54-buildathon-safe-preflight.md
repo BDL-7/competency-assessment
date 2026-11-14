@@ -83,3 +83,37 @@ changing dependency versions. This initial commit contains only this public
 task contract; no implementation, protected data or other worktree edits are
 staged. Full repository verification follows the safe-checker implementation;
 bootstrap review is restricted to the exact contract diff.
+
+## Implementation validation and handoff
+
+- Draft PR #55 targets `dev` from `54-buildathon-safe-preflight`.
+- Restored the approved `/data/` ignore line without inspecting any descendants.
+  Literal nonexistent direct and nested probe paths are ignored. This repair
+  restores the existing committed baseline, so it produces no additional
+  `.gitignore` commit diff.
+- Changed this contract, `agent-tasks/README.md`,
+  `scripts/verify_repository.py` and
+  `tests/unit/test_repository_verification.py`; no application files changed.
+- The checker uses a constant-format Git index presence probe and exclusions
+  before collecting public names. Exceptions match exact files, not directories.
+  Protected content is rejected without opening it or printing descendant names.
+- Safe working-tree reads use descriptor-relative no-follow access on POSIX and
+  retained no-write/no-delete-share directory/file handles on Windows. Native
+  Windows tests cover junction substitution and replacement/write attempts
+  between parent validation and child acquisition.
+- Python 3.12.10 final full suite: **128 passed**, including all 17 verifier
+  tests. Existing migration, synthetic pack, presentation and pilot tests remain
+  passing. Dependency integrity and working-tree verification passed.
+- Initial checks found Git exclusion semantics and independent review found
+  exception-subtree and Windows handle-sharing defects. These were corrected
+  and covered by the final passing regression suite. Follow-up independent
+  review reported no remaining findings in those fixes; it did not grant human
+  approval or independently rerun the test suite.
+- Final staged verification and exact-path review precede implementation push.
+  Linux/Python 3.12 CI evidence is pending publication of the final head; the
+  Windows-only sharing test is intentionally skipped on Linux.
+- Protected data, runtime databases, existing environments and private inputs
+  remain untouched. No root cleanup, workflow change, live AI, cloud integration,
+  external upload, deployment, deletion or merge is claimed.
+- Next gate: requester review of this draft and approval of the next exact task
+  lease. The overall dual-workflow/buildathon plan remains incomplete.

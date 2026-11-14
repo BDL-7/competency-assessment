@@ -8,7 +8,27 @@ changes, not the historical first-sprint execution sequence.
 
 | Contract | Scope |
 | --- | --- |
-| [Archive completed plans (#34)](34-archive-completed-plans.md) | Historical documentation and navigation only; no runtime, policy or private-file changes |
+| [Safe buildathon preflight (#54)](54-buildathon-safe-preflight.md) | Protected-path publication checks and supported-runtime validation; no application or policy changes |
+
+## Closed delivery records
+
+These issues and their delivery PRs are closed/merged. Their contracts preserve
+historical approval evidence, not active leases. Outstanding specialist and human
+gates are not approved by this status summary.
+
+| Contract | Retained scope |
+| --- | --- |
+| [#34](34-archive-completed-plans.md) | Archival and navigation |
+| [#37](37-data-source-inventory.md) | Data-source inventory |
+| [#40](40-repository-clarity.md) | Repository clarity and test data isolation |
+| [#45](45-buildathon-data-pack.md) | Synthetic pack and evaluation specifications |
+| [#48](48-flat-buildathon-workbooks.md) | Flat local workbook generation |
+| [#51](51-flatten-local-data.md) | Historical local data-layout work |
+
+The transition targets both CLIA and non-CLIA workflows, integrated multi-lab
+synthetic data and a separate read-only competency assistant. Those application
+changes need their own exact contracts; #54 does not implement or authorize
+unspecified laboratory rules or live platform integrations.
 
 ## Requirements and retained decisions
 
