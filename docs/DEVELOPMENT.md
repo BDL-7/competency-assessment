@@ -21,7 +21,7 @@ substitute for supported-version validation.
 py -3.12 --version
 py -3.12 -m venv .venv
 .venv\Scripts\python.exe --version
-.venv\Scripts\python.exe -m pip install -r requirements-dev.lock
+.venv\Scripts\python.exe -m pip install -r scripts\requirements\requirements-dev.lock
 .venv\Scripts\python.exe -m pip check
 ```
 
@@ -32,8 +32,9 @@ If needed, create a new environment in the ignored `venv` directory and use
 `py -3.12` is unavailable, obtain an approved Python 3.12 installation or use an
 existing approved 3.12 executable; do not silently select another version.
 
-The `.in` files record direct dependencies; the `.lock` files pin the existing
-runtime/test environments. No Azure SDK or production database driver is needed
+The `.in` files under `scripts/requirements/` record direct dependencies; the
+adjacent `.lock` files pin the existing runtime/test environments, with unchanged
+versions and relative includes. No Azure SDK or production database driver is needed
 for this local demonstration. Do not add or upgrade dependencies casually.
 
 ## Configuration and foundation startup
@@ -82,7 +83,7 @@ check examines the complete Git index and its staged bytes, not unstaged
 working-tree edits. It is an additional limited check, not a guarantee that
 content is safe to publish or a substitute for human review.
 
-CI uses Python 3.12, installs `requirements-dev.lock`, upgrades an empty
+CI uses Python 3.12, installs `scripts/requirements/requirements-dev.lock`, upgrades an empty
 synthetic SQLite database, runs the full pytest suite and verifies public
 repository contents. Its separate verification job builds the public portable
 presentation. Tests cover both in-memory service ports and actual SQL
@@ -94,14 +95,15 @@ suite. See [TESTING.md](TESTING.md) for control assertions and specialist gates.
 
 ### Optional isolated migration check
 
-Alembic reads its `DATABASE_URL` override or `alembic.ini`, not the application's
+Alembic reads its `DATABASE_URL` override or the explicitly selected
+`migrations/alembic.ini`, not the application's
 `APP_DATABASE_URL`. Never point a validation command at an unknown/user database.
 Use a new dedicated synthetic file:
 
 ```powershell
 $env:DATABASE_URL = "sqlite:///instance/schema-check-$([guid]::NewGuid().ToString('N')).db"
-.venv\Scripts\python.exe -m alembic upgrade head
-.venv\Scripts\python.exe -m alembic upgrade head
+.venv\Scripts\python.exe -m alembic -c migrations\alembic.ini upgrade head
+.venv\Scripts\python.exe -m alembic -c migrations\alembic.ini upgrade head
 Remove-Item Env:DATABASE_URL
 ```
 
@@ -151,14 +153,20 @@ task and, when it changes architecture, an ADR.
 are generated beside the project because that is how Python and its tools work;
 they are not extra source folders to combine or move.
 
-Root `wsgi.py` is the standard Flask import target used by
-`flask --app wsgi`. `alembic.ini` is the standard migration configuration
-loaded by Alembic. `requirements.in` and `requirements.lock` describe and pin
-runtime dependencies; the `-dev` pair adds test tools and is used by CI.
-`requirements-docs.txt` is optional and only for authorized document builders.
-`SECURITY.md` stays at root so GitHub and contributors can find the reporting
-instructions. These files are small, active entry points rather than misplaced
-application modules.
+Root `wsgi.py` remains the active Flask import target used by `flask --app wsgi`;
+no verified deployment configuration proves it removable. The locked Alembic
+1.20.0 supports an explicit INI path; `migrations/alembic.ini` retains logging
+and resolves the migration environment/import path relative to itself.
+`scripts/requirements/` groups the runtime and development inputs/locks plus
+optional document dependencies. GitHub discovers the community files in
+`.github/`; see [security reporting](../.github/SECURITY.md).
+
+The [root disposition table](../README.md#root-before-and-after) distinguishes
+completed public moves from pending governance transfer and private cleanup.
+Root `pyproject.toml` still contains only tool settings. Nested requirements
+are not automatically an App Service build contract: readiness must select and
+verify an approved explicit build strategy or actual packaging metadata before
+claiming cloud-build compatibility. No deployment settings changed here.
 
 Migration and persistence tests use temporary per-test databases. Never use a
 test database as the local demo or point a test/migration command at an unknown
@@ -192,13 +200,13 @@ not modify the same file concurrently; cross-owned edits are serialized.
 
 ## Optional document and presentation tooling
 
-The [public HTML example](../presentations/html-workshop/README.md) opens directly
+The [public HTML example](presentations/html-workshop/README.md) opens directly
 in a modern browser. Its standard-library Python builder needs no extra package.
 
 Only authorized internal document work requires:
 
 ```powershell
-.venv\Scripts\python.exe -m pip install -r requirements-docs.txt
+.venv\Scripts\python.exe -m pip install -r scripts\requirements\requirements-docs.txt
 ```
 
 Approved internal checkouts may provide
@@ -206,7 +214,7 @@ Approved internal checkouts may provide
 `scripts\documents\build_consolidated_documents.py`. They are intentionally
 absent from public Git because they embed controlled planning content.
 Their generated outputs belong under ignored `artifacts/generated/` or an
-approved document-management location. `requirements-docs.txt` records the
+approved document-management location. `scripts/requirements/requirements-docs.txt` records the
 public dependency baseline for approved builders. Word or approved LibreOffice
 conversion tooling is needed only for that work, not application setup.
 

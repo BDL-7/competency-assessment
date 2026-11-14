@@ -23,15 +23,16 @@ Open `example.html` directly in a modern browser. Controls are:
 Build a portable example with:
 
 ```powershell
-python presentations\html-workshop\build_single_file.py
+python docs\presentations\html-workshop\build_single_file.py
 ```
 
 Run that command from the repository root with the approved Python environment
-described in [DEVELOPMENT.md](../../docs/DEVELOPMENT.md). If already inside this
+described in [DEVELOPMENT.md](../../DEVELOPMENT.md). If already inside this
 directory, use `python build_single_file.py`. No extra Python or Node package
 is required.
 
-The output is written beneath `artifacts/generated/` and is ignored by Git.
+The output is written beneath `instance/buildathon/presentation/` and is ignored
+by Git. Existing private outputs at the former location are not moved or deleted.
 Use `--help` to select another approved index/content pair and output path.
 The default builder produces **audience HTML only**, not a portable presenter
 package. Open `example-presenter.html` for modular presenter notes.

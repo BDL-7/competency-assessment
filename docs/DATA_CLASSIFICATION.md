@@ -27,9 +27,13 @@ synthetic files separately outside GitHub, never the entire mixed local folder.
 
 Keep application source, tests, synthetic fixtures, canonical guidance, manifests
 and public presentation HTML/JavaScript/CSS/assets tracked. The presentation
-builder's default output belongs under ignored `artifacts/generated/`; renders
-belong under ignored `artifacts/renders/`. PDF/ZIP release outputs saved directly
-under `presentations/html-workshop/` are also ignored.
+builder's default output belongs under ignored `instance/buildathon/presentation/`.
+Retained private document outputs/renders remain in their separately approved
+`artifacts/generated/` and `artifacts/renders/` locations. Private workshop state,
+content, notes and PDF/ZIP releases are ignored at both the former
+`presentations/html-workshop/` and current `docs/presentations/html-workshop/`
+locations. Moving public files does not authorize moving or deleting private
+remnants.
 
 Do not blanket-ignore HTML, images, PDFs or workbooks across the repository.
 Tracked reference formats remain tracked until their ownership and source/output

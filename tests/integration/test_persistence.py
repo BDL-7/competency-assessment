@@ -43,7 +43,7 @@ def test_configured_session_factory_persists_synthetic_records(
     isolated_database_directory: Path, engine_cleanup,
 ) -> None:
     database_path = isolated_database(isolated_database_directory, "persistence")
-    config = Config("alembic.ini")
+    config = Config("migrations/alembic.ini")
     config.set_main_option("sqlalchemy.url", f"sqlite:///{database_path.as_posix()}")
     command.upgrade(config, "head")
 
@@ -79,7 +79,7 @@ def test_duplicate_synthetic_identity_is_rejected(
     isolated_database_directory: Path, engine_cleanup,
 ) -> None:
     database_path = isolated_database(isolated_database_directory, "identity")
-    config = Config("alembic.ini")
+    config = Config("migrations/alembic.ini")
     config.set_main_option("sqlalchemy.url", f"sqlite:///{database_path.as_posix()}")
     command.upgrade(config, "head")
     application = Flask(__name__)
@@ -106,7 +106,7 @@ def test_draft_element_shape_persists_for_immutable_copy_forward(
     isolated_database_directory: Path, engine_cleanup,
 ) -> None:
     database_path = isolated_database(isolated_database_directory, "draft-element")
-    config = Config("alembic.ini")
+    config = Config("migrations/alembic.ini")
     config.set_main_option("sqlalchemy.url", f"sqlite:///{database_path.as_posix()}")
     command.upgrade(config, "head")
     application = Flask(__name__)

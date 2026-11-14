@@ -161,6 +161,31 @@ def test_public_data_source_and_scaffolds_remain_checked(repository, capsys):
     assert "Potential secret marker" in capsys.readouterr().out
 
 
+@pytest.mark.parametrize("prefix", ["presentations", "docs/presentations"])
+@pytest.mark.parametrize("name", ["deck-content.js", ".workshop/state.json", "release.pdf"])
+def test_private_presentations_are_rejected_before_content_access(
+    repository, monkeypatch, capsys, prefix, name,
+):
+    relative = f"{prefix}/html-workshop/{name}"
+    path = repository / relative
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(b"synthetic-private-marker")
+    git(repository, "add", "--", relative)
+
+    original_read = verify_repository.read_worktree_file
+
+    def public_only_read(name):
+        assert name != relative, "Protected content must not be read."
+        return original_read(name)
+
+    monkeypatch.setattr(verify_repository, "read_worktree_file", public_only_read)
+    for args in ([], ["--staged"]):
+        assert verify_repository.main(args) == 1
+        output = capsys.readouterr().out
+        assert "Protected indexed material" in output
+        assert "synthetic-private-marker" not in output
+
+
 @pytest.mark.parametrize("staged", [False, True])
 def test_public_exceptions_do_not_admit_directory_descendants(
     repository, monkeypatch, capsys, staged,

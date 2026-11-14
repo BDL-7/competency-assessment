@@ -67,7 +67,7 @@ its approval and delivery history.
 | --- | --- |
 | Evaluate the product | [Scope and exclusions](docs/PRODUCT.md), [assessment workflow](docs/WORKFLOW.md) and [roles](docs/AUTHORIZATION.md) |
 | Develop the application | [Developer guide](docs/DEVELOPMENT.md) for configuration, foundation-only startup and [tests/checks](docs/DEVELOPMENT.md#tests-and-repository-checks); [architecture](docs/ARCHITECTURE.md) for the technical baseline |
-| Contribute a change | [Contributing](CONTRIBUTING.md) and the [issue-linked workflow](docs/DEVELOPMENT.md#git-and-task-workflow); agent work also needs [AGENTS.md](AGENTS.md) and an approved, scoped [task contract](agent-tasks/README.md) |
+| Contribute a change | [Contributing](.github/CONTRIBUTING.md) and the [issue-linked workflow](docs/DEVELOPMENT.md#git-and-task-workflow); agent work also needs [AGENTS.md](AGENTS.md) and an approved, scoped [task contract](agent-tasks/README.md) |
 
 For terminology, design decisions, optional presentation tooling and deeper
 controls, use the [documentation guide](docs/README.md).
@@ -83,24 +83,58 @@ controls, use the [documentation guide](docs/README.md).
 | [scripts/](scripts/) and [artifacts/](artifacts/) | Manual repository checks and guidance for ignored generated outputs |
 
 At the root, [wsgi.py](wsgi.py) exposes the Flask application;
-[alembic.ini](alembic.ini) configures migrations. Dependency manifests and locks
+[migrations/alembic.ini](migrations/alembic.ini) configures migrations via an
+explicit `-c` path. Grouped [dependency manifests and locks](scripts/requirements/)
 are explained in the developer guide. Completed delivery records live in the
 [documentary archive](docs/archive/README.md), not the active setup path.
 
-## Why some files stay at the root
+## Root before and after
 
-These are tool entry points and repository guidance, not stray application code.
-Keeping their standard names and locations lets common tools find them.
+Issue #58 relocates public files only. The tracked root changes from nine
+directories and seventeen files to **eight directories and nine files**.
+The conditional target is **six core directories and eight files** after
+separately approved governance transfer and artifact-provenance disposition.
+Private remnants and generated caches can keep a local checkout larger.
 
-| File or folder | What it is for |
-| --- | --- |
-| `.git/` | Git's repository history and metadata; do not move it |
-| `.github/` | GitHub workflows and repository instructions |
-| `wsgi.py`, `alembic.ini`, `pyproject.toml` | Flask server entry point, migration settings and Python tool settings |
-| `requirements.in`, `requirements.lock` | Runtime dependencies and their pinned install |
-| `requirements-dev.in`, `requirements-dev.lock` | Test/development dependencies and their pinned install; CI uses the lock |
-| `requirements-docs.txt` | Optional document-building tools, not needed to run the app |
-| `SECURITY.md`, `CONTRIBUTING.md`, `LICENSE.md` | Security reporting, contribution guidance and reuse status |
+| Before | After this slice | Why it stays / disposition |
+| --- | --- | --- |
+| `.github/` | Keep | GitHub workflows, community files and local agent instructions |
+| `app/` | Keep | Flask application and runtime assistant package |
+| `docs/` | Keep | Canonical guidance, decisions and public presentations |
+| `migrations/` | Keep | Alembic environment/configuration and immutable schema history |
+| `scripts/` | Keep | Repository checks, synthetic tooling and grouped dependencies |
+| `tests/` | Keep | Regression controls and fictional fixtures |
+| `.env.example` | Keep | Safe configuration template |
+| `.gitattributes` | Keep | Git text/binary and line-ending rules |
+| `.gitignore` | Keep | Publication and runtime exclusions |
+| `.python-version` | Keep | Supported Python discovery |
+| `LICENSE.md` | Keep | Reuse-status entry point |
+| `README.md` | Keep | GitHub landing page and navigation |
+| `pyproject.toml` | Keep | Python tool settings; not installable dependency metadata |
+| `wsgi.py` | Keep | Active Flask import/WSGI entry point; no verified replacement |
+| `SECURITY.md` | `.github/SECURITY.md` | GitHub-supported community location |
+| `CONTRIBUTING.md` | `.github/CONTRIBUTING.md` | GitHub-supported contribution guidance |
+| `requirements.in` | `scripts/requirements/requirements.in` | Unchanged direct runtime dependencies |
+| `requirements.lock` | `scripts/requirements/requirements.lock` | Unchanged pinned runtime |
+| `requirements-dev.in` | `scripts/requirements/requirements-dev.in` | Unchanged development inputs/includes |
+| `requirements-dev.lock` | `scripts/requirements/requirements-dev.lock` | Unchanged reproducible CI/development install |
+| `requirements-docs.txt` | `scripts/requirements/requirements-docs.txt` | Optional approved document-tool baseline |
+| `alembic.ini` | `migrations/alembic.ini` | Supported explicit configuration path; retained logging |
+| `presentations/` | Public files in `docs/presentations/` | Private local remnants untouched |
+| `AGENTS.md` | Retain pending approval | Existing safety contract; no exact tool requirement yet justifies a permanent root stub |
+| `agent-tasks/` | Retain pending approval | Current leases and approval provenance; external transfer/replacement not authorized |
+| `artifacts/` | Retain pending approval | Tracked provenance and private outputs; no blanket deletion |
+| `.git/` (local) | Keep | Git requires repository metadata |
+| `.venv/` (ignored) | Keep | Existing environment ownership |
+| `data/` (ignored) | Keep, untouched | Protected local data; no inspection or generation in this slice |
+| `instance/` (ignored) | Keep | Local runtime and owned synthetic/public-build output |
+| `tmp/` (ignored) | Unchanged | Owner may have active work/interpreters |
+| `__pycache__/` (ignored) | Unchanged | Generated cache; exact cleanup not approved |
+| `CAT-KB.zip` (ignored) | Unchanged | Private archive; exact deletion not approved |
+
+The proposed separate AI-development repository is not created or populated.
+Local safety/lease controls must work before governance moves. Moving public
+files does not approve private cleanup, source release or deployment.
 
 ## Keep the demo fictional
 
@@ -112,7 +146,7 @@ uses only its original demo. Illustrative role labels grant no permissions.
 Use synthetic data for development, tests and demonstrations. Keep controlled
 forms, operational workbooks, identifiable workforce data, credentials and
 confidential notes out of public files, prompts, logs and PRs. Follow
-[data classification](docs/DATA_CLASSIFICATION.md), [security](SECURITY.md) and
+[data classification](docs/DATA_CLASSIFICATION.md), [security](.github/SECURITY.md) and
 [authorized source access](docs/SOURCE_MANIFEST.md).
 
 Laboratory rules come from [governing sources](docs/SOURCE_AUTHORITY.md), not

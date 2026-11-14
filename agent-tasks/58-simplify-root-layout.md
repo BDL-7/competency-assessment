@@ -107,3 +107,53 @@ Coupled consumers and integration records:
 
 The initial commit contains this contract only. No implementation or local
 cleanup has occurred under this lease yet.
+
+## Implementation handoff
+
+All 21 exact source/destination moves above were performed. Additional changed
+paths are this contract and these sixteen coupled files:
+
+- `agent-tasks/README.md`
+- `.gitignore`
+- `README.md`
+- `.github/workflows/repository-checks.yml`
+- `docs/README.md`
+- `docs/DEVELOPMENT.md`
+- `docs/BUILDATHON.md`
+- `docs/DATA_CLASSIFICATION.md`
+- `docs/archive/README.md`
+- `scripts/verify_repository.py`
+- `tests/unit/test_repository_verification.py`
+- `app/data/demo.py`
+- `scripts/buildathon_pack.py`
+- `tests/integration/test_persistence.py`
+- `tests/migration/test_schema_migration.py`
+- `tests/test_presentation_example.py`
+
+Validation:
+
+- Python 3.12.10 selected-task preflight and dependency integrity passed.
+- Full existing suite plus seven relocation regressions: **135 passed**.
+  An initial test-only guard wrongly rejected harmless public reads; it was
+  corrected to prohibit protected reads and all six affected cases passed.
+- All five dependency files are byte-identical to the reviewed baseline.
+- CLI Alembic upgrade succeeded twice from an unrelated working directory,
+  using an owned temporary SQLite database; schema revision unchanged.
+  The probe connection was explicitly closed and temporary database removed.
+- 156 local links/anchors across thirteen changed public Markdown files and
+  six literal synthetic ignore probes passed.
+- Headless Edge rendered two slides in each of audience, presenter and generated
+  audience modes. Keyboard navigation, applicable notes, debug/overflow checks
+  at wide/narrow viewports and absence of startup exceptions passed. Browser
+  external HTTP(S) requests were blocked; browser and generated HTML cleaned up.
+- Independent scoped review found no material defects. It did not rerun
+  runtime/browser tests or provide human approval.
+- Tracked root counts verified: nine directories/seventeen files before,
+  eight directories/nine files after. Six/eight remains conditional, not achieved.
+
+Public staged checks and final-head CI must pass before publication handoff is
+complete; their final evidence is recorded in draft PR #59, targeting `dev`.
+No merge, deployment, protected-source access, private cleanup or governance
+transfer. Live platform operation, dual-workflow mutation and human acceptance
+remain outside this slice and unverified. The next implementation task needs
+a fresh lease; architecture, laboratory/source and cleanup gates remain.
