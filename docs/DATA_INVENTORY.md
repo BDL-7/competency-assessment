@@ -1,5 +1,11 @@
 # Buildathon data and knowledge index
 
+The tables and commands below describe the existing pack, not completion of
+the new UI integration. For the current buildathon transition, root `data/`
+is excluded from agent inspection and generation. Use the app-owned integration
+contract below for the approved replacement output direction; do not run the existing
+root-data defaults as part of that work.
+
 The local `data/` folder is **entirely Git-ignored**. Generate the following
 fictional files directly in that folder from the tracked
 [synthetic fixtures](../tests/fixtures/synthetic/records.json). They are not
@@ -97,3 +103,48 @@ selection, upload, retrieval, model safety evaluation and access filtering remai
 unverified; source creation is not authorization. Follow
 [DATA_CLASSIFICATION.md](DATA_CLASSIFICATION.md) and
 [AI_BOUNDARY.md](AI_BOUNDARY.md).
+
+## App-owned synthetic integration contract
+
+The requester confirmed 70 fictional humans in five labs of fourteen, with two
+service identities counted separately; configurable seed/reference date; five
+years of history and five separately labeled future years; and both CLIA and
+non-CLIA workflow targets. The existing pack has only five people represented
+in assessment history and uses a fixed reference date. These integration
+requirements are not yet implemented by its generator or UI.
+
+Keep one app-owned contract, reused by generator, validator, importer and UI
+setup. Prefer extraction of existing pack logic rather than another competing
+dataset. The proposed envelope records contract/schema version, seed, reference
+date, synthetic provenance, category counts and separate record/projection
+payloads. Existing model identifiers, types, required fields and relationships
+remain the mapping baseline; approve any necessary schema extension separately.
+
+| Contract area | Required invariant |
+| --- | --- |
+| Identity and relationships | Unique stable synthetic IDs; human/service counts separate; explicit effective role scopes and four participant relationships; labels never grant access |
+| Catalog/configuration | Fictional owned/versioned values; evidence-backed applicability mapping; no controlled catalog derivation or inferred CLIA policy |
+| Assignments and records | Foreign keys and version pointers valid; profile/participant consistency; immutable issued/finalized snapshots |
+| Evidence/follow-up/signatures | Assessor-recorded outcomes; source-backed required inputs and review rules; exact-version signature binding; no invented completion approval |
+| History and projections | Five historical and five future years relative to the configured reference; future plans cannot be completed records, signatures or delivered events |
+| Events/audit/artifacts | Explicit metadata, correlation/idempotency and integrity references; an event is not delivery and a hash is not access authority |
+| Invalid scenarios | Separate broken references, duplicates, stale versions, scope denials, invalid transitions, missing follow-up and finalized-edit attempts; assert the specified rejection |
+| Owned setup | Exclusive creation of a new synthetic target; versioned ownership/schema/reference manifest; matching completed setup is repeat-safe; unknown/incomplete targets fail visibly without reset |
+
+Use a new owned output location beneath ignored `instance/buildathon/`, not root
+`data/`; tests use temporary directories. The existing workbook command accepts
+an explicit `--directory`, but its defaults and the roster/pack entry points must
+be reconciled in the implementing task before publishing a new walkthrough.
+Never open an unknown instance database or forge the old demo marker.
+
+Load the valid contract through the app setup boundary and prove actual scoped
+UI rows/counts and restart persistence. Keep the existing one-record demo as an
+explicit compatibility mode. Workbooks/CSV/JSON are interchange formats; future
+real-source mapping, lineage and reconciliation remain separate approved work,
+not a reason to change UI/workflow code.
+
+Keep assistant text, registry and evaluations separate from transactional data.
+Synthetic-use approval, allowed audience and external-processing permission
+are distinct. No entire data directory or assessment records become an upload
+set. See the [assistant boundary](AI_BOUNDARY.md)
+and [workflow evidence matrix](WORKFLOW.md).

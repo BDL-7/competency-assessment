@@ -34,6 +34,30 @@ architecture change requires owner approval and an ADR before implementation.
 Evaluation does not authorize SDK additions, resource provisioning, document
 uploads, external model calls, or deployment.
 
+## Buildathon stack and evidence matrix
+
+This is the canonical active stack matrix. Other guides should link here rather
+than maintain competing selections. "Available" is not "approved", "implemented"
+or "verified". No live platform evidence was obtained by the documentation task.
+
+| Responsibility | Current implementation | Approved technical baseline | Proposed transition | Availability / selection gate | Required verification |
+| --- | --- | --- | --- | --- | --- |
+| UI | Read-only Flask pilot with mock identity | Python 3.12 server-rendered Flask modular monolith | Integrated multi-lab CLIA and non-CLIA workflows | Scope requested; exact governed differences need evidence | SQL-backed commands and separate browser journeys |
+| Structured records | SQLAlchemy mappings, Alembic, local SQLite fixture/pilot reads | Azure SQL with SQLAlchemy/Alembic | Retain baseline, implement persistent service adapters | Azure SQL availability/access unconfirmed | Actual approved backend migrations, transactions, constraints, concurrency and restart |
+| Hosting | Loopback demonstration only | Azure App Service | Retain Web App direction | Web Apps reported available; local acceptance and separate deployment gate | Approved runtime/build/startup and deployed endpoint smoke checks |
+| Identity | Trusted server-configured mock subject | Microsoft Entra ID | Resolve trusted subject/tenant to app-owned roles/scopes | Sign-in availability does not establish registration/claims approval | Real approved identities and cross-scope denials |
+| Files | Synthetic artifact metadata | Private Azure Blob Storage | Authorized private retrieval | Storage offering unspecified; Blob/network/access approval needed | Synthetic allowed/denied retrieval and visible failure behavior |
+| Competency assistant | Deterministic synthetic mock | Read-only EDAV OpenAI adapter direction | Microsoft Foundry model/agent behind the same read-only boundary | Foundry reported available; ADR 0003 remains proposed | Approved sources/audience and actual cited/adversarial evaluations |
+| Platform controls | Local configuration gates and audit observations | Managed identity, Key Vault, Monitor/Application Insights | Retain baseline controls | Owner confirmation of identities, network, secrets and telemetry | Least-privilege access and minimized failure/observation evidence |
+| Notifications | Logical events/attempt interfaces; no delivering adapter | Separately approved email service | Preserve event boundary; add delivery only when approved | No delivery service selection or external-send approval here | Idempotent event recording separately from actual delivery |
+| Developer tools | GitHub/Copilot | Development assistance | No runtime authority | Not a chatbot, identity provider or authorization engine | No product dependence on external authoring tools |
+
+[ADR 0003](architecture-decisions/0003-buildathon-transition.md) records the
+proposed transition, not an accepted replacement. The application still needs
+SQL unit-of-work/repository implementations: service tests using fake ports are
+not proof of persistent workflow mutations. The multi-lab loader is not yet the
+UI setup path, and neither is a live Azure integration.
+
 ## Future module boundaries
 
 ```text
@@ -75,7 +99,9 @@ or create Azure resources.
 
 ## Extension gates
 
-Center access, Power BI, migration execution, CLIA behavior, production
-deployment, and enterprise integrations remain outside the first coding
-sprint. Adding one requires a new approved issue and, where architectural, an
-ADR.
+Center access, Power BI, operational migration, production deployment and
+unapproved enterprise integrations remain outside the transition. CLIA and
+non-CLIA are both current delivery targets; see the
+[workflow evidence contract](WORKFLOW.md#dual-workflow-evidence-and-integration-contract)
+for the exact distinction between requested scope, existing behavior and
+unresolved governed rules. Architecture changes still require an accepted ADR.
