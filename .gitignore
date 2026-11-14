@@ -69,11 +69,6 @@ docs/controlled-sources/*.docx
 docs/controlled-sources/*.pdf
 scripts/documents/*.py
 
-# Operational and governed workbooks require explicit data-owner approval
-data/authoritative/*.xlsx
-data/migration/*.xlsx
-data/reference/*.xlsx
-
 # Optional local training inputs; publication requires separate release approval
 docs/buildathon-resources/*.xlsx
 

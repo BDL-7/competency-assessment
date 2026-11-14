@@ -20,6 +20,11 @@ remove previously committed content from history or keep local files private
 outside Git. Use only approved channels for controlled material. Clean clones
 regenerate synthetic files from tracked fixtures outside this directory.
 
+Keep local data files directly in `data/`, with no subfolders. File location
+does not determine classification: governed catalogs and operational trackers
+remain restricted even alongside fictional examples. Share only the intended
+synthetic files separately outside GitHub, never the entire mixed local folder.
+
 Keep application source, tests, synthetic fixtures, canonical guidance, manifests
 and public presentation HTML/JavaScript/CSS/assets tracked. The presentation
 builder's default output belongs under ignored `artifacts/generated/`; renders
