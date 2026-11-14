@@ -28,6 +28,8 @@
     data/examples/__pycache__/generate_users.cpython-314.pyc
     data/synthetic/buildathon/__pycache__/generate_users.cpython-314.pyc
   - Remove the inventoried data subdirectories only when confirmed empty.
+  - `.pytest-data-temp/`: requester approved removing this empty, untracked
+    legacy test directory as a follow-up before merging.
 - Review-Only Files: All other files; contents of local governed/operational
   workbooks remain unopened. Preserve unrelated docs/buildathon-resources/.
 - Prohibited Actions: Overwrite a destination; read protected contents; publish
@@ -71,3 +73,7 @@
   directories require their own owner-authorized cleanup. No migration/data
   source is approved for ingestion or sharing by this change.
 - Human review remains a PR gate; no operational approval is claimed.
+- Follow-up: requester approved removal of the empty root `.pytest-data-temp/`
+  directory. Confirmed no entries and no tracked files before non-recursive
+  removal; no app configuration references it. Git does not track empty
+  directories, so this contract records the local cleanup for PR #52.
