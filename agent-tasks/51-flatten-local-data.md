@@ -49,3 +49,25 @@
 - Human Approval Gate: No approval for source ingestion, release or deployment.
 - Path Lease Owner and Expiry: This task exclusively holds these paths through
   PR handoff; no parallel writers.
+
+## Handoff
+
+- Moved the five listed local data files without opening their contents or
+  overwriting destinations. Eleven data files retain their original names and
+  sizes; three approved stale caches were deleted. All eleven inventoried
+  subdirectories were removed only after confirming they were empty.
+- Empty OneDrive directories had the ReadOnly attribute; it was cleared on
+  those directories only before non-recursive removal. No permission/ACL
+  changes, recursive deletion or data-root deletion were performed.
+- Updated only `.gitignore`, `docs/DATA_CLASSIFICATION.md` and
+  `docs/DATA_INVENTORY.md`, plus this contract. The existing generator and
+  loader already use root-level paths; no application code edit was needed.
+- Local Python 3.14.2: 31 targeted workbook, roster and pack tests passed;
+  actual root-level synthetic workbook validation passed. Manual preflight
+  reported unsupported local Python; supported Python 3.12 CI is required.
+- Filesystem/Git checks: 11 files, zero directories, all files ignored, zero
+  tracked data paths; unrelated untracked work preserved.
+- Local moves are not delivered by Git. Other checkouts with old ignored
+  directories require their own owner-authorized cleanup. No migration/data
+  source is approved for ingestion or sharing by this change.
+- Human review remains a PR gate; no operational approval is claimed.
