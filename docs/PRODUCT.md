@@ -3,10 +3,12 @@
 ## Purpose
 
 The Competency Assessment Tracker is a laboratory application prototype whose
-product planning includes both CLIA and non-CLIA research/surveillance contexts.
-The current executable demonstration uses a synthetic Non-CLIA scenario;
-expanded planning does not authorize CLIA workflow implementation or establish
-regulatory compliance.
+delivery target includes both CLIA and non-CLIA research/surveillance workflows.
+The requester reaffirmed both executable workflows for the buildathon transition
+in issue #56. The current implementation still demonstrates a synthetic
+Non-CLIA scenario; that limitation is not the requested final scope.
+Neither synthetic demonstrations nor this scope decision establish regulatory
+compliance or supply unspecified laboratory rules.
 
 The intended application covers assignments, due dates, assessment documentation,
 required follow-up, signatures, notifications, reporting, audit history, artifacts
@@ -15,13 +17,14 @@ supported requirements from approved sources with citations and SME escalation.
 These intended capabilities are not all available in the local UI; see the
 [current demonstration boundary](BUILDATHON.md#demonstration-boundary).
 
-## Approved prototype baseline
+## Existing prototype baseline
 
 These decisions are approved for prototype planning and implementation and may
 be revised before MVP or production through a documented decision:
 
 - Build the application and read-only knowledge assistant in parallel.
-- Use the approved Non-CLIA form V04 as the provisional prototype baseline.
+- Use the approved Non-CLIA form V04 as the provisional Non-CLIA baseline, not
+  as an implicit CLIA rule set.
 - The Assessor records outcomes; the application validates approved rules but
   does not calculate competency or make pass/fail decisions.
 - An unsuccessful required element needs documented follow-up or remedial
@@ -38,7 +41,7 @@ be revised before MVP or production through a documented decision:
 - Preserve the approved Azure technical direction; identify any unavailable
   external resource as a prototype dependency or explicit stub.
 
-## First coding sprint
+## Existing baseline journey
 
 The first sprint demonstrates one synthetic end-to-end application path and a
 bounded read-only assistant in parallel:
@@ -85,11 +88,36 @@ exclusions below remain in force for executable behavior.
 
 ## Explicit first-sprint exclusions
 
+These describe the original sprint, not a permanent exclusion of CLIA from the
+current delivery target. The transition requirements below supersede that
+scope limitation without rewriting historical decisions.
+
 - Center/quality viewer access
 - Power BI
 - Execution of MIST/HIR migration
 - CLIA workflows
 - Production deployment or production data
+
+## Current dual-workflow delivery requirements
+
+- Connect the fictional multi-lab dataset to the actual application database/UI.
+- Implement separately identifiable CLIA and non-CLIA journeys using evidenced
+  applicability and workflow rules, not duplicated labels or a forced common
+  signature/renewal policy.
+- Reuse shared application controls: scoped authorization, explicit participant
+  relationships, immutable versions, concurrency, idempotency and audit evidence.
+- Complete the [workflow evidence matrix](WORKFLOW.md#dual-workflow-evidence-and-integration-contract)
+  before implementing a rule-dependent difference. Missing public evidence is
+  an exact owner action, not permission to infer policy or drop CLIA.
+- Require separate passing application/browser evidence for both journeys.
+  Until then, dual-workflow delivery remains incomplete.
+- Keep the competency assistant read-only and separate from individual records.
+  The equipment guide remains its current labeled mock placeholder, not a new
+  corpus or integration.
+
+The [canonical stack matrix](ARCHITECTURE.md#buildathon-stack-and-evidence-matrix)
+distinguishes the existing app from proposed and live-verified integrations.
+The local UI-first/no-deployment boundary remains unchanged.
 
 ## Always prohibited
 

@@ -51,3 +51,23 @@ later approved change.
 
 Field types, indexes, uniqueness constraints, retention behavior, and physical
 table design are outputs of later approved implementation tasks.
+
+## Buildathon integration contract
+
+Both workflow profiles are required by [PRODUCT.md](PRODUCT.md), but this
+conceptual model is not evidence that either complete UI workflow is persisted.
+The current physical model contains a non-CLIA applicability flag and grouping
+text; neither supplies an approved CLIA profile by inversion or relabeling.
+Resolve the [workflow matrix](WORKFLOW.md#dual-workflow-evidence-and-integration-contract)
+before adding profile-specific schema.
+
+The existing service ports and SQL mappings must be reconciled explicitly for
+configuration, service identities/capabilities, scoped repositories, immutable
+version contents, idempotency, notification attempts and audit records. Missing
+port mappings are engineering work; new permissions or laboratory meanings
+require their separate owner decisions. Add reviewed migrations for necessary
+schema changes, preserving all existing revisions and recovery boundaries.
+
+The [synthetic contract](DATA_INVENTORY.md#app-owned-synthetic-integration-contract)
+owns fixture/import compatibility. Interchange formats and future real-source
+adapters must not become competing UI or workflow schemas.

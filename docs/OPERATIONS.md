@@ -37,6 +37,18 @@ platform, security/privacy, records, accessibility, and operational gates remain
 
 ## Platform review gates
 
+Use the [canonical stack matrix](ARCHITECTURE.md#buildathon-stack-and-evidence-matrix)
+for current, baseline, proposed and verified states. Foundry availability has
+been reported, but its selection/source processing is not accepted by
+[proposed ADR 0003](architecture-decisions/0003-buildathon-transition.md).
+Azure SQL availability, Entra application registration and private Blob access
+remain unconfirmed. Do not replace an unavailable baseline service silently.
+
+Before hosting readiness is claimed, verify the actual dependency installation
+and WSGI startup strategy. Root `pyproject.toml` currently configures pytest,
+not application dependencies, and `wsgi.py` is an active local Flask entry point.
+Moving manifests does not establish App Service automatic build compatibility.
+
 Azure/EDAV owners must confirm App Service runtime and deployment, Entra
 registration and groups, managed-identity connectivity, Azure SQL access and
 backup, private Blob retention and recovery, approved email delivery, Key

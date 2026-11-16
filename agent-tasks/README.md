@@ -8,7 +8,12 @@ changes, not the historical first-sprint execution sequence.
 
 | Contract | Scope |
 | --- | --- |
-| [Safe buildathon preflight (#54)](54-buildathon-safe-preflight.md) | Protected-path publication checks and supported-runtime validation; no application or policy changes |
+| [Buildathon integration contracts (#56)](56-buildathon-integration-contracts.md) | Dual-workflow target, source-linked gaps and proposed platform selection; no runtime or policy changes |
+
+The [foundation slice (#54)](54-buildathon-safe-preflight.md) is implemented in
+draft PR #55 with passing supported-runtime checks; human review/merge remains
+pending. Its implementation lease ended at handoff. #56 is based on that reviewed
+branch with a separate lease; both PRs target `dev`.
 
 ## Closed delivery records
 

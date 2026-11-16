@@ -34,3 +34,30 @@ dependency manifest is approved. A pull request records commands and results.
 Independent QA reviews acceptance criteria and negative tests before human
 approval. Critical authorization, record-integrity, or AI-boundary defects block
 the task; prototype completion does not waive production reviews.
+
+## Dual-workflow integration exit criteria
+
+Both CLIA and non-CLIA are required by the
+[current product target](PRODUCT.md#current-dual-workflow-delivery-requirements).
+Use the [workflow evidence matrix](WORKFLOW.md#dual-workflow-evidence-and-integration-contract)
+to distinguish common controls from profile-specific rules. A renamed fixture,
+descriptive applicability label or fake-port service test is not proof of an
+executable CLIA workflow.
+
+For each supported profile, verify the actual SQL-backed journey through
+assignment, evidence/follow-up, approved review/signature sequence, finalization,
+locking, renewal and scoped reports/audit. Cover stale versions, retry conflicts,
+cross-lab denials, invalid transitions, missing required inputs/follow-up,
+rollback and finalized-record mutation attempts.
+
+Dataset checks must prove the configured reference-date boundaries, deterministic
+seed behavior, 70 humans separately from two service identities, approved
+relationships, separate projections, explicit invalid-case rejection and safe
+repeated setup. The browser must read the resulting owned database, not a
+separate unconnected workbook or marker-forged copy.
+
+Keep these evidence categories separate: current regression tests, actual SQL
+workflow integration, local browser/accessibility review, approved Azure SQL/
+identity/Blob checks, deterministic assistant tests and live Foundry evaluations.
+An unresolved governed rule identifies an unverified action and owner; it does
+not authorize a silent default or a complete dual-workflow readiness claim.
