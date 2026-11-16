@@ -10,7 +10,9 @@ The local `data/` folder is **entirely Git-ignored**. Generate the following
 fictional files directly in that folder from the tracked
 [synthetic fixtures](../tests/fixtures/synthetic/records.json). They are not
 present in a fresh clone until generated. Nothing here is approved laboratory
-guidance or production data.
+guidance or production data. See the [generated synthetic data dictionary](DATA_DICTIONARY.md)
+for every current field, type, observed value and relationship; it describes
+the tracked fixtures, not the contents of the ignored folder.
 
 Keep **all local data files at the root of `data/`, with no subfolders**.
 The former `authoritative`, `examples`, `migration`, `reference` and `synthetic`

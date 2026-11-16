@@ -8,16 +8,15 @@ changes, not the historical first-sprint execution sequence.
 
 | Contract | Scope |
 | --- | --- |
-| [Shared SQL persistence (#60)](60-shared-sql-persistence.md) | Schema-compatible support ports and transactions; no profile policy/schema changes or full aggregate adapter |
+| [Synthetic data dictionary (#62)](62-synthetic-data-dictionary.md) | Tracked fixture field documentation, no protected local data access or application changes |
 
-The [foundation slice (#54)](54-buildathon-safe-preflight.md) is implemented in
-draft PR #55 with passing supported-runtime checks; human review/merge remains
-pending. [Integration contracts (#56)](56-buildathon-integration-contracts.md) are
-implemented in draft PR #57 with passing CI and independent review; policy and
-platform gates remain. [Root integration (#58)](58-simplify-root-layout.md) is
-implemented in draft PR #59 with passing CI and independent review. Those
-implementation leases ended at handoff. #60 has a separate lease on the reviewed
-dependent branch; all PRs target `dev` without an authorized merge.
+The [foundation slice (#54)](54-buildathon-safe-preflight.md),
+[integration contracts (#56)](56-buildathon-integration-contracts.md),
+[root integration (#58)](58-simplify-root-layout.md), and
+[shared SQL persistence (#60)](60-shared-sql-persistence.md) were delivered
+through PRs #55, #57, #59 and #61, respectively, and merged to `dev`.
+Their implementation leases ended at handoff; outstanding policy and platform
+gates remain. The dictionary work is separate from application integration.
 
 ## Closed delivery records
 
