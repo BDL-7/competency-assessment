@@ -8,15 +8,16 @@ changes, not the historical first-sprint execution sequence.
 
 | Contract | Scope |
 | --- | --- |
-| [Root layout integration (#58)](58-simplify-root-layout.md) | Exact public moves and coupled tooling/docs/tests; no governance export or private cleanup |
+| [Shared SQL persistence (#60)](60-shared-sql-persistence.md) | Schema-compatible support ports and transactions; no profile policy/schema changes or full aggregate adapter |
 
 The [foundation slice (#54)](54-buildathon-safe-preflight.md) is implemented in
 draft PR #55 with passing supported-runtime checks; human review/merge remains
 pending. [Integration contracts (#56)](56-buildathon-integration-contracts.md) are
 implemented in draft PR #57 with passing CI and independent review; policy and
-platform gates remain. Both implementation leases ended at handoff. #58 is based
-on the reviewed dependent branch with a separate lease; all PRs target `dev`
-without an authorized merge.
+platform gates remain. [Root integration (#58)](58-simplify-root-layout.md) is
+implemented in draft PR #59 with passing CI and independent review. Those
+implementation leases ended at handoff. #60 has a separate lease on the reviewed
+dependent branch; all PRs target `dev` without an authorized merge.
 
 ## Closed delivery records
 

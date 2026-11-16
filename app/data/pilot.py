@@ -7,7 +7,7 @@ import logging
 from functools import wraps
 from pathlib import Path
 
-from sqlalchemy import and_, or_, select
+from sqlalchemy import select
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -15,6 +15,7 @@ from app.data.models import (
     ApplicationUser, Assessment, AssessmentElement, AssessmentVersion, Assignment,
     AuditEvent, Employee, ProcessGrouping, RoleAssignment, Signature, Team,
 )
+from app.data.repositories import assessment_access_statement
 from app.domain import AssessmentState, is_overdue
 from app.services.contracts import AssessmentQueryScope, RoleScopeRecord
 from app.services.pilot import (
@@ -75,20 +76,7 @@ class SqlPilotReader:
 
     @staticmethod
     def _statement(scope: AssessmentQueryScope):
-        condition = or_(
-            and_(Assignment.employee_id == scope.own_employee_id,
-                 Assessment.id.in_(scope.own_assessment_ids)),
-            Assignment.team_id.in_(scope.team_ids),
-            and_(Assignment.assessor_id == scope.employee_id,
-                 Assessment.id.in_(scope.assessor_assessment_ids)),
-            and_(Assignment.technical_supervisor_id == scope.employee_id,
-                 Assessment.id.in_(scope.technical_supervisor_assessment_ids)),
-            Assignment.configuration_version_snapshot.in_(scope.configuration_versions),
-        )
-        return (select(Assessment, Assignment)
-                .join(Assignment, Assessment.assignment_id == Assignment.id)
-                .where(True if scope.diagnostic else condition)
-                .order_by(Assignment.due_date, Assessment.id))
+        return assessment_access_statement(scope)
 
     def _row(self, session: Session, assessment: Assessment, assignment: Assignment,
              diagnostic: bool = False) -> PilotRow:
