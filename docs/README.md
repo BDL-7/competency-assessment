@@ -24,8 +24,8 @@ channel; this index does not approve their release or assistant use.
 
 - [Source authority](SOURCE_AUTHORITY.md): governing order, conflicts and
   stale-source behavior.
-- [Product scope](PRODUCT.md): CLIA and non-CLIA planning, current synthetic
-  Non-CLIA baseline and implementation exclusions.
+- [Product scope](PRODUCT.md): both CLIA and non-CLIA workflow delivery targets,
+  current synthetic Non-CLIA implementation and exact remaining rule gates.
 - [Source access and manifest](SOURCE_MANIFEST.md): authorized metadata,
   availability and protected project/laboratory-source requirements.
 - [Data classification](DATA_CLASSIFICATION.md): public versus
@@ -33,11 +33,13 @@ channel; this index does not approve their release or assistant use.
 
 ## Design and controls
 
-- [ARCHITECTURE.md](ARCHITECTURE.md): modular Flask/Azure boundaries and gated
-  Foundry evaluation.
+- [ARCHITECTURE.md](ARCHITECTURE.md#buildathon-stack-and-evidence-matrix):
+  canonical stack/status matrix, modular Flask/Azure boundaries and proposed
+  Foundry transition.
 - [DOMAIN_MODEL.md](DOMAIN_MODEL.md): conceptual entities and invariants,
   not the implemented database schema.
-- [WORKFLOW.md](WORKFLOW.md): canonical sequence, states and open rules.
+- [WORKFLOW.md](WORKFLOW.md): existing sequence/states and the source-linked
+  dual-workflow evidence/integration matrix.
 - [AUTHORIZATION.md](AUTHORIZATION.md): roles, scopes, actions and support access.
 - [TERMINOLOGY.md](TERMINOLOGY.md): controlled implementation terms.
 - [AI_BOUNDARY.md](AI_BOUNDARY.md): separate read-only assistant and prohibitions.
@@ -46,7 +48,9 @@ channel; this index does not approve their release or assistant use.
 - [ADR 0001](architecture-decisions/0001-platform-admin-support-boundary.md):
   accepted Platform Admin support boundary.
 - [ADR 0002](architecture-decisions/0002-parallel-prototype-boundary.md):
-  accepted parallel application/assistant boundary.
+  retained accepted parallel application/assistant boundary.
+- [ADR 0003](architecture-decisions/0003-buildathon-transition.md):
+  proposed Foundry transition; not an accepted selection or processing approval.
 
 ## Advisory and presentation references
 
@@ -58,7 +62,7 @@ channel; this index does not approve their release or assistant use.
   decisions must be confirmed before moving, regenerating or removing formats.
   Selecting a maintained source and reconciling differences is a separate task;
   none of these formats is assumed disposable or an approved assistant source.
-- [Public presentation framework](../presentations/html-workshop/README.md):
+- [Public presentation framework](presentations/html-workshop/README.md):
   synthetic audience/presenter examples and portable audience build.
 
 Local training resources are not part of the public baseline. Do not stage

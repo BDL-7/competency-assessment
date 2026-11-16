@@ -8,8 +8,8 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-REPO_ROOT = ROOT.parents[1]
-DEFAULT_OUT = REPO_ROOT / "artifacts" / "generated" / "html-workshop" / "presentation-example-single-file.html"
+REPO_ROOT = ROOT.parents[2]
+DEFAULT_OUT = REPO_ROOT / "instance" / "buildathon" / "presentation" / "presentation-example-single-file.html"
 
 
 def data_uri(path: Path) -> str:

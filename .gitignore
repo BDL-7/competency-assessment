@@ -55,6 +55,10 @@ presentations/html-workshop/CRVLB-competency-assessment-system.html
 presentations/html-workshop/competency-assessment-system-presenter.html
 presentations/html-workshop/*.pdf
 presentations/html-workshop/*.zip
+docs/presentations/html-workshop/CRVLB-competency-assessment-system.html
+docs/presentations/html-workshop/competency-assessment-system-presenter.html
+docs/presentations/html-workshop/*.pdf
+docs/presentations/html-workshop/*.zip
 
 # Historical binary render packages; retain their manifests and source files
 artifacts/archive/**/brief/**/*.pdf
@@ -78,6 +82,11 @@ presentations/html-workshop/deck-content.js
 presentations/html-workshop/speaker-notes.js
 presentations/html-workshop/index.html
 presentations/html-workshop/presenter.html
+docs/presentations/html-workshop/.workshop/
+docs/presentations/html-workshop/deck-content.js
+docs/presentations/html-workshop/speaker-notes.js
+docs/presentations/html-workshop/index.html
+docs/presentations/html-workshop/presenter.html
 
 # Historical builders embed project-specific content; retain locally only
 artifacts/archive/**/brief/source/

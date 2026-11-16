@@ -34,7 +34,7 @@ without a new approved task.
 | [Workflow safeguards](tasks/25-agent-workflow-safeguards.md) | #25 | [Manual preflight and checks](../DEVELOPMENT.md#tests-and-repository-checks) |
 | [Ignore policy](tasks/buildathon-ignore-policy.md) | #17, BR-06 | [Data classification](../DATA_CLASSIFICATION.md) and [current ignore rules](../../.gitignore) |
 | [Onboarding](tasks/buildathon-onboarding.md) | #17, BR-01 | [Development](../DEVELOPMENT.md) and [local walkthrough](../BUILDATHON.md) |
-| [Presentation repair](tasks/buildathon-presentation.md) | #17, BR-02 | [Reusable public framework](../../presentations/html-workshop/README.md) |
+| [Presentation repair](tasks/buildathon-presentation.md) | #17, BR-02 | [Reusable public framework](../presentations/html-workshop/README.md) |
 | [Responsive-text repair](tasks/buildathon-responsive-text.md) | #17, BR-05 | [Demo acceptance and limitations](../BUILDATHON.md#demonstration-acceptance-and-limitations) |
 | [Application foundation](tasks/s0-03-application-foundation.md) | #9, S0-03 | [Development](../DEVELOPMENT.md); later service/pilot decisions remain indexed below |
 | [First-sprint graph](tasks/first-coding-sprint.md) | #13; original Phase 0 plan | [Product](../PRODUCT.md) and [current tasks](../../agent-tasks/README.md); the phase graph is not today's execution queue |
@@ -70,8 +70,8 @@ app actually exposes.
 [Format audit](presentations/format-audit.md) came from
 `presentations/html-workshop/FORMAT_AUDIT.md`. It explains historical source
 extraction decisions, not the maintained runtime contract. Use the
-[framework README](../../presentations/html-workshop/README.md) and
-[content schema](../../presentations/html-workshop/CONTENT_SCHEMA.md) for the
+[framework README](../presentations/html-workshop/README.md) and
+[content schema](../presentations/html-workshop/CONTENT_SCHEMA.md) for the
 current reusable tools. The active handoff is a reusable prompt, not a completed
 task record, and stays with that framework.
 

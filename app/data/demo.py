@@ -73,7 +73,7 @@ def initialize_demo(application: Flask) -> str:
     if marker.exists():
         raise ValueError("A stale demo marker exists; choose a new dedicated demo file.")
     path.parent.mkdir(parents=True, exist_ok=True)
-    config = Config(str(Path(application.root_path).parent / "alembic.ini"))
+    config = Config(str(Path(application.root_path).parent / "migrations" / "alembic.ini"))
     config.set_main_option("script_location", str(Path(application.root_path).parent / "migrations"))
     config.set_main_option("sqlalchemy.url", application.config["DATABASE_URL"].replace("%", "%%"))
     command.upgrade(config, "head")

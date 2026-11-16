@@ -8,7 +8,36 @@ changes, not the historical first-sprint execution sequence.
 
 | Contract | Scope |
 | --- | --- |
-| [Archive completed plans (#34)](34-archive-completed-plans.md) | Historical documentation and navigation only; no runtime, policy or private-file changes |
+| [Shared SQL persistence (#60)](60-shared-sql-persistence.md) | Schema-compatible support ports and transactions; no profile policy/schema changes or full aggregate adapter |
+
+The [foundation slice (#54)](54-buildathon-safe-preflight.md) is implemented in
+draft PR #55 with passing supported-runtime checks; human review/merge remains
+pending. [Integration contracts (#56)](56-buildathon-integration-contracts.md) are
+implemented in draft PR #57 with passing CI and independent review; policy and
+platform gates remain. [Root integration (#58)](58-simplify-root-layout.md) is
+implemented in draft PR #59 with passing CI and independent review. Those
+implementation leases ended at handoff. #60 has a separate lease on the reviewed
+dependent branch; all PRs target `dev` without an authorized merge.
+
+## Closed delivery records
+
+These issues and their delivery PRs are closed/merged. Their contracts preserve
+historical approval evidence, not active leases. Outstanding specialist and human
+gates are not approved by this status summary.
+
+| Contract | Retained scope |
+| --- | --- |
+| [#34](34-archive-completed-plans.md) | Archival and navigation |
+| [#37](37-data-source-inventory.md) | Data-source inventory |
+| [#40](40-repository-clarity.md) | Repository clarity and test data isolation |
+| [#45](45-buildathon-data-pack.md) | Synthetic pack and evaluation specifications |
+| [#48](48-flat-buildathon-workbooks.md) | Flat local workbook generation |
+| [#51](51-flatten-local-data.md) | Historical local data-layout work |
+
+The transition targets both CLIA and non-CLIA workflows, integrated multi-lab
+synthetic data and a separate read-only competency assistant. Those application
+changes need their own exact contracts; #54 does not implement or authorize
+unspecified laboratory rules or live platform integrations.
 
 ## Requirements and retained decisions
 

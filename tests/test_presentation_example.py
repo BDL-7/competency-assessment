@@ -3,6 +3,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 
@@ -10,7 +11,7 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-WORKSHOP = ROOT / "presentations" / "html-workshop"
+WORKSHOP = ROOT / "docs" / "presentations" / "html-workshop"
 
 
 class AssetReferences(HTMLParser):
@@ -93,3 +94,23 @@ def test_portable_audience_inlines_the_public_source_assets(tmp_path: Path) -> N
     for name in ("theme.css", "example-content.js", "deck.js"):
         assert (WORKSHOP / name).read_text(encoding="utf-8") in html
     assert "window.SPEAKER_NOTES =" not in html
+
+
+def test_default_build_uses_repository_instance_from_another_cwd(tmp_path: Path) -> None:
+    workshop = tmp_path / "docs" / "presentations" / "html-workshop"
+    workshop.mkdir(parents=True)
+    for name in (
+        "build_single_file.py", "example.html", "example-content.js", "theme.css",
+        "deck.js", "assets/closing-placeholder.svg", "assets/dashboard-placeholder.svg",
+        "assets/hero-placeholder.svg",
+    ):
+        destination = workshop / name
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(WORKSHOP / name, destination)
+    subprocess.run(
+        [sys.executable, str(workshop / "build_single_file.py")],
+        cwd=workshop, check=True, capture_output=True, text=True,
+    )
+    output = tmp_path / "instance" / "buildathon" / "presentation" / "presentation-example-single-file.html"
+    assert "window.DECK =" in output.read_text(encoding="utf-8")
+    assert not (tmp_path / "artifacts").exists()
