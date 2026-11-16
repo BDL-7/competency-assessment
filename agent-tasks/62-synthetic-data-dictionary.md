@@ -47,3 +47,20 @@
 Contract-only bootstrap precedes draft PR creation under the previously
 approved issue-first publication exception. The PR targets `dev`; no merge is
 authorized by this task.
+
+## Documentation handoff
+
+- Changed documentation: `docs/DATA_DICTIONARY.md` (current tracked synthetic
+  field dictionary), `docs/DATA_INVENTORY.md` and `docs/README.md` (navigation),
+  `agent-tasks/README.md` (current task index), and this contract.
+- Read-only comparison confirmed all 223 SQL model columns across 20 tables
+  against dictionary field names, physical types, nullability and foreign keys;
+  verified three schema-only nullable columns absent from nonempty JSON rows.
+  Separate key checks covered projection and roster fields and every observed
+  companion JSON envelope, nested case/source and evaluation overlay key.
+- Local Markdown links, selected-task Python 3.12 preflight, working-tree
+  repository verifier and whitespace check passed. Independent read-only
+  review found no significant issue. Staged verification and final-head CI
+  remain publication checks; no local protected workbooks were inspected.
+- This is not human approval of laboratory rules, source access, assistant
+  publication, data migration, deployment or any actual signature/delivery.

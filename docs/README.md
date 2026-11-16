@@ -19,6 +19,8 @@ channel; this index does not approve their release or assistant use.
   preserve original decisions without presenting old phases as today's task list.
 - [Buildathon data inventory](DATA_INVENTORY.md): flat ignored local workbooks,
   synthetic source fixtures and their limitations.
+- [Generated synthetic data dictionary](DATA_DICTIONARY.md): current fixture
+  columns, types, values and relationships; not approved laboratory rules.
 
 ## Authority and product boundaries
 
