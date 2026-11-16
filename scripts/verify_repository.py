@@ -19,14 +19,14 @@ REQUIRED = {
     ".gitattributes",
     ".gitignore",
     ".python-version",
-    "CONTRIBUTING.md",
+    ".github/CONTRIBUTING.md",
     "LICENSE.md",
     "README.md",
-    "SECURITY.md",
+    ".github/SECURITY.md",
     "docs/DATA_CLASSIFICATION.md",
     "docs/SOURCE_MANIFEST.md",
-    "presentations/html-workshop/example.html",
-    "requirements-docs.txt",
+    "docs/presentations/html-workshop/example.html",
+    "scripts/requirements/requirements-docs.txt",
 }
 FORBIDDEN_PREFIXES = (
     "artifacts/generated/",
@@ -37,6 +37,10 @@ FORBIDDEN_EXACT = {
     "presentations/html-workshop/speaker-notes.js",
     "presentations/html-workshop/index.html",
     "presentations/html-workshop/presenter.html",
+    "docs/presentations/html-workshop/deck-content.js",
+    "docs/presentations/html-workshop/speaker-notes.js",
+    "docs/presentations/html-workshop/index.html",
+    "docs/presentations/html-workshop/presenter.html",
 }
 FORBIDDEN_SUFFIXES = (".pem", ".key", ".pfx", ".p12", ".sqlite", ".sqlite3")
 PROTECTED_PATTERNS = (
@@ -63,6 +67,15 @@ PROTECTED_PATTERNS = (
     "presentations/html-workshop/presenter.html",
     "presentations/html-workshop/CRVLB-competency-assessment-system.html",
     "presentations/html-workshop/competency-assessment-system-presenter.html",
+    "presentations/html-workshop/*.pdf",
+    "docs/presentations/html-workshop/.workshop/**",
+    "docs/presentations/html-workshop/deck-content.js",
+    "docs/presentations/html-workshop/speaker-notes.js",
+    "docs/presentations/html-workshop/index.html",
+    "docs/presentations/html-workshop/presenter.html",
+    "docs/presentations/html-workshop/CRVLB-competency-assessment-system.html",
+    "docs/presentations/html-workshop/competency-assessment-system-presenter.html",
+    "docs/presentations/html-workshop/*.pdf",
 )
 PUBLIC_EXCEPTIONS = (
     ".env.example",

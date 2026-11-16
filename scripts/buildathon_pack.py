@@ -467,7 +467,7 @@ def load_database(path: Path, payload: dict | None = None, projections: dict | N
     engine = create_engine(f"sqlite:///{path}")
     event.listen(engine, "connect", foreign_keys)
     try:
-        config = Config(str(ROOT / "alembic.ini"))
+        config = Config(str(ROOT / "migrations" / "alembic.ini"))
         config.set_main_option("script_location", str(ROOT / "migrations"))
         config.set_main_option("sqlalchemy.url", str(engine.url).replace("%", "%%"))
         command.upgrade(config, "head")

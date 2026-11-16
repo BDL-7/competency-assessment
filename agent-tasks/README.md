@@ -8,12 +8,15 @@ changes, not the historical first-sprint execution sequence.
 
 | Contract | Scope |
 | --- | --- |
-| [Buildathon integration contracts (#56)](56-buildathon-integration-contracts.md) | Dual-workflow target, source-linked gaps and proposed platform selection; no runtime or policy changes |
+| [Root layout integration (#58)](58-simplify-root-layout.md) | Exact public moves and coupled tooling/docs/tests; no governance export or private cleanup |
 
 The [foundation slice (#54)](54-buildathon-safe-preflight.md) is implemented in
 draft PR #55 with passing supported-runtime checks; human review/merge remains
-pending. Its implementation lease ended at handoff. #56 is based on that reviewed
-branch with a separate lease; both PRs target `dev`.
+pending. [Integration contracts (#56)](56-buildathon-integration-contracts.md) are
+implemented in draft PR #57 with passing CI and independent review; policy and
+platform gates remain. Both implementation leases ended at handoff. #58 is based
+on the reviewed dependent branch with a separate lease; all PRs target `dev`
+without an authorized merge.
 
 ## Closed delivery records
 

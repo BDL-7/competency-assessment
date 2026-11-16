@@ -62,7 +62,7 @@ channel; this index does not approve their release or assistant use.
   decisions must be confirmed before moving, regenerating or removing formats.
   Selecting a maintained source and reconciling differences is a separate task;
   none of these formats is assumed disposable or an approved assistant source.
-- [Public presentation framework](../presentations/html-workshop/README.md):
+- [Public presentation framework](presentations/html-workshop/README.md):
   synthetic audience/presenter examples and portable audience build.
 
 Local training resources are not part of the public baseline. Do not stage

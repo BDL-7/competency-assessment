@@ -25,7 +25,7 @@ APPLICATION_TABLES = {
 
 
 def migration_config(database_path: Path) -> Config:
-    config = Config("alembic.ini")
+    config = Config("migrations/alembic.ini")
     config.set_main_option("sqlalchemy.url", f"sqlite:///{database_path.as_posix()}")
     return config
 

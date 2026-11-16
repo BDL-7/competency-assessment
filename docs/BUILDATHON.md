@@ -119,7 +119,7 @@ manual review; programmatic focus alone is not that evidence.
 
 ## Public presentation and optional inputs
 
-The [public presentation example](../presentations/html-workshop/README.md)
+The [public presentation example](presentations/html-workshop/README.md)
 demonstrates the reusable framework with synthetic publishing-control content;
 it is not a completed project pitch deck. Open audience and presenter modes
 locally or build the portable audience output with the documented Python tool.
